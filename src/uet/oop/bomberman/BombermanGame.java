@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
+import uet.oop.bomberman.entities.bomber.Bomb;
 import uet.oop.bomberman.entities.bomber.Bomber;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.graphics.Sprite;
@@ -34,13 +35,13 @@ public class BombermanGame extends Application {
     private Canvas canvas;
     private List<String> mapList = new ArrayList<>();
     private List<String> map = new ArrayList<>();
-    private List<uet.oop.bomberman.entities.Entity> grasses = new ArrayList<>();
-    private List<uet.oop.bomberman.entities.Entity> walls = new ArrayList<>();
-    private List<uet.oop.bomberman.entities.Entity> portals = new ArrayList<>();
-    private List<uet.oop.bomberman.entities.Entity> bombers = new ArrayList<>();
-    private List<uet.oop.bomberman.entities.Entity> bombs = new ArrayList<>();
-    private List<uet.oop.bomberman.entities.Entity> deads = new ArrayList<>();
-    private List<uet.oop.bomberman.entities.Entity> flames = new ArrayList<>();
+    private List<Entity> grasses = new ArrayList<>();
+    private List<Entity> walls = new ArrayList<>();
+    private List<Entity> portals = new ArrayList<>();
+    private List<Entity> bombers = new ArrayList<>();
+    private List<Entity> bombs = new ArrayList<>();
+    private List<Entity> deads = new ArrayList<>();
+    private List<Entity> flames = new ArrayList<>();
 
     public static void main(String[] args) {
         Sound.play ("soundtrack");
@@ -120,6 +121,12 @@ public class BombermanGame extends Application {
                     else {
                         object = new Bomber(j, i, Sprite.player_down.getFxImage());
                         bombers.add(object);
+                    }
+                }
+                else {
+                    if (c == '#') {
+                        object = new Wall(j, i, Sprite.wall.getFxImage());
+                        walls.add(object);
                     }
                 }
             }
@@ -227,7 +234,7 @@ public class BombermanGame extends Application {
             }
 
             for (int i = 0; i < bombs.size(); i++) {
-                if (((uet.oop.bomberman.entities.bomber.Bomb)bombs.get(i)).isPassable()) {
+                if (((Bomb)bombs.get(i)).isPassable()) {
                     continue;
                 }
                 bomber.checkObjectMovementAbility(bombs.get(i));
@@ -279,7 +286,7 @@ public class BombermanGame extends Application {
             return;
         }
 
-        uet.oop.bomberman.entities.bomber.Bomb bomb = new uet.oop.bomberman.entities.bomber.Bomb ((bomber.getX() + (int)(bomber.getImg().getWidth() / 2))/ Sprite.SCALED_SIZE,
+        Bomb bomb = new uet.oop.bomberman.entities.bomber.Bomb ((bomber.getX() + (int)(bomber.getImg().getWidth() / 2))/ Sprite.SCALED_SIZE,
                 (bomber.getY() + (int)(bomber.getImg().getHeight() / 2)) / Sprite.SCALED_SIZE, Sprite.bomb.getFxImage());
         boolean add = true;
         for (int i = 0; i < bombs.size(); i++) {
@@ -312,7 +319,7 @@ public class BombermanGame extends Application {
             return;
         }
 
-        uet.oop.bomberman.entities.Entity flame = new uet.oop.bomberman.entities.Flame (xUnit, yUnit, "epicenter");
+        Entity flame = new Flame (xUnit, yUnit, "epicenter");
         flames.add(flame);
         this.addFlame(xUnit, yUnit, -1, 0);
         this.addFlame(xUnit, yUnit, 1, 0);
@@ -337,23 +344,23 @@ public class BombermanGame extends Application {
                 s = "down";
             }
 
-            uet.oop.bomberman.entities.Entity flame;
+            Entity flame;
             if (i + 1 < bomber.getFlame()) {
                 if (x == 0) {
-                    flame = new uet.oop.bomberman.entities.Flame (xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_vertical.getFxImage(), "vertical");
+                    flame = new Flame (xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_vertical.getFxImage(), "vertical");
                 } else {
-                    flame = new uet.oop.bomberman.entities.Flame (xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_horizontal.getFxImage(), "horizontal");
+                    flame = new Flame (xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_horizontal.getFxImage(), "horizontal");
                 }
             }
             else {
                 if (x == -1) {
-                    flame = new uet.oop.bomberman.entities.Flame (xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_horizontal_left_last.getFxImage(), "left");
+                    flame = new Flame (xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_horizontal_left_last.getFxImage(), "left");
                 } else if (x == 1) {
-                    flame = new uet.oop.bomberman.entities.Flame (xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_horizontal_right_last.getFxImage(), "right");
+                    flame = new Flame (xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_horizontal_right_last.getFxImage(), "right");
                 } else if (y == -1) {
-                    flame = new uet.oop.bomberman.entities.Flame (xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_vertical_top_last.getFxImage(), "up");
+                    flame = new Flame (xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_vertical_top_last.getFxImage(), "up");
                 } else {
-                    flame = new uet.oop.bomberman.entities.Flame (xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_vertical_down_last.getFxImage(), "down");
+                    flame = new Flame (xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_vertical_down_last.getFxImage(), "down");
                 }
             }
 

@@ -109,7 +109,7 @@ public class BombermanGame extends Application {
         for (int i = 0; i < height; i++) {
             String s = map.get(i);
             for (int j = 0; j < width; j++) {
-                uet.oop.bomberman.entities.Entity object = new Grass(j, i, Sprite.grass.getFxImage());
+                Entity object = new Grass(j, i, Sprite.grass.getFxImage());
                 grasses.add(object);
                 char c = s.charAt(j);
 
@@ -134,10 +134,10 @@ public class BombermanGame extends Application {
     }
 
     public void update() {
-        bombers.forEach(uet.oop.bomberman.entities.Entity::update);
-        deads.forEach(uet.oop.bomberman.entities.Entity::update);
-        bombs.forEach(uet.oop.bomberman.entities.Entity::update);
-        flames.forEach(uet.oop.bomberman.entities.Entity::update);
+        bombers.forEach(Entity::update);
+        deads.forEach(Entity::update);
+        bombs.forEach(Entity::update);
+        flames.forEach(Entity::update);
 
         for (int i = 0; i < bombers.size(); i++) {
             ((Bomber)bombers.get(i)).handleKeyPress(this.scene);
@@ -145,7 +145,7 @@ public class BombermanGame extends Application {
         for (int i = 0; i < bombs.size(); i++) {
             for (int j = 0; j < bombers.size(); j++) {
                 Bomber bomber = (Bomber) bombers.get(j);
-                ((uet.oop.bomberman.entities.bomber.Bomb)bombs.get(i)).checkCharacterPassability(bomber);
+                ((Bomb)bombs.get(i)).checkCharacterPassability(bomber);
             }
         }
 
@@ -206,7 +206,7 @@ public class BombermanGame extends Application {
             height = scaner.nextInt();
             width = scaner.nextInt();
 
-            String line = scaner.nextLine();;
+            String line = scaner.nextLine();
             for (int i = 0; i < height; i++) {
                 line = scaner.nextLine();
                 map.add(line);
@@ -286,7 +286,7 @@ public class BombermanGame extends Application {
             return;
         }
 
-        Bomb bomb = new uet.oop.bomberman.entities.bomber.Bomb ((bomber.getX() + (int)(bomber.getImg().getWidth() / 2))/ Sprite.SCALED_SIZE,
+        Bomb bomb = new Bomb ((bomber.getX() + (int)(bomber.getImg().getWidth() / 2))/ Sprite.SCALED_SIZE,
                 (bomber.getY() + (int)(bomber.getImg().getHeight() / 2)) / Sprite.SCALED_SIZE, Sprite.bomb.getFxImage());
         boolean add = true;
         for (int i = 0; i < bombs.size(); i++) {

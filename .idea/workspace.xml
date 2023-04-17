@@ -19,12 +19,6 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Dowloads/bomberman-starter-starter-main&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  }
 }</component>
   <component name="RunManager">
     <configuration name="BombermanGame" type="Application" factoryName="Application" nameIsGenerated="true">

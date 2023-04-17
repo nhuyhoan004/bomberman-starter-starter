@@ -10,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
+import uet.oop.bomberman.entities.Grass;
+import uet.oop.bomberman.entities.Wall;
 import uet.oop.bomberman.entities.bomber.Bomb;
 import uet.oop.bomberman.entities.bomber.Bomber;
 import uet.oop.bomberman.entities.*;
@@ -32,6 +34,8 @@ public class BombermanGame extends Application {
     public static int height;
 
     private GraphicsContext gc;
+    public static List<Entity> block = new ArrayList<>();
+    public static int[][] killList;
     private Canvas canvas;
     private List<String> mapList = new ArrayList<>();
     private List<String> map = new ArrayList<>();

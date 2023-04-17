@@ -29,7 +29,7 @@ public class BombermanGame extends Application {
 
     private boolean isGameComplete = false;
     private int level = 0;
-
+    public static final String TITLE = "Bomberman by group 07";
     public static int width;
     public static int height;
 
@@ -55,6 +55,8 @@ public class BombermanGame extends Application {
     public void start(Stage stage) {
         this.loadMapListFromFile();
         this.readDataFromFile();
+        stage.setTitle(BombermanGame.TITLE);
+        stage.setResizable(false);
 
         canvas = new Canvas(Sprite.SCALED_SIZE * width, Sprite.SCALED_SIZE * height);
         gc = canvas.getGraphicsContext2D();

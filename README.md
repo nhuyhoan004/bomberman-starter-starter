@@ -1,6 +1,8 @@
 # Bài tập lớn OOP - Bomberman Game
 Sinh viên thực hiện :
 - Ngô Huy Hoàn - MSV : 22022590
+- Nguyễn Phương Trang - MSV : 22022656
+- Nguyễn Xuân Hiệp - MSV : 22022591
 
 Trong bài tập lớn này, nhiệm vụ của bạn là viết một phiên bản Java mô phỏng lại trò chơi [Bomberman](https://www.youtube.com/watch?v=mKIOVwqgSXM) kinh điển của NES.
 

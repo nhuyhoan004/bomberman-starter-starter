@@ -151,10 +151,10 @@ public class BombermanGame extends Application {
             }
         }
 
-        Bomber.addBomb();
+        Bomb.addBomb();
         this.handleCollision();
-        Bomber.removeFinishedElements();
-        Bomber.removeDeadEntity();
+        Flame.removeFinishedElements();
+        Flame.removeDeadEntity();
 
         if (Bomber.getBombers().size() == 0 && Bomber.getDeads().size() == 0) {
             lose = true;

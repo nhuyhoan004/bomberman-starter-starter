@@ -9,10 +9,16 @@ import uet.oop.bomberman.animation.Animation;
 import uet.oop.bomberman.entities.bomber.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
 public abstract class Entity {
+    private static List<Entity> bombers = new ArrayList<> ();
+    private static List<Entity> bombs = new ArrayList<>();
+    private static List<Entity> deads = new ArrayList<>();
+    private static List<Entity> flames = new ArrayList<>();
     protected int x;
     protected int y;
     protected Image img;
@@ -90,5 +96,19 @@ public abstract class Entity {
         return (entity.getX() <= x && x <= (entity.getX() + entity.getImg().getWidth())
                 && entity.getY() <= y && y <= (entity.getY() + entity.getImg().getHeight()));
     }
+    public static List<Entity> getDeads() {
+        return deads;
+    }
 
+    public static List<Entity> getBombers() {
+        return bombers;
+    }
+
+    public static List<Entity> getFlames() {
+        return flames;
+    }
+
+    public static List<Entity> getBombs() {
+        return bombs;
+    }
 }

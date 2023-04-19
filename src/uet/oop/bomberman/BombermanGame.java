@@ -42,10 +42,6 @@ public class BombermanGame extends Application {
     private List<Entity> grasses = new ArrayList<>();
     private List<Entity> walls = new ArrayList<>();
     private List<Entity> portals = new ArrayList<>();
-    private List<Entity> bombers = new ArrayList<>();
-    private List<Entity> bombs = new ArrayList<>();
-    private List<Entity> deads = new ArrayList<>();
-    private List<Entity> flames = new ArrayList<>();
 
     public static void main(String[] args) {
         Sound.play ("soundtrack");
@@ -105,9 +101,9 @@ public class BombermanGame extends Application {
      * tao map tu du lieu trong list map
      */
     public void createMap() {
-        flames.clear();
-        deads.clear();
-        bombs.clear();
+        Bomber.getFlames().clear();
+        Bomber.getBombers().clear();
+        Bomber.getBombs().clear();
         walls.clear();
         grasses.clear();
         portals.clear();
@@ -120,13 +116,13 @@ public class BombermanGame extends Application {
                 char c = s.charAt(j);
 
                 if (c == 'p') {
-                    if (bombers.size() != 0) {
-                        bombers.get(0).setX(j);
-                        bombers.get(0).setY(i);
+                    if (Bomber.getBombers().size() != 0) {
+                        Bomber.getBombers ().get(0).setX(j);
+                        Bomber.getBombers ().get(0).setY(i);
                     }
                     else {
                         object = new Bomber(j, i, Sprite.player_down.getFxImage());
-                        bombers.add(object);
+                        Bomber.getBombers().add(object);
                     }
                 }
                 else {
@@ -140,27 +136,27 @@ public class BombermanGame extends Application {
     }
 
     public void update() {
-        bombers.forEach(Entity::update);
-        deads.forEach(Entity::update);
-        bombs.forEach(Entity::update);
-        flames.forEach(Entity::update);
+        Bomber.getBombers().forEach(Entity::update);
+        Bomber.getDeads().forEach(Entity::update);
+        Bomber.getBombs().forEach(Entity::update);
+        Bomber.getFlames().forEach(Entity::update);
 
-        for (int i = 0; i < bombers.size(); i++) {
-            ((Bomber)bombers.get(i)).handleKeyPress(this.scene);
+        for (int i = 0; i < Bomber.getBombers().size(); i++) {
+            ((Bomber)Bomber.getBombers().get(i)).handleKeyPress(this.scene);
         }
-        for (int i = 0; i < bombs.size(); i++) {
-            for (int j = 0; j < bombers.size(); j++) {
-                Bomber bomber = (Bomber) bombers.get(j);
-                ((Bomb)bombs.get(i)).checkCharacterPassability(bomber);
+        for (int i = 0; i < Bomber.getBombs().size(); i++) {
+            for (int j = 0; j < Bomber.getBombers().size(); j++) {
+                Bomber bomber = (Bomber) Bomber.getBombers().get(j);
+                ((Bomb)Bomber.getBombs().get(i)).checkCharacterPassability(bomber);
             }
         }
 
-        this.addBomb();
+        Bomber.addBomb();
         this.handleCollision();
-        this.removeFinishedElements();
-        removeDeadEntity();
+        Bomber.removeFinishedElements();
+        Bomber.removeDeadEntity();
 
-        if (bombers.size() == 0 && deads.size() == 0) {
+        if (Bomber.getBombers().size() == 0 && Bomber.getDeads().size() == 0) {
             lose = true;
         }
     }
@@ -170,10 +166,10 @@ public class BombermanGame extends Application {
         grasses.forEach(g -> g.render(gc));
         portals.forEach(g -> g.render(gc));
         walls.forEach(g -> g.render(gc));
-        bombs.forEach(g -> g.render(gc));
-        deads.forEach(g -> g.render(gc));
-        flames.forEach(g -> g.render(gc));
-        bombers.forEach(g -> g.render(gc));
+        Bomber.getBombs().forEach(g -> g.render(gc));
+        Bomber.getDeads().forEach(g -> g.render(gc));
+        Bomber.getFlames().forEach(g -> g.render(gc));
+        Bomber.getBombers().forEach(g -> g.render(gc));
     }
 
     private void loadMapListFromFile() {
@@ -229,159 +225,34 @@ public class BombermanGame extends Application {
     public void handleCollision() {
         // Nhan vat
         ///////////////////////////////////////////////////////
-        if (bombers.size() > 0) {
-            Bomber bomber = (Bomber) bombers.get(0);
+        if (Bomber.getBombers().size() > 0) {
+            Bomber bomber = (Bomber) Bomber.getBombers().get(0);
 
-            for (int i = 0; i < flames.size(); i++) {
-                if (bomber.intersects(flames.get(i))) {
+            for (int i = 0; i < Bomber.getFlames().size(); i++) {
+                if (bomber.intersects(Bomber.getFlames().get(i))) {
                     bomber.setHp(0);
                     break;
                 }
             }
 
-            for (int i = 0; i < bombs.size(); i++) {
-                if (((Bomb)bombs.get(i)).isPassable()) {
+            for (int i = 0; i < Bomber.getBombs().size(); i++) {
+                if (((Bomb)Bomber.getBombs().get(i)).isPassable()) {
                     continue;
                 }
-                bomber.checkObjectMovementAbility(bombs.get(i));
+                bomber.checkObjectMovementAbility(Bomber.getBombs().get(i));
             }
             for (int i = 0; i < walls.size(); i++) {
                 bomber.checkObjectMovementAbility(walls.get(i));
             }
         }
         // Bomb
-        for (int i = 0; i < bombs.size(); i++) {
-            for (int j = 0; j < flames.size(); j++) {
-                if (bombs.get(i).intersects(flames.get(j))) {
-                    bombs.get(i).setHp(0);
+        for (int i = 0; i < Bomber.getBombs().size(); i++) {
+            for (int j = 0; j < Bomber.getFlames().size(); j++) {
+                if (Bomber.getBombs().get(i).intersects(Bomber.getFlames().get(j))) {
+                    Bomber.getBombs().get(i).setHp(0);
                     break;
                 }
             }
-        }
-    }
-
-    /**
-     * Xoa nhung doi tuong co hp <= 0 khoi cac list
-     */
-    public void removeDeadEntity() {
-        for (int i = 0; i < bombs.size(); i++) {
-            if (bombs.get(i).getHp() > 0) {
-                break;
-            }
-            this.addFlame(bombs.get(i).getX() / Sprite.SCALED_SIZE, bombs.get(i).getY() / Sprite.SCALED_SIZE);
-            bombs.remove(i--);
-        }
-
-        for (int i = 0; i < bombers.size(); i++) {
-            if (bombers.get(i).getHp() <= 0) {
-                deads.add(bombers.get(i));
-                bombers.remove(i--);
-            }
-        }
-    }
-
-    /**
-     * Them bomb khi nhan duoc lenh tu ban phim va co du dieu kien.
-     */
-    public void addBomb() {
-        if (bombers.size() <= 0) {
-            return;
-        }
-        Bomber bomber = (Bomber) bombers.get(0);
-        if ((bomber.getCreateBomb() != 1) || bombs.size() >= bomber.getBomb()) {
-            return;
-        }
-
-        Bomb bomb = new Bomb ((bomber.getX() + (int)(bomber.getImg().getWidth() / 2))/ Sprite.SCALED_SIZE,
-                (bomber.getY() + (int)(bomber.getImg().getHeight() / 2)) / Sprite.SCALED_SIZE, Sprite.bomb.getFxImage());
-        boolean add = true;
-        for (int i = 0; i < bombs.size(); i++) {
-            if (bombs.get(i).equals(bomb)) {
-                add = false;
-                break;
-            }
-        }
-        if (add) {
-            bombs.add(bomb);
-        }
-    }
-
-    public void removeFinishedElements() {
-        for (int i = 0; i < deads.size(); i++) {
-            if (deads.get(i).getAnimation().isFinishDeadAnimation()) {
-                deads.remove(i--);
-            }
-        }
-
-        for (int i = 0; i < flames.size(); i++) {
-            if (flames.get(i).getAnimation().isFinishDeadAnimation()) {
-                flames.remove(i--);
-            }
-        }
-    }
-
-    public void addFlame(int xUnit, int yUnit) {
-        if (bombers.size() == 0) {
-            return;
-        }
-
-        Entity flame = new Flame (xUnit, yUnit, "epicenter");
-        flames.add(flame);
-        this.addFlame(xUnit, yUnit, -1, 0);
-        this.addFlame(xUnit, yUnit, 1, 0);
-        this.addFlame(xUnit, yUnit, 0, -1);
-        this.addFlame(xUnit, yUnit, 0, 1);
-    }
-
-    private void addFlame(int xUnit, int yUnit, int x, int y) {
-        Bomber bomber = (Bomber) bombers.get(0);
-
-        boolean add = true;
-
-        for (int i = 0; i < bomber.getFlame(); i++) {
-            String s;
-            if (x == -1) {
-                s = "left";
-            } else if (x == 1) {
-                s = "right";
-            } else if (y == -1) {
-                s = "up";
-            } else {
-                s = "down";
-            }
-
-            Entity flame;
-            if (i + 1 < bomber.getFlame()) {
-                if (x == 0) {
-                    flame = new Flame (xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_vertical.getFxImage(), "vertical");
-                } else {
-                    flame = new Flame (xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_horizontal.getFxImage(), "horizontal");
-                }
-            }
-            else {
-                if (x == -1) {
-                    flame = new Flame (xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_horizontal_left_last.getFxImage(), "left");
-                } else if (x == 1) {
-                    flame = new Flame (xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_horizontal_right_last.getFxImage(), "right");
-                } else if (y == -1) {
-                    flame = new Flame (xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_vertical_top_last.getFxImage(), "up");
-                } else {
-                    flame = new Flame (xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_vertical_down_last.getFxImage(), "down");
-                }
-            }
-
-            add = true;
-            for (int j = 0; j < walls.size(); j++) {
-                if (flame.intersects(walls.get(j))) {
-                    add = false;
-                    break;
-                }
-            }
-
-            if (!add) {
-                break;
-            }
-            flames.add(flame);
         }
     }
 

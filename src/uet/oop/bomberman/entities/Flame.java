@@ -85,6 +85,13 @@ public class Flame extends Entity {
             }
 
             add = true;
+            // xử lí va chạm flame với tường
+            for (int j = 0; j < EntityArr.getWalls().size(); j++) {
+                if (flame.intersects(EntityArr.getWalls().get(j))) {
+                    add = false;
+                    break;
+                }
+            }
             if (!add) {
                 break;
             }

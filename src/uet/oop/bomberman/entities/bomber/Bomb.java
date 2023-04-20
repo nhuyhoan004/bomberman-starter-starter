@@ -3,6 +3,7 @@ package uet.oop.bomberman.entities.bomber;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.animation.BombAnimation;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.EntityArr;
 import uet.oop.bomberman.entities.bomber.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -53,25 +54,25 @@ public class Bomb extends Entity {
         }
     }
     public static void addBomb() {
-        if (Entity.getBombers().size() <= 0) {
+        if (EntityArr.getBombers().size() <= 0) {
             return;
         }
-        Bomber bomber = (Bomber) Entity.getBombers().get(0);
-        if ((bomber.getCreateBomb() != 1) || Entity.getBombs().size() >= bomber.getBomb()) {
+        Bomber bomber = (Bomber) EntityArr.getBombers().get(0);
+        if ((bomber.getCreateBomb() != 1) || EntityArr.getBombs().size() >= bomber.getBomb()) {
             return;
         }
 
         Bomb bomb = new Bomb ((bomber.getX() + (int)(bomber.getImg().getWidth() / 2))/ Sprite.SCALED_SIZE,
                 (bomber.getY() + (int)(bomber.getImg().getHeight() / 2)) / Sprite.SCALED_SIZE, Sprite.bomb.getFxImage());
         boolean add = true;
-        for (int i = 0; i < Entity.getBombs().size(); i++) {
-            if (Entity.getBombs().get(i).equals(bomb)) {
+        for (int i = 0; i < EntityArr.getBombs().size(); i++) {
+            if (EntityArr.getBombs().get(i).equals(bomb)) {
                 add = false;
                 break;
             }
         }
         if (add) {
-            Entity.getBombs().add(bomb);
+            EntityArr.getBombs().add(bomb);
         }
     }
 }

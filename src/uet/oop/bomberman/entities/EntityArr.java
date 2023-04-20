@@ -1,14 +1,20 @@
 package uet.oop.bomberman.entities;
 
+import uet.oop.bomberman.entities.enemy.Enemy;
+
 import java.util.List;
 import java.util.ArrayList;
 public class EntityArr {
-    private static List<Entity> bombers = new ArrayList<> ();
-    private static List<Entity> bombs = new ArrayList<>();
-    private static List<Entity> deads = new ArrayList<>();
-    private static List<Entity> flames = new ArrayList<>();
-    private static List<Entity> grasses = new ArrayList<>();
-    private static List<Entity> walls = new ArrayList<>();
+    public static final List<Entity> bombers = new ArrayList<> ();
+    public static final List<Entity> bombs = new ArrayList<>();
+    public static final  List<Entity> deads = new ArrayList<>();
+    public static final List<Entity> flames = new ArrayList<>();
+    public static final List<Entity> grasses = new ArrayList<>();
+    public static final List<Entity> walls = new ArrayList<>();
+    public static final List<Entity> portals = new ArrayList<>();
+    public static List<Enemy> enemies = new ArrayList<>();
+    public static final List<String> mapList = new ArrayList<String>();
+    public static final List<String> map = new ArrayList<String>();
     public static List<Entity> getDeads() {
         return deads;
     }

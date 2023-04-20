@@ -19,6 +19,7 @@ public abstract class Entity {
     protected int y;
     protected Image img;
     protected Animation animation;
+    protected int animate;
     protected int hp = 1;
 
     public int getHp() {
@@ -71,6 +72,8 @@ public abstract class Entity {
         this.x = xUnit * Sprite.SCALED_SIZE;
         this.y = yUnit * Sprite.SCALED_SIZE;
     }
+
+    public Entity() {}
 
     public void render(GraphicsContext gc) {
         gc.drawImage(img, x, y);

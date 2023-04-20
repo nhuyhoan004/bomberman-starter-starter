@@ -5,8 +5,11 @@ import uet.oop.bomberman.animation.FlameAnimation;
 import uet.oop.bomberman.entities.bomber.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
 
+import static uet.oop.bomberman.entities.EntityArr.*;
+
+
 public class Flame extends Entity {
-    private String classification;
+    private final String classification;
 
     public String getClassification() {
         return classification;
@@ -34,21 +37,25 @@ public class Flame extends Entity {
     public void update() {
         this.animation.setSprite(this);
     }
-    public static void addFlame(int xUnit, int yUnit) {
-        if (EntityArr.getBombers().size() == 0) {
-            return;
+
+
+    public static void removeFinishedElements() {
+        for (int i = 0; i < EntityArr.getDeads().size(); i++) {
+            if (EntityArr.getDeads().get(i).getAnimation().isFinishDeadAnimation()) {
+                EntityArr.getDeads().remove(i--);
+            }
         }
 
-        Entity flame = new Flame (xUnit, yUnit, "epicenter");
-        EntityArr.getFlames().add(flame);
-        addFlame(xUnit, yUnit, -1, 0);
-        addFlame(xUnit, yUnit, 1, 0);
-        addFlame(xUnit, yUnit, 0, -1);
-        addFlame(xUnit, yUnit, 0, 1);
+        for (int i = 0; i < EntityArr.getFlames().size(); i++) {
+            if (EntityArr.getFlames().get(i).getAnimation().isFinishDeadAnimation()) {
+                EntityArr.getFlames().remove(i--);
+            }
+        }
     }
 
     private static void addFlame(int xUnit, int yUnit, int x, int y) {
         Bomber bomber = (Bomber) EntityArr.getBombers().get(0);
+
 
         boolean add = true;
 
@@ -67,69 +74,95 @@ public class Flame extends Entity {
             Entity flame;
             if (i + 1 < bomber.getFlame()) {
                 if (x == 0) {
-                    flame = new Flame (xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_vertical.getFxImage(), "vertical");
+                    flame = new Flame(xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_vertical.getFxImage(), "vertical");
                 } else {
-                    flame = new Flame (xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_horizontal.getFxImage(), "horizontal");
+                    flame = new Flame(xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_horizontal.getFxImage(), "horizontal");
                 }
-            }
-            else {
+            } else {
                 if (x == -1) {
-                    flame = new Flame (xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_horizontal_left_last.getFxImage(), "left");
+                    flame = new Flame(xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_horizontal_left_last.getFxImage(), "left");
                 } else if (x == 1) {
-                    flame = new Flame (xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_horizontal_right_last.getFxImage(), "right");
+                    flame = new Flame(xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_horizontal_right_last.getFxImage(), "right");
                 } else if (y == -1) {
-                    flame = new Flame (xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_vertical_top_last.getFxImage(), "up");
+                    flame = new Flame(xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_vertical_top_last.getFxImage(), "up");
                 } else {
-                    flame = new Flame (xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_vertical_down_last.getFxImage(), "down");
+                    flame = new Flame(xUnit + x * (i + 1), yUnit + y * (i + 1), Sprite.explosion_vertical_down_last.getFxImage(), "down");
                 }
             }
 
             add = true;
-            // xử lí va chạm flame với tường
-            for (int j = 0; j < EntityArr.getWalls().size(); j++) {
-                if (flame.intersects(EntityArr.getWalls().get(j))) {
-                    add = false;
-                    break;
+            for (int k = 0; k < walls.size(); k++) {
+                if (flame.intersects(walls.get(k))) {
+                    // xử lí va chạm flame với tường
+                    for (int j = 0; j < EntityArr.getWalls().size(); j++) {
+                        if (flame.intersects(EntityArr.getWalls().get(j))) {
+                            add = false;
+                            break;
+                        }
+                    }
+
+                    if (!add) {
+                        break;
+                    }
+                    flames.add(flame);
+                    if (!add) {
+                        break;
+                    }
+                    EntityArr.getFlames().add(flame);
                 }
             }
-            if (!add) {
-                break;
+        }
+    }
+
+    public static void addFlame(int xUnit, int yUnit) {
+        if (bombers.size() == 0) {
+            if (EntityArr.getBombers().size() == 0) {
+                return;
             }
+
+            Entity flame = new Flame(xUnit, yUnit, "epicenter");
+            flames.add(flame);
             EntityArr.getFlames().add(flame);
-        }
-    }
-    /**
-     * Xoa nhung doi tuong co hp <= 0 khoi cac list
-     */
-    public static void removeDeadEntity() {
-        for (int i = 0; i < EntityArr.getBombs().size(); i++) {
-            if (EntityArr.getBombs().get(i).getHp() > 0) {
-                break;
-            }
-            addFlame(EntityArr.getBombs().get(i).getX() / Sprite.SCALED_SIZE, EntityArr.getBombs().get(i).getY() / Sprite.SCALED_SIZE);
-            EntityArr.getBombs().remove(i--);
-        }
-
-        for (int i = 0; i < EntityArr.getBombers().size(); i++) {
-            if (EntityArr.getBombers().get(i).getHp() <= 0) {
-                EntityArr.getDeads().add(EntityArr.getBombers().get(i));
-                EntityArr.getBombers().remove(i--);
-            }
+            addFlame(xUnit, yUnit, -1, 0);
+            addFlame(xUnit, yUnit, 1, 0);
+            addFlame(xUnit, yUnit, 0, -1);
+            addFlame(xUnit, yUnit, 0, 1);
         }
     }
 
-    public static void removeFinishedElements() {
-        for (int i = 0; i < EntityArr.getDeads().size(); i++) {
-            if (EntityArr.getDeads().get(i).getAnimation().isFinishDeadAnimation()) {
-                EntityArr.getDeads().remove(i--);
+        /**
+         * Xoa nhung doi tuong co hp <= 0 khoi cac list
+         */
+        public static void removeDeadEntity() {
+            for (int i = 0; i < bombs.size(); i++) {
+                if (bombs.get(i).getHp() > 0) {
+                    break;
+                }
+                addFlame(bombs.get(i).getX() / Sprite.SCALED_SIZE, bombs.get(i).getY() / Sprite.SCALED_SIZE);
+                bombs.remove(i--);
+            }
+
+            for (int i = 0; i < bombers.size(); i++) {
+                if (bombers.get(i).getHp() <= 0) {
+                    deads.add(bombers.get(i));
+                    bombers.remove(i--);
+                }
+            }
+
+            for (int i = 0; i < EntityArr.getBombs().size(); i++) {
+                if (EntityArr.getBombs().get(i).getHp() > 0) {
+                    break;
+                }
+                addFlame(EntityArr.getBombs().get(i).getX() / Sprite.SCALED_SIZE, EntityArr.getBombs().get(i).getY() / Sprite.SCALED_SIZE);
+                EntityArr.getBombs().remove(i--);
+            }
+
+            for (int i = 0; i < EntityArr.getBombers().size(); i++) {
+                if (EntityArr.getBombers().get(i).getHp() <= 0) {
+                    EntityArr.getDeads().add(EntityArr.getBombers().get(i));
+                    EntityArr.getBombers().remove(i--);
+                }
             }
         }
-
-        for (int i = 0; i < EntityArr.getFlames().size(); i++) {
-            if (EntityArr.getFlames().get(i).getAnimation().isFinishDeadAnimation()) {
-                EntityArr.getFlames().remove(i--);
-            }
-        }
-    }
-
 }
+

@@ -3,17 +3,12 @@ package uet.oop.bomberman.entities.bomber;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import uet.oop.bomberman.animation.Animation;
 import uet.oop.bomberman.animation.BomberAnimation;
-import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.Flame;
 import uet.oop.bomberman.entities.MovingEntity;
-import uet.oop.bomberman.graphics.Sprite;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Bomber extends MovingEntity {
+
 
     private int createBomb = 0;
 
@@ -24,12 +19,25 @@ public class Bomber extends MovingEntity {
     private int bomb = 1;
     private int flame = 1;
 
+     /*
 
+    public static int swapKill = 1;
+    public static int countKill = 0;
+
+
+      */
+
+    public Bomber() {}
+
+    public Bomber(int isMove, int swap, String direction, int count, int countToRun) {
+        super(8, 1, "down", 0, 0);
+    }
 
     public Bomber(int x, int y, Image img) {
         super( x, y, img);
         animation = new BomberAnimation();
     }
+
 
     public int getFlame() {
         return flame;
@@ -59,6 +67,7 @@ public class Bomber extends MovingEntity {
         this.ableToMoveRight = true;
         this.ableToMoveUp = true;
     }
+
 
     /**
      * Xu ly khi cac phim duoc nhan, nha.
@@ -101,4 +110,6 @@ public class Bomber extends MovingEntity {
             }
         });
     }
+
+
 }

@@ -6,6 +6,7 @@ import uet.oop.bomberman.entities.Entity;
 
 public abstract class MovingEntity extends Entity {
     protected int speed = 1;
+
     protected boolean wallPass = false;
     protected boolean moveLeft = false;
     protected boolean moveRight = false;
@@ -16,6 +17,15 @@ public abstract class MovingEntity extends Entity {
     protected boolean ableToMoveRight = true;
     protected boolean ableToMoveUp = true;
     protected boolean ableToMoveDown = true;
+
+
+    protected int isMove; // jump with pixel
+    protected int swap; // swap image
+    protected String direction; //dirirection of player
+    protected int count; // count step of a jump
+    protected int countToRun; // run after count frame
+    protected boolean life; // life of enemy
+
 
     public boolean isWallPass() {
         return wallPass;
@@ -41,10 +51,67 @@ public abstract class MovingEntity extends Entity {
         return ableToMoveDown;
     }
 
+
+
+    public MovingEntity() {}
+
+    public MovingEntity(int isMove, int swap, String direction, int count, int countToRun) {
+        this.isMove = isMove;
+        this.swap = swap;
+        this.direction = direction;
+        this.count = count;
+        this.countToRun = countToRun;
+    }
+
     public MovingEntity(int x, int y, Image img) {
         super( x, y, img);
     }
 
+    public MovingEntity(boolean life) {
+        this.life = life;
+    }
+
+    public boolean isLife() {
+        return life;
+    }
+
+    /*
+    public int getSwap() {
+        return swap;
+    }
+
+    public void setSwap(int swap) {
+        this.swap = swap;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public int getCountToRun() {
+        return countToRun;
+    }
+
+    public void setCountToRun(int countToRun) {
+        this.countToRun = countToRun;
+    }
+    public void setLife(boolean life) {
+        this.life = life;
+    }
+
+    */
     public boolean isMoveLeft() {
         return moveLeft;
     }
@@ -88,6 +155,7 @@ public abstract class MovingEntity extends Entity {
             this.y += this.getSpeed();
         }
     }
+
 
     /**
      * Ham kiem tra va cham giua 2 doi tuong.
@@ -143,5 +211,10 @@ public abstract class MovingEntity extends Entity {
                 this.ableToMoveDown = false;
             }
         }
+    }
+
+    @Override
+    public void update() {
+
     }
 }

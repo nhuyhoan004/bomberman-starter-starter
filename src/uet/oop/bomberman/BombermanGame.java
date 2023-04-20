@@ -1,8 +1,6 @@
 package uet.oop.bomberman;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -10,35 +8,41 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
-import uet.oop.bomberman.entities.block.Bomb;
-import uet.oop.bomberman.entities.block.Grass;
-import uet.oop.bomberman.entities.block.Wall;
+import uet.oop.bomberman.entities.bomber.Bomb;
 import uet.oop.bomberman.entities.bomber.Bomber;
 import uet.oop.bomberman.entities.*;
+import uet.oop.bomberman.entities.enemy.Enemy;
+import uet.oop.bomberman.graphics.CreateMap;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static uet.oop.bomberman.controls.Menu.updateMenu;
+import static uet.oop.bomberman.entities.EntityArr.*;
+
 public class BombermanGame extends Application {
     private Group root;
     private Scene scene;
-    private boolean win = false;
+    public static boolean win = false;
     private boolean lose = false;
 
     private boolean isGameComplete = false;
-    private int level = 0;
+    public static int level = 0;
     public static final String TITLE = "Bomberman by group 07";
-    public static int width;
-    public static int height;
+    public static int width = 0;
+    public static int height = 0;
 
+    public static int[][] idObjects;    //Two-dimensional array is used to test paths
     private GraphicsContext gc;
     public static List<Entity> block = new ArrayList<>();
     public static int[][] killList;
     private Canvas canvas;
-    private List<String> mapList = new ArrayList<>();
-    private List<String> map = new ArrayList<>();
+
+
+    public static MovingEntity player;
+    public static boolean running;
 
     public static void main(String[] args) {
         Sound.play ("soundtrack");
@@ -46,8 +50,8 @@ public class BombermanGame extends Application {
     }
 
     public void start(Stage stage) {
-        this.loadMapListFromFile();
-        this.readDataFromFile();
+        CreateMap.loadMapListFromFile();
+        CreateMap.readDataFromFile();
         stage.setTitle(BombermanGame.TITLE);
         stage.setResizable(false);
 
@@ -74,7 +78,7 @@ public class BombermanGame extends Application {
                 }
 
                 if (isGameComplete()) {
-                    readDataFromFile();
+                    CreateMap.readDataFromFile();
 
                     canvas.setHeight(Sprite.SCALED_SIZE * height);
                     canvas.setWidth(Sprite.SCALED_SIZE * width);
@@ -84,52 +88,14 @@ public class BombermanGame extends Application {
                     scene = new Scene(root);
                     stage.setScene(scene);
                     stage.show();
-
-                    createMap(); // Tạo bản đồ mới
+                    updateMenu();
+                    CreateMap.createMap(); // Tạo bản đồ mới
                 }
             }
         };
         timer.start();
-
-        createMap();
-    }
-
-    /**
-     * tao map tu du lieu trong list map
-     */
-    public void createMap() {
-        EntityArr.getFlames().clear();
-        EntityArr.getBombers().clear();
-        EntityArr.getBombs().clear();
-        EntityArr.getWalls().clear();
-        EntityArr.getGrasses ().clear();
-        EntityArr.getDeads().clear();
-
-        for (int i = 0; i < height; i++) {
-            String s = map.get(i);
-            for (int j = 0; j < width; j++) {
-                Entity object = new Grass (j, i, Sprite.grass.getFxImage());
-                EntityArr.getGrasses ().add(object);
-                char c = s.charAt(j);
-
-                if (c == 'p') {
-                    if (EntityArr.getBombers().size() != 0) {
-                        EntityArr.getBombers ().get(0).setX(j);
-                        EntityArr.getBombers ().get(0).setY(i);
-                    }
-                    else {
-                        object = new Bomber(j, i, Sprite.player_down.getFxImage());
-                        EntityArr.getBombers().add(object);
-                    }
-                }
-                else {
-                    if (c == '#') {
-                        object = new Wall (j, i, Sprite.wall.getFxImage());
-                        EntityArr.getWalls ().add(object);
-                    }
-                }
-            }
-        }
+        player = new Bomber(1, 1, Sprite.player_right_2.getFxImage());
+        CreateMap.createMap();
     }
 
     public void update() {
@@ -137,6 +103,8 @@ public class BombermanGame extends Application {
         EntityArr.getDeads().forEach(Entity::update);
         EntityArr.getBombs().forEach(Entity::update);
         EntityArr.getFlames().forEach(Entity::update);
+        EntityArr.enemies.forEach(Enemy::update);
+
 
         for (int i = 0; i < EntityArr.getBombers().size(); i++) {
             ((Bomber)EntityArr.getBombers().get(i)).handleKeyPress(this.scene);
@@ -160,61 +128,21 @@ public class BombermanGame extends Application {
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        grasses.forEach(g -> g.render(gc));
+        portals.forEach(g -> g.render(gc));
+        walls.forEach(g -> g.render(gc));
         EntityArr.getGrasses ().forEach(g -> g.render(gc));
         EntityArr.getWalls ().forEach(g -> g.render(gc));
         EntityArr.getBombs().forEach(g -> g.render(gc));
         EntityArr.getDeads().forEach(g -> g.render(gc));
         EntityArr.getFlames().forEach(g -> g.render(gc));
         EntityArr.getBombers().forEach(g -> g.render(gc));
-
+        block.forEach(g -> g.render(gc));
+        EntityArr.enemies.forEach(g -> {
+            if (g.isAlive()) g.render(gc);
+        });
     }
 
-    private void loadMapListFromFile() {
-        mapList.clear();
-        try {
-            File file = new File("res/levels/mapList.txt");
-            Scanner scanner = new Scanner(file);
-
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                mapList.add(line);
-            }
-
-            scanner.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Doc du lieu tu file txt va ghi vao list map.
-     */
-    private void readDataFromFile() {
-        map.clear();
-
-        try {
-            if (level >= mapList.size()) {
-                win = true;
-                return;
-            }
-
-            File file = new File(mapList.get(level++));
-            Scanner scaner = new Scanner(file);
-            int L;
-            L = scaner.nextInt();
-            height = scaner.nextInt();
-            width = scaner.nextInt();
-
-            String line = scaner.nextLine();
-            for (int i = 0; i < height; i++) {
-                line = scaner.nextLine();
-                map.add(line);
-            }
-            scaner.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * Xu ly va cham (tat ca moi va cham deu xu ly o day).

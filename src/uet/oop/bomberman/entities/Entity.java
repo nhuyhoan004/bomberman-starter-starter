@@ -15,10 +15,6 @@ import java.util.Random;
 
 
 public abstract class Entity {
-    private static List<Entity> bombers = new ArrayList<> ();
-    private static List<Entity> bombs = new ArrayList<>();
-    private static List<Entity> deads = new ArrayList<>();
-    private static List<Entity> flames = new ArrayList<>();
     protected int x;
     protected int y;
     protected Image img;
@@ -95,20 +91,5 @@ public abstract class Entity {
     public static boolean intersects(Entity entity, double x, double y) {
         return (entity.getX() <= x && x <= (entity.getX() + entity.getImg().getWidth())
                 && entity.getY() <= y && y <= (entity.getY() + entity.getImg().getHeight()));
-    }
-    public static List<Entity> getDeads() {
-        return deads;
-    }
-
-    public static List<Entity> getBombers() {
-        return bombers;
-    }
-
-    public static List<Entity> getFlames() {
-        return flames;
-    }
-
-    public static List<Entity> getBombs() {
-        return bombs;
     }
 }

@@ -35,12 +35,12 @@ public class Flame extends Entity {
         this.animation.setSprite(this);
     }
     public static void addFlame(int xUnit, int yUnit) {
-        if (Entity.getBombers().size() == 0) {
+        if (EntityArr.getBombers().size() == 0) {
             return;
         }
 
         Entity flame = new Flame (xUnit, yUnit, "epicenter");
-        Entity.getFlames().add(flame);
+        EntityArr.getFlames().add(flame);
         addFlame(xUnit, yUnit, -1, 0);
         addFlame(xUnit, yUnit, 1, 0);
         addFlame(xUnit, yUnit, 0, -1);
@@ -48,7 +48,7 @@ public class Flame extends Entity {
     }
 
     private static void addFlame(int xUnit, int yUnit, int x, int y) {
-        Bomber bomber = (Bomber) Entity.getBombers().get(0);
+        Bomber bomber = (Bomber) EntityArr.getBombers().get(0);
 
         boolean add = true;
 
@@ -88,39 +88,39 @@ public class Flame extends Entity {
             if (!add) {
                 break;
             }
-            Entity.getFlames().add(flame);
+            EntityArr.getFlames().add(flame);
         }
     }
     /**
      * Xoa nhung doi tuong co hp <= 0 khoi cac list
      */
     public static void removeDeadEntity() {
-        for (int i = 0; i < Entity.getBombs().size(); i++) {
-            if (Entity.getBombs().get(i).getHp() > 0) {
+        for (int i = 0; i < EntityArr.getBombs().size(); i++) {
+            if (EntityArr.getBombs().get(i).getHp() > 0) {
                 break;
             }
-            addFlame(Entity.getBombs().get(i).getX() / Sprite.SCALED_SIZE, Entity.getBombs().get(i).getY() / Sprite.SCALED_SIZE);
-            Entity.getBombs().remove(i--);
+            addFlame(EntityArr.getBombs().get(i).getX() / Sprite.SCALED_SIZE, EntityArr.getBombs().get(i).getY() / Sprite.SCALED_SIZE);
+            EntityArr.getBombs().remove(i--);
         }
 
-        for (int i = 0; i < Entity.getBombers().size(); i++) {
-            if (Entity.getBombers().get(i).getHp() <= 0) {
-                Entity.getDeads().add(Entity.getBombers().get(i));
-                Entity.getBombers().remove(i--);
+        for (int i = 0; i < EntityArr.getBombers().size(); i++) {
+            if (EntityArr.getBombers().get(i).getHp() <= 0) {
+                EntityArr.getDeads().add(EntityArr.getBombers().get(i));
+                EntityArr.getBombers().remove(i--);
             }
         }
     }
 
     public static void removeFinishedElements() {
-        for (int i = 0; i < Entity.getDeads().size(); i++) {
-            if (Entity.getDeads().get(i).getAnimation().isFinishDeadAnimation()) {
-                Entity.getDeads().remove(i--);
+        for (int i = 0; i < EntityArr.getDeads().size(); i++) {
+            if (EntityArr.getDeads().get(i).getAnimation().isFinishDeadAnimation()) {
+                EntityArr.getDeads().remove(i--);
             }
         }
 
-        for (int i = 0; i < Entity.getFlames().size(); i++) {
-            if (Entity.getFlames().get(i).getAnimation().isFinishDeadAnimation()) {
-                Entity.getFlames().remove(i--);
+        for (int i = 0; i < EntityArr.getFlames().size(); i++) {
+            if (EntityArr.getFlames().get(i).getAnimation().isFinishDeadAnimation()) {
+                EntityArr.getFlames().remove(i--);
             }
         }
     }

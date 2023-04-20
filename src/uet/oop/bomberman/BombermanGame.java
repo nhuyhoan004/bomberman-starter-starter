@@ -10,9 +10,9 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
+import uet.oop.bomberman.entities.block.Bomb;
 import uet.oop.bomberman.entities.block.Grass;
 import uet.oop.bomberman.entities.block.Wall;
-import uet.oop.bomberman.entities.bomber.Bomb;
 import uet.oop.bomberman.entities.bomber.Bomber;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.graphics.Sprite;
@@ -39,9 +39,6 @@ public class BombermanGame extends Application {
     private Canvas canvas;
     private List<String> mapList = new ArrayList<>();
     private List<String> map = new ArrayList<>();
-    private List<Entity> grasses = new ArrayList<>();
-    private List<Entity> walls = new ArrayList<>();
-    private List<Entity> portals = new ArrayList<>();
 
     public static void main(String[] args) {
         Sound.play ("soundtrack");
@@ -101,34 +98,34 @@ public class BombermanGame extends Application {
      * tao map tu du lieu trong list map
      */
     public void createMap() {
-        Bomber.getFlames().clear();
-        Bomber.getBombers().clear();
-        Bomber.getBombs().clear();
-        walls.clear();
-        grasses.clear();
-        portals.clear();
+        EntityArr.getFlames().clear();
+        EntityArr.getBombers().clear();
+        EntityArr.getBombs().clear();
+        EntityArr.getWalls().clear();
+        EntityArr.getGrasses ().clear();
+        EntityArr.getDeads().clear();
 
         for (int i = 0; i < height; i++) {
             String s = map.get(i);
             for (int j = 0; j < width; j++) {
-                Entity object = new Grass(j, i, Sprite.grass.getFxImage());
-                grasses.add(object);
+                Entity object = new Grass (j, i, Sprite.grass.getFxImage());
+                EntityArr.getGrasses ().add(object);
                 char c = s.charAt(j);
 
                 if (c == 'p') {
-                    if (Bomber.getBombers().size() != 0) {
-                        Bomber.getBombers ().get(0).setX(j);
-                        Bomber.getBombers ().get(0).setY(i);
+                    if (EntityArr.getBombers().size() != 0) {
+                        EntityArr.getBombers ().get(0).setX(j);
+                        EntityArr.getBombers ().get(0).setY(i);
                     }
                     else {
                         object = new Bomber(j, i, Sprite.player_down.getFxImage());
-                        Bomber.getBombers().add(object);
+                        EntityArr.getBombers().add(object);
                     }
                 }
                 else {
                     if (c == '#') {
-                        object = new Wall(j, i, Sprite.wall.getFxImage());
-                        walls.add(object);
+                        object = new Wall (j, i, Sprite.wall.getFxImage());
+                        EntityArr.getWalls ().add(object);
                     }
                 }
             }
@@ -136,18 +133,18 @@ public class BombermanGame extends Application {
     }
 
     public void update() {
-        Bomber.getBombers().forEach(Entity::update);
-        Bomber.getDeads().forEach(Entity::update);
-        Bomber.getBombs().forEach(Entity::update);
-        Bomber.getFlames().forEach(Entity::update);
+        EntityArr.getBombers().forEach(Entity::update);
+        EntityArr.getDeads().forEach(Entity::update);
+        EntityArr.getBombs().forEach(Entity::update);
+        EntityArr.getFlames().forEach(Entity::update);
 
-        for (int i = 0; i < Bomber.getBombers().size(); i++) {
-            ((Bomber)Bomber.getBombers().get(i)).handleKeyPress(this.scene);
+        for (int i = 0; i < EntityArr.getBombers().size(); i++) {
+            ((Bomber)EntityArr.getBombers().get(i)).handleKeyPress(this.scene);
         }
-        for (int i = 0; i < Bomber.getBombs().size(); i++) {
-            for (int j = 0; j < Bomber.getBombers().size(); j++) {
-                Bomber bomber = (Bomber) Bomber.getBombers().get(j);
-                ((Bomb)Bomber.getBombs().get(i)).checkCharacterPassability(bomber);
+        for (int i = 0; i < EntityArr.getBombs().size(); i++) {
+            for (int j = 0; j < EntityArr.getBombers().size(); j++) {
+                Bomber bomber = (Bomber) EntityArr.getBombers().get(j);
+                ((Bomb)EntityArr.getBombs().get(i)).checkCharacterPassability(bomber);
             }
         }
 
@@ -156,20 +153,20 @@ public class BombermanGame extends Application {
         Flame.removeFinishedElements();
         Flame.removeDeadEntity();
 
-        if (Bomber.getBombers().size() == 0 && Bomber.getDeads().size() == 0) {
+        if (EntityArr.getBombers().size() == 0 && EntityArr.getDeads().size() == 0) {
             lose = true;
         }
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        grasses.forEach(g -> g.render(gc));
-        portals.forEach(g -> g.render(gc));
-        walls.forEach(g -> g.render(gc));
-        Bomber.getBombs().forEach(g -> g.render(gc));
-        Bomber.getDeads().forEach(g -> g.render(gc));
-        Bomber.getFlames().forEach(g -> g.render(gc));
-        Bomber.getBombers().forEach(g -> g.render(gc));
+        EntityArr.getGrasses ().forEach(g -> g.render(gc));
+        EntityArr.getWalls ().forEach(g -> g.render(gc));
+        EntityArr.getBombs().forEach(g -> g.render(gc));
+        EntityArr.getDeads().forEach(g -> g.render(gc));
+        EntityArr.getFlames().forEach(g -> g.render(gc));
+        EntityArr.getBombers().forEach(g -> g.render(gc));
+
     }
 
     private void loadMapListFromFile() {
@@ -225,31 +222,31 @@ public class BombermanGame extends Application {
     public void handleCollision() {
         // Nhan vat
         ///////////////////////////////////////////////////////
-        if (Bomber.getBombers().size() > 0) {
-            Bomber bomber = (Bomber) Bomber.getBombers().get(0);
+        if (EntityArr.getBombers().size() > 0) {
+            Bomber bomber = (Bomber) EntityArr.getBombers().get(0);
 
-            for (int i = 0; i < Bomber.getFlames().size(); i++) {
-                if (bomber.intersects(Bomber.getFlames().get(i))) {
+            for (int i = 0; i < EntityArr.getFlames().size(); i++) {
+                if (bomber.intersects(EntityArr.getFlames().get(i))) {
                     bomber.setHp(0);
                     break;
                 }
             }
 
-            for (int i = 0; i < Bomber.getBombs().size(); i++) {
-                if (((Bomb)Bomber.getBombs().get(i)).isPassable()) {
+            for (int i = 0; i < EntityArr.getBombs().size(); i++) {
+                if (((Bomb)EntityArr.getBombs().get(i)).isPassable()) {
                     continue;
                 }
-                bomber.checkObjectMovementAbility(Bomber.getBombs().get(i));
+                bomber.checkObjectMovementAbility(EntityArr.getBombs().get(i));
             }
-            for (int i = 0; i < walls.size(); i++) {
-                bomber.checkObjectMovementAbility(walls.get(i));
+            for (int i = 0; i < EntityArr.getWalls ().size(); i++) {
+                bomber.checkObjectMovementAbility(EntityArr.getWalls().get(i));
             }
         }
         // Bomb
-        for (int i = 0; i < Bomber.getBombs().size(); i++) {
-            for (int j = 0; j < Bomber.getFlames().size(); j++) {
-                if (Bomber.getBombs().get(i).intersects(Bomber.getFlames().get(j))) {
-                    Bomber.getBombs().get(i).setHp(0);
+        for (int i = 0; i < EntityArr.getBombs().size(); i++) {
+            for (int j = 0; j < EntityArr.getFlames().size(); j++) {
+                if (EntityArr.getBombs().get(i).intersects(EntityArr.getFlames().get(j))) {
+                    EntityArr.getBombs().get(i).setHp(0);
                     break;
                 }
             }

@@ -36,7 +36,6 @@ public class BombermanGame extends Application {
 
     public static int[][] idObjects;    //Two-dimensional array is used to test paths
     private GraphicsContext gc;
-    public static List<Entity> block = new ArrayList<>();
     public static int[][] killList;
     private Canvas canvas;
 
@@ -137,7 +136,7 @@ public class BombermanGame extends Application {
         EntityArr.getDeads().forEach(g -> g.render(gc));
         EntityArr.getFlames().forEach(g -> g.render(gc));
         EntityArr.getBombers().forEach(g -> g.render(gc));
-        block.forEach(g -> g.render(gc));
+        bricks.forEach(g -> g.render(gc));
         EntityArr.enemies.forEach(g -> {
             if (g.isAlive()) g.render(gc);
         });

@@ -14,10 +14,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import static uet.oop.bomberman.BombermanGame.*;
-import static uet.oop.bomberman.entities.EntityArr.grasses;
-import static uet.oop.bomberman.entities.EntityArr.portals;
-import static uet.oop.bomberman.entities.EntityArr.mapList;
-import static uet.oop.bomberman.entities.EntityArr.map;
+import static uet.oop.bomberman.entities.EntityArr.*;
 
 public class CreateMap {
 
@@ -109,7 +106,7 @@ public class CreateMap {
                     // brick
                     if (c == '*') {
                         object = new Brick(j, i, Sprite.brick.getFxImage());
-                        block.add(object);
+                        bricks.add(object);
                     }
                     // portal
                     if (c == 'x') {

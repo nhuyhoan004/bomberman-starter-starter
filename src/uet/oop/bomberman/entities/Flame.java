@@ -5,6 +5,9 @@ import uet.oop.bomberman.animation.FlameAnimation;
 import uet.oop.bomberman.entities.bomber.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
 
+import static uet.oop.bomberman.entities.EntityArr.*;
+import static uet.oop.bomberman.graphics.Sprite.brick;
+
 public class Flame extends Entity {
     private String classification;
 
@@ -116,6 +119,19 @@ public class Flame extends Entity {
                 EntityArr.getBombers().remove(i--);
             }
         }
+        for (int i = 0; i < EntityArr.getBricks().size(); i++) {
+            if (bricks.get(i).getHp() <= 0) {
+                deads.add(bricks.get(i));
+                bricks.remove(i--);
+            }
+        }
+        for (int i = 0; i < enemies.size(); i++) {
+            if (enemies.get(i).getHp() <= 0) {
+                deads.add(enemies.get(i));
+                enemies.remove(i--);
+            }
+        }
+
     }
 
     public static void removeFinishedElements() {

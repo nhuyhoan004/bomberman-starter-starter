@@ -12,7 +12,8 @@ public class EntityArr {
     public static final List<Entity> grasses = new ArrayList<>();
     public static final List<Entity> walls = new ArrayList<>();
     public static final List<Entity> portals = new ArrayList<>();
-    public static List<Enemy> enemies = new ArrayList<>();
+    public static final List<Entity> bricks = new ArrayList<>();
+    public static final List<Enemy> enemies = new ArrayList<>();
     public static final List<String> mapList = new ArrayList<String>();
     public static final List<String> map = new ArrayList<String>();
     public static List<Entity> getDeads() {
@@ -37,5 +38,9 @@ public class EntityArr {
 
     public static List<Entity> getGrasses() {
         return grasses;
+    }
+
+    public static List<Entity> getBricks() {
+        return bricks;
     }
 }

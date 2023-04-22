@@ -149,36 +149,83 @@ public class BombermanGame extends Application {
     public void handleCollision() {
         // Nhan vat
         ///////////////////////////////////////////////////////
-        if (EntityArr.getBombers().size() > 0) {
-            Bomber bomber = (Bomber) EntityArr.getBombers().get(0);
+        if (bombers.size () > 0) {
+            Bomber bomber = (Bomber) bombers.get (0);
 
-            for (int i = 0; i < EntityArr.getFlames().size(); i++) {
-                if (bomber.intersects(EntityArr.getFlames().get(i))) {
-                    bomber.setHp(0);
+            for (int i = 0; i < flames.size (); i++) {
+                if (bomber.intersects (flames.get (i))) {
+                    bomber.setHp (0);
                     break;
                 }
             }
 
-            for (int i = 0; i < EntityArr.getBombs().size(); i++) {
-                if (((Bomb)EntityArr.getBombs().get(i)).isPassable()) {
+            for (int i = 0; i < enemies.size (); i++) {
+                if (bomber.intersects (enemies.get (i))) {
+                    bomber.setHp (0);
+                    break;
+                }
+            }
+            if (!bomber.isWallPass ()) {
+                for (int i = 0; i < bricks.size (); i++) {
+                    bomber.checkObjectMovementAbility (bricks.get (i));
+                }
+            }
+            for (int i = 0; i < bombs.size (); i++) {
+                if (((Bomb) bombs.get (i)).isPassable ()) {
                     continue;
                 }
-                bomber.checkObjectMovementAbility(EntityArr.getBombs().get(i));
+                bomber.checkObjectMovementAbility (bombs.get (i));
             }
-            for (int i = 0; i < EntityArr.getWalls ().size(); i++) {
-                bomber.checkObjectMovementAbility(EntityArr.getWalls().get(i));
+            for (int i = 0; i < walls.size (); i++) {
+                bomber.checkObjectMovementAbility (walls.get (i));
             }
-        }
-        // Bomb
-        for (int i = 0; i < EntityArr.getBombs().size(); i++) {
-            for (int j = 0; j < EntityArr.getFlames().size(); j++) {
-                if (EntityArr.getBombs().get(i).intersects(EntityArr.getFlames().get(j))) {
-                    EntityArr.getBombs().get(i).setHp(0);
-                    break;
+            for (int i = 0; i < portals.size (); i++) {
+                if (bomber.intersects (portals.get (i)) && enemies.size () == 0) {
+                    boolean complete = true;
+                    for (int j = 0; j < bricks.size (); j++) {
+                        if (portals.get (i).getX () == bricks.get (j).getX () &&
+                                portals.get (i).getY () == bricks.get (j).getY ()) {
+                            complete = false;
+                            break;
+                        }
+                    }
+                    this.isGameComplete = complete;
+                }
+            }
+            // Cac enemy
+            ////////////////////////////////////////////////////////////////
+            for (int i = 0; i < enemies.size (); i++) {
+                MovingEntity movingEntity = (MovingEntity) enemies.get (i);
+                if (!movingEntity.isWallPass ()) {
+                    for (int j = 0; j < bricks.size (); j++) {
+                        movingEntity.checkObjectMovementAbility (bricks.get (j));
+                    }
+                }
+                for (int j = 0; j < bombs.size (); j++) {
+                    movingEntity.checkObjectMovementAbility (bombs.get (j));
+                }
+                for (int j = 0; j < walls.size (); j++) {
+                    movingEntity.checkObjectMovementAbility (walls.get (j));
+                }
+                for (int j = 0; j < flames.size (); j++) {
+                    if (movingEntity.intersects (flames.get (j))) {
+                        movingEntity.setHp (0);
+                    }
+                }
+            }
+
+            // Bomb
+            for (int i = 0; i < bombs.size (); i++) {
+                for (int j = 0; j < flames.size (); j++) {
+                    if (bombs.get (i).intersects (flames.get (j))) {
+                        bombs.get (i).setHp (0);
+                        break;
+                    }
                 }
             }
         }
     }
+
 
     private boolean isGameComplete() {
         if (isGameComplete) {

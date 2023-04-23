@@ -81,7 +81,7 @@ public abstract class Entity {
     public abstract void update();
 
     public boolean intersects(Entity obj) {
-        return intersects(this, obj.getX() + obj.getImg().getWidth() / 2 , obj.getY() + obj.getImg().getHeight() / 2);
+        return obj.intersects(this, obj.getX() + obj.getImg().getWidth() / 2 , obj.getY() + obj.getImg().getHeight() / 2);
     }
 
     /**

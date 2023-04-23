@@ -105,35 +105,33 @@ public class Flame extends Entity {
      * Xoa nhung doi tuong co hp <= 0 khoi cac list
      */
     public static void removeDeadEntity() {
-        for (int i = 0; i < bombs.size(); i++) {
-            if (bombs.get(i).getHp() > 0) {
+        for (int i = 0; i < EntityArr.getBombs().size(); i++) {
+            if (EntityArr.getBombs().get(i).getHp() > 0) {
                 break;
             }
-            addFlame(bombs.get(i).getX() / Sprite.SCALED_SIZE, bombs.get(i).getY() / Sprite.SCALED_SIZE);
-            bombs.remove(i--);
+            addFlame(EntityArr.getBombs().get(i).getX() / Sprite.SCALED_SIZE, EntityArr.getBombs().get(i).getY() / Sprite.SCALED_SIZE);
+            EntityArr.getBombs().remove(i--);
         }
 
-
-        for (int i = 0; i < bricks.size(); i++) {
+        for (int i = 0; i < EntityArr.getBombers().size(); i++) {
+            if (EntityArr.getBombers().get(i).getHp() <= 0) {
+                EntityArr.getDeads().add(EntityArr.getBombers().get(i));
+                EntityArr.getBombers().remove(i--);
+            }
+        }
+        for (int i = 0; i < EntityArr.getBricks().size(); i++) {
             if (bricks.get(i).getHp() <= 0) {
                 deads.add(bricks.get(i));
                 bricks.remove(i--);
             }
         }
-
-        for (int i = 0; i < bombers.size(); i++) {
-            if (bombers.get(i).getHp() <= 0) {
-                deads.add(bombers.get(i));
-                bombers.remove(i--);
-            }
-        }
-
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).getHp() <= 0) {
                 deads.add(enemies.get(i));
                 enemies.remove(i--);
             }
         }
+
     }
 
     public static void removeFinishedElements() {

@@ -2,13 +2,12 @@ package uet.oop.bomberman.entities.enemy;
 
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntityArr;
-import uet.oop.bomberman.entities.MovingEntity;
 import uet.oop.bomberman.graphics.Sprite;
 import javafx.scene.image.Image;
 
 import java.util.Random;
 
-public abstract class Enemy extends MovingEntity {
+public abstract class Enemy extends Entity {
     private int speed = 1;
     private int speedX = this.speed;
     private int speedY = 0;
@@ -82,7 +81,7 @@ public abstract class Enemy extends MovingEntity {
 
     public void randomDirection() {
         Random rd = new Random();
-        int n = rd.nextInt(4);
+        int n = rd.nextInt(2);
         direction(n);
     }
     public void randomSpeed() {

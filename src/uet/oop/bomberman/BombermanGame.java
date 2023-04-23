@@ -142,9 +142,9 @@ public class BombermanGame extends Application {
         });
     }
 
-    /**
-     xử lí va chạm
-     */
+/**
+xử lí va chạm
+ */
     public void handleCollision() {
         // Nhan vat
         ///////////////////////////////////////////////////////

@@ -101,7 +101,7 @@ public class CreateMap {
                 else if ('0' <= c && c <= '9') {
                     if (c == '1') {
                         object = new Balloon (j, i, Sprite.balloom_left1.getFxImage ());
-                        EntityArr.enemies.add((Enemy) object);
+                        EntityArr.enemies.add(object);
                     }
                 }
                 else {

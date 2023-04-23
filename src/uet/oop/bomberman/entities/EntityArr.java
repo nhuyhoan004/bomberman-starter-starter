@@ -13,7 +13,7 @@ public class EntityArr {
     public static final List<Entity> walls = new ArrayList<>();
     public static final List<Entity> portals = new ArrayList<>();
     public static final List<Entity> bricks = new ArrayList<>();
-    public static final List<Enemy> enemies = new ArrayList<>();
+    public static final List<Entity> enemies = new ArrayList<>();
     public static final List<String> mapList = new ArrayList<String>();
     public static final List<String> map = new ArrayList<String>();
     public static List<Entity> getDeads() {

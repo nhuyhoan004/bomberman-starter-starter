@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import uet.oop.bomberman.entities.bomber.Bomb;
 import uet.oop.bomberman.entities.bomber.Bomber;
 import uet.oop.bomberman.entities.*;
-import uet.oop.bomberman.entities.enemy.Enemy;
+import uet.oop.bomberman.entities.enemy.*;
 import uet.oop.bomberman.graphics.CreateMap;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
@@ -102,7 +102,7 @@ public class BombermanGame extends Application {
         EntityArr.getDeads().forEach(Entity::update);
         EntityArr.getBombs().forEach(Entity::update);
         EntityArr.getFlames().forEach(Entity::update);
-        EntityArr.enemies.forEach(Enemy::update);
+        EntityArr.enemies.forEach(Entity::update);
 
 
         for (int i = 0; i < EntityArr.getBombers().size(); i++) {
@@ -194,25 +194,26 @@ public class BombermanGame extends Application {
             }
             // Cac enemy
             ////////////////////////////////////////////////////////////////
-            for (int i = 0; i < enemies.size (); i++) {
-                MovingEntity movingEntity = (MovingEntity) enemies.get (i);
-                if (!movingEntity.isWallPass ()) {
-                    for (int j = 0; j < bricks.size (); j++) {
-                        movingEntity.checkObjectMovementAbility (bricks.get (j));
+            for (int i = 0; i < enemies.size(); i++) {
+                MovingEntity movingEntity = (MovingEntity) enemies.get(i);
+                if (!movingEntity.isWallPass()) {
+                    for (int j = 0; j < bricks.size(); j++) {
+                        movingEntity.checkObjectMovementAbility(bricks.get(j));
                     }
                 }
-                for (int j = 0; j < bombs.size (); j++) {
-                    movingEntity.checkObjectMovementAbility (bombs.get (j));
+                for (int j = 0; j < bombs.size(); j++) {
+                    movingEntity.checkObjectMovementAbility(bombs.get(j));
                 }
-                for (int j = 0; j < walls.size (); j++) {
-                    movingEntity.checkObjectMovementAbility (walls.get (j));
+                for (int j = 0; j < walls.size(); j++) {
+                    movingEntity.checkObjectMovementAbility(walls.get(j));
                 }
-                for (int j = 0; j < flames.size (); j++) {
-                    if (movingEntity.intersects (flames.get (j))) {
-                        movingEntity.setHp (0);
+                for (int j = 0; j < flames.size(); j++) {
+                    if (movingEntity.intersects(flames.get(j))) {
+                        movingEntity.setHp(0);
                     }
                 }
             }
+
 
             // Bomb
             for (int i = 0; i < bombs.size (); i++) {

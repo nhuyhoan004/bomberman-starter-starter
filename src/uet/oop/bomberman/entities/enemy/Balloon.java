@@ -13,7 +13,7 @@ public class Balloon extends Enemy {
         if (isAlive()) {
             if (this.getSpeedX() == 0) {
                 this.y += this.getSpeedY();
-                if ( getY() % Sprite.SCALED_SIZE == 0) {
+                if (checkBoundsWall() || checkBoundsBomb() || checkBoundsBrick() || getY() % Sprite.SCALED_SIZE == 0) {
                     if (getY() % Sprite.SCALED_SIZE != 0) {
                         this.y -= this.getSpeedY();
                     }
@@ -21,7 +21,7 @@ public class Balloon extends Enemy {
                 }
             } else {
                 this.x += this.getSpeedX();
-                if (getX() % Sprite.SCALED_SIZE == 0) {
+                if (checkBoundsBrick() || checkBoundsBomb() || checkBoundsWall() || getX() % Sprite.SCALED_SIZE == 0) {
                     if (getX() % Sprite.SCALED_SIZE != 0) {
                         this.x -= this.getSpeedX();
                     }

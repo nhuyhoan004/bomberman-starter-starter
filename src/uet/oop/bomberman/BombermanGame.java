@@ -142,23 +142,32 @@ public class BombermanGame extends Application {
         });
     }
 
-
-    /**
-     * Xu ly va cham (tat ca moi va cham deu xu ly o day).
-     */
+/**
+xử lí va chạm
+ */
     public void handleCollision() {
         // Nhan vat
         ///////////////////////////////////////////////////////
+<<<<<<< Updated upstream
         if (bombers.size () > 0) {
             Bomber bomber = (Bomber) bombers.get (0);
 
             for (int i = 0; i < flames.size (); i++) {
                 if (bomber.intersects (flames.get (i))) {
                     bomber.setHp (0);
+=======
+        if (bombers.size() > 0) {
+            Bomber bomber = (Bomber) bombers.get(0);
+
+            for (int i = 0; i < flames.size(); i++) {
+                if (bomber.intersects(flames.get(i))) {
+                    bomber.setHp(0);
+>>>>>>> Stashed changes
                     break;
                 }
             }
 
+<<<<<<< Updated upstream
             for (int i = 0; i < enemies.size (); i++) {
                 if (bomber.intersects (enemies.get (i))) {
                     bomber.setHp (0);
@@ -222,6 +231,49 @@ public class BombermanGame extends Application {
                         bombs.get (i).setHp (0);
                         break;
                     }
+=======
+            for (int i = 0; i < enemies.size(); i++) {
+                if (bomber.intersects(enemies.get(i))) {
+                    bomber.setHp(0);
+                    break;
+                }
+            }
+            if (!bomber.isWallPass()) {
+                for (int i = 0; i < bricks.size(); i++) {
+                    bomber.checkObjectMovementAbility(bricks.get(i));
+                }
+            }
+            for (int i = 0; i < bombs.size(); i++) {
+                if (((Bomb)bombs.get(i)).isPassable()) {
+                    continue;
+                }
+                bomber.checkObjectMovementAbility(bombs.get(i));
+            }
+            for (int i = 0; i < walls.size(); i++) {
+                bomber.checkObjectMovementAbility(walls.get(i));
+            }
+            for (int i = 0; i < portals.size(); i++) {
+                if (bomber.intersects(portals.get(i)) && enemies.size() == 0) {
+                    boolean complete = true;
+                    for (int j = 0; j < bricks.size(); j++) {
+                        if (portals.get(i).getX() == bricks.get(j).getX() &&
+                                portals.get(i).getY() == bricks.get(j).getY()) {
+                            complete = false;
+                            break;
+                        }
+                    }
+                    this.isGameComplete = complete;
+                }
+            }
+        }
+
+        // Bomb
+        for (int i = 0; i < bombs.size(); i++) {
+            for (int j = 0; j < flames.size(); j++) {
+                if (bombs.get(i).intersects(flames.get(j))) {
+                    bombs.get(i).setHp(0);
+                    break;
+>>>>>>> Stashed changes
                 }
             }
         }

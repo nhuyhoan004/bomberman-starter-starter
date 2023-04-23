@@ -14,6 +14,7 @@ import uet.oop.bomberman.sound.Sound;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.Scanner;
 import static uet.oop.bomberman.BombermanGame.*;
 import static uet.oop.bomberman.entities.EntityArr.*;
@@ -67,6 +68,16 @@ public class CreateMap {
             scaner.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        }
+    }
+    public static void removeEnemy() {
+        ListIterator<Entity> enemyIterator = enemies.listIterator();
+        while (enemyIterator.hasNext()) {
+            Enemy enemy = (Enemy) enemyIterator.next();
+            if (!enemy.isAlive()) {
+                Sound.play("AA126_11");
+                enemyIterator.remove();
+            }
         }
     }
 

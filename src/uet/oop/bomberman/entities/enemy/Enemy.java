@@ -24,7 +24,7 @@ public abstract class Enemy extends MovingEntity {
 
     @Override
     public void update() {
-        this.animate += Sprite.DEFAULT_SIZE / 10;
+        animate += Sprite.DEFAULT_SIZE / 10;
     };
 
     public void setSpeed(int speed) {

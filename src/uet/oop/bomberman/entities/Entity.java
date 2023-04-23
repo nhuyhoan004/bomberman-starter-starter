@@ -19,7 +19,7 @@ public abstract class Entity {
     protected int y;
     protected Image img;
     protected Animation animation;
-    protected int animate;
+    protected static int animate;
     protected int hp = 1;
 
     public int getHp() {
@@ -94,5 +94,29 @@ public abstract class Entity {
     public static boolean intersects(Entity entity, double x, double y) {
         return (entity.getX() <= x && x <= (entity.getX() + entity.getImg().getWidth())
                 && entity.getY() <= y && y <= (entity.getY() + entity.getImg().getHeight()));
+    }
+    public boolean checkBoundsBrick() {
+        for (Entity e : EntityArr.bricks) {
+            if (this.intersects(e)) return true;
+        }
+        return false;
+    }
+
+    public boolean checkBoundsBomb() {
+        for (Entity e : EntityArr.bombs) {
+            if (this.intersects(e)) return true;
+        }
+        return false;
+    }
+
+    public boolean checkBoundsWall() {
+        for (Entity e : EntityArr.walls) {
+            if (this.intersects(e)) return true;
+        }
+        return false;
+    }
+
+    public boolean isAlive() {
+        return isAlive ();
     }
 }

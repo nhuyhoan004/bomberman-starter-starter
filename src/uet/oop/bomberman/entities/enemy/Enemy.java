@@ -81,7 +81,7 @@ public abstract class Enemy extends Entity {
 
     public void randomDirection() {
         Random rd = new Random();
-        int n = rd.nextInt(2);
+        int n = rd.nextInt(4);
         direction(n);
     }
     public void randomSpeed() {

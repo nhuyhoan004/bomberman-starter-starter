@@ -1,5 +1,6 @@
 package uet.oop.bomberman.entities;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -19,7 +20,8 @@ public abstract class Entity {
     protected int y;
     protected Image img;
     protected Animation animation;
-    protected static int animate;
+    private boolean isAlive = true;
+    protected int animate;
     protected int hp = 1;
 
     public int getHp() {
@@ -66,11 +68,13 @@ public abstract class Entity {
         this.x = xUnit * Sprite.SCALED_SIZE;
         this.y = yUnit * Sprite.SCALED_SIZE;
         this.img = img;
+        this.animate = Sprite.DEFAULT_SIZE;
     }
 
     public Entity(int xUnit, int yUnit) {
         this.x = xUnit * Sprite.SCALED_SIZE;
         this.y = yUnit * Sprite.SCALED_SIZE;
+        this.animate = Sprite.DEFAULT_SIZE;
     }
 
     public Entity() {}
@@ -79,7 +83,12 @@ public abstract class Entity {
         gc.drawImage(img, x, y);
     }
     public abstract void update();
-
+    public Rectangle2D getBoundary() {
+        return new Rectangle2D(x, y, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
+    }
+    public boolean intersects1(Entity e) {
+        return e.getBoundary().intersects(this.getBoundary());
+    }
     public boolean intersects(Entity obj) {
         return obj.intersects(this, obj.getX() + obj.getImg().getWidth() / 2 , obj.getY() + obj.getImg().getHeight() / 2);
     }
@@ -97,26 +106,29 @@ public abstract class Entity {
     }
     public boolean checkBoundsBrick() {
         for (Entity e : EntityArr.bricks) {
-            if (this.intersects(e)) return true;
+            if (this.intersects1(e)) return true;
         }
         return false;
     }
 
     public boolean checkBoundsBomb() {
         for (Entity e : EntityArr.bombs) {
-            if (this.intersects(e)) return true;
+            if (this.intersects1(e)) return true;
         }
         return false;
     }
 
     public boolean checkBoundsWall() {
         for (Entity e : EntityArr.walls) {
-            if (this.intersects(e)) return true;
+            if (this.intersects1(e)) return true;
         }
         return false;
     }
 
     public boolean isAlive() {
-        return isAlive ();
+        return isAlive;
+    }
+    public void setAlive(boolean alive) {
+        isAlive = alive;
     }
 }

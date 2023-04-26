@@ -3,6 +3,7 @@ package uet.oop.bomberman.entities;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.animation.FlameAnimation;
 import uet.oop.bomberman.entities.bomber.Bomber;
+import uet.oop.bomberman.entities.enemy.Enemy;
 import uet.oop.bomberman.graphics.Sprite;
 
 import static uet.oop.bomberman.entities.EntityArr.*;
@@ -36,6 +37,7 @@ public class Flame extends Entity {
 
     public void update() {
         this.animation.setSprite(this);
+        checkEnemy();
     }
     public static void addFlame(int xUnit, int yUnit) {
         if (EntityArr.getBombers().size() == 0) {
@@ -148,5 +150,11 @@ public class Flame extends Entity {
             }
         }
     }
-
+    protected void checkEnemy() {
+        for (Entity e : EntityArr.enemies) {
+            if (this.intersects(e)) {
+                e.setAlive(false);
+            }
+        }
+    }
 }

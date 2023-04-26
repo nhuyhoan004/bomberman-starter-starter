@@ -19,13 +19,7 @@ public class Bomber extends MovingEntity {
     private int bomb = 1;
     private int flame = 1;
 
-     /*
 
-    public static int swapKill = 1;
-    public static int countKill = 0;
-
-
-      */
 
     public Bomber() {}
 

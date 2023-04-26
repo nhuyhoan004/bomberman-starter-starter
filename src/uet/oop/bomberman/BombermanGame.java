@@ -16,9 +16,6 @@ import uet.oop.bomberman.graphics.CreateMap;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static uet.oop.bomberman.controls.Menu.updateMenu;
 import static uet.oop.bomberman.entities.EntityArr.*;
 
@@ -34,13 +31,12 @@ public class BombermanGame extends Application {
     public static int width = 0;
     public static int height = 0;
 
-    public static int[][] idObjects;    //Two-dimensional array is used to test paths
+
     private GraphicsContext gc;
-    public static int[][] killList;
     private Canvas canvas;
 
 
-    public static MovingEntity player;
+    public static MovingEntity bomber;
     public static boolean running;
 
     public static void main(String[] args) {
@@ -91,58 +87,15 @@ public class BombermanGame extends Application {
                     CreateMap.createMap(); // Tạo bản đồ mới
                 }
                 EntityArr.removeEnemy ();
-
+                EntityArr.removeBrick();
             }
         };
         timer.start();
-        player = new Bomber(1, 1, Sprite.player_right_2.getFxImage());
+        bomber = new Bomber(1, 1, Sprite.player_right_2.getFxImage());
         CreateMap.createMap();
     }
 
-    public void update() {
-        EntityArr.getBombers().forEach(Entity::update);
-        EntityArr.getDeads().forEach(Entity::update);
-        EntityArr.getBombs().forEach(Entity::update);
-        EntityArr.getFlames().forEach(Entity::update);
-        EntityArr.enemies.forEach(Entity::update);
 
-
-        for (int i = 0; i < EntityArr.getBombers().size(); i++) {
-            ((Bomber)EntityArr.getBombers().get(i)).handleKeyPress(this.scene);
-        }
-        for (int i = 0; i < EntityArr.getBombs().size(); i++) {
-            for (int j = 0; j < EntityArr.getBombers().size(); j++) {
-                Bomber bomber = (Bomber) EntityArr.getBombers().get(j);
-                ((Bomb)EntityArr.getBombs().get(i)).checkCharacterPassability(bomber);
-            }
-        }
-
-        Bomb.addBomb();
-        this.handleCollision();
-        Flame.removeFinishedElements();
-        Flame.removeDeadEntity();
-
-        if (EntityArr.getBombers().size() == 0 && EntityArr.getDeads().size() == 0) {
-            lose = true;
-        }
-    }
-
-    public void render() {
-        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        grasses.forEach(g -> g.render(gc));
-        portals.forEach(g -> g.render(gc));
-        walls.forEach(g -> g.render(gc));
-        EntityArr.getGrasses ().forEach(g -> g.render(gc));
-        EntityArr.getWalls ().forEach(g -> g.render(gc));
-        EntityArr.getBombs().forEach(g -> g.render(gc));
-        EntityArr.getDeads().forEach(g -> g.render(gc));
-        EntityArr.getFlames().forEach(g -> g.render(gc));
-        EntityArr.getBombers().forEach(g -> g.render(gc));
-        bricks.forEach(g -> g.render(gc));
-        EntityArr.enemies.forEach(g -> {
-            if (g.isAlive()) g.render(gc);
-        });
-    }
 
 /**
 xử lí va chạm
@@ -168,7 +121,9 @@ xử lí va chạm
             }
             if (!bomber.isWallPass()) {
                 for (int i = 0; i < bricks.size(); i++) {
-                    bomber.checkObjectMovementAbility(bricks.get(i));
+                    if (bricks.get(i).isAlive()) {
+                        bomber.checkObjectMovementAbility(bricks.get(i));
+                    }
                 }
             }
             for (int i = 0; i < bombs.size(); i++) {
@@ -213,5 +168,52 @@ xử lí va chạm
         }
         return false;
     };
+
+    public void render() {
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        portals.forEach(g -> g.render(gc));
+        EntityArr.getGrasses ().forEach(g -> g.render(gc));
+        walls.forEach(g -> g.render(gc));
+        EntityArr.enemies.forEach(g -> {
+            if (g.isAlive()) g.render(gc);
+        });
+        EntityArr.getWalls ().forEach(g -> g.render(gc));
+        EntityArr.getBombs().forEach(g -> g.render(gc));
+        EntityArr.getDeads().forEach(g -> g.render(gc));
+        bricks.forEach(g -> {if (g.isAlive()) g.render(gc);
+        });
+        EntityArr.getFlames().forEach(g -> g.render(gc));
+        EntityArr.getBombers().forEach(g -> g.render(gc));
+
+    }
+
+    public void update() {
+        EntityArr.getBombers().forEach(Entity::update);
+        EntityArr.getDeads().forEach(Entity::update);
+        EntityArr.getBombs().forEach(Entity::update);
+        bricks.forEach(Entity::update);
+        EntityArr.getFlames().forEach(Entity::update);
+        EntityArr.enemies.forEach(Entity::update);
+
+
+        for (int i = 0; i < EntityArr.getBombers().size(); i++) {
+            ((Bomber)EntityArr.getBombers().get(i)).handleKeyPress(this.scene);
+        }
+        for (int i = 0; i < EntityArr.getBombs().size(); i++) {
+            for (int j = 0; j < EntityArr.getBombers().size(); j++) {
+                Bomber bomber = (Bomber) EntityArr.getBombers().get(j);
+                ((Bomb)EntityArr.getBombs().get(i)).checkCharacterPassability(bomber);
+            }
+        }
+
+        Bomb.addBomb();
+        this.handleCollision();
+        Flame.removeFinishedElements();
+        Flame.removeDeadEntity();
+        if (EntityArr.getBombers().size() == 0 && EntityArr.getDeads().size() == 0) {
+            lose = true;
+        }
+
+    }
 
 }

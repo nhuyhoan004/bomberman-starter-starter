@@ -1,5 +1,6 @@
 package uet.oop.bomberman.entities;
 
+import uet.oop.bomberman.entities.block.Brick;
 import uet.oop.bomberman.entities.bomber.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.entities.enemy.Enemy;
@@ -57,6 +58,17 @@ public class EntityArr {
             if (!enemy.isAlive()) {
                 Sound.play("AA126_11");
                 enemyIterator.remove();
+            }
+        }
+    }
+
+    public static void removeBrick() {
+        ListIterator<Entity> brickIterator = bricks.listIterator();
+        while (brickIterator.hasNext()) {
+            Brick brick = (Brick) brickIterator.next();
+            if (!brick.isAlive()) {
+                Sound.play("AA126_11");
+                brickIterator.remove();
             }
         }
     }

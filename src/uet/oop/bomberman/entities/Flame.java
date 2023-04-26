@@ -2,10 +2,13 @@ package uet.oop.bomberman.entities;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.animation.FlameAnimation;
+import uet.oop.bomberman.entities.block.Brick;
+import uet.oop.bomberman.entities.block.Grass;
 import uet.oop.bomberman.entities.bomber.Bomber;
 import uet.oop.bomberman.entities.enemy.Enemy;
 import uet.oop.bomberman.graphics.Sprite;
 
+import static uet.oop.bomberman.BombermanGame.bomber;
 import static uet.oop.bomberman.entities.EntityArr.*;
 import static uet.oop.bomberman.graphics.Sprite.brick;
 
@@ -38,6 +41,7 @@ public class Flame extends Entity {
     public void update() {
         this.animation.setSprite(this);
         checkEnemy ();
+        checkBricks();
     }
     public static void addFlame(int xUnit, int yUnit) {
         if (EntityArr.getBombers().size() == 0) {
@@ -103,6 +107,7 @@ public class Flame extends Entity {
             EntityArr.getFlames().add(flame);
         }
     }
+
     /**
      * Xoa nhung doi tuong co hp <= 0 khoi cac list
      */
@@ -114,6 +119,7 @@ public class Flame extends Entity {
             addFlame(bombs.get(i).getX() / Sprite.SCALED_SIZE, bombs.get(i).getY() / Sprite.SCALED_SIZE);
             bombs.remove(i--);
         }
+
         for (int i = 0; i < EntityArr.getBricks().size(); i++) {
             if (EntityArr.getBricks().get(i).getHp() <= 0) {
                 deads.add(bricks.get(i));
@@ -147,6 +153,19 @@ public class Flame extends Entity {
         for (Entity e : EntityArr.enemies) {
             if (this.intersects1(e)) {
                 e.setAlive(false);
+            }
+        }
+    }
+
+    public void checkBricks() {
+        for (Entity dead : bricks) {
+            if (dead instanceof Brick) {
+                if (this.intersects(dead)) {
+                    dead.setImg(Sprite.grass.getFxImage());
+                    dead = new Grass(dead.getX(), dead.getY(), Sprite.grass.getFxImage());
+                    bomber.checkObjectMovementAbility(dead);
+                    dead.setAlive(false);
+                }
             }
         }
     }

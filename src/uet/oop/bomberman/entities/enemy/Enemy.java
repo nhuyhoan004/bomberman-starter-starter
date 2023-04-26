@@ -85,6 +85,7 @@ public abstract class Enemy extends MovingEntity {
         int n = rd.nextInt(4);
         direction(n);
     }
+
     public void randomSpeed() {
         Random random = new Random();
         int num = random.nextInt(10);
@@ -113,6 +114,7 @@ public abstract class Enemy extends MovingEntity {
         }
         return -1;
     }
+
     public void chaseBomber() {
         if (getY() == EntityArr.bomberman.getY()) {
             direction(sameRow());

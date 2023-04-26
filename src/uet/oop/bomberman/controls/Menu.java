@@ -46,7 +46,7 @@ public class Menu {
         root.getChildren().add(pane);
 
         statusGame.setOnMouseClicked(event -> {
-            if (player.isLife()) {
+            if (bomber.isLife()) {
                 // nếu người chơi còn mạng, game tiếp tục
                 running = !running;
             } else {
@@ -66,7 +66,7 @@ public class Menu {
 
         // display number of column;
 
-        if (player.isLife()) {
+        if (bomber.isLife()) {
             if (running) {
                 Image pauseGame = new Image("images/pauseGame.png");
                 statusGame.setImage(pauseGame);

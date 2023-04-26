@@ -8,6 +8,7 @@ import uet.oop.bomberman.entities.block.Portal;
 import uet.oop.bomberman.entities.block.Wall;
 import uet.oop.bomberman.entities.bomber.Bomber;
 import uet.oop.bomberman.entities.enemy.Balloon;
+import uet.oop.bomberman.entities.enemy.Doll;
 import uet.oop.bomberman.entities.enemy.Enemy;
 import uet.oop.bomberman.sound.Sound;
 
@@ -112,8 +113,10 @@ public class CreateMap {
                 else if ('0' <= c && c <= '9') {
                     if (c == '1') {
                         object = new Balloon (j, i, Sprite.balloom_left1.getFxImage ());
-                        EntityArr.enemies.add(object);
+                    } else if (c == '2') {
+                        object = new Doll(j,i, Sprite.doll_left2.getFxImage());
                     }
+                    enemies.add (object);
                 }
                 else {
                     // brick

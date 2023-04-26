@@ -1,5 +1,7 @@
 package uet.oop.bomberman.entities;
 
+import uet.oop.bomberman.entities.bomber.Bomber;
+import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.entities.enemy.Enemy;
 
 import java.util.List;
@@ -16,6 +18,7 @@ public class EntityArr {
     public static List<Entity> enemies = new ArrayList<>();
     public static final List<String> mapList = new ArrayList<String>();
     public static final List<String> map = new ArrayList<String>();
+    public static Bomber bomberman = new Bomber (1, 1, Sprite.player_right.getFxImage());
     public static List<Entity> getDeads() {
         return deads;
     }

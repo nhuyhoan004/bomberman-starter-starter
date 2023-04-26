@@ -93,5 +93,30 @@ public abstract class Enemy extends Entity {
             this.setSpeed(2);
         }
     }
+    public int sameRow() {
+        if (getX() > EntityArr.bomberman.getX()) {
+            return LEFT;
+        }
+        else if (getX() < EntityArr.bomberman.getX()) {
+            return RIGHT;
+        }
+        return -1;
+    }
 
+    public int sameColumn() {
+        if (getY() > EntityArr.bomberman.getY()) {
+            return UP;
+        }
+        else if (getY() < EntityArr.bomberman.getY()) {
+            return DOWN;
+        }
+        return -1;
+    }
+    public void chaseBomber() {
+        if (getY() == EntityArr.bomberman.getY()) {
+            direction(sameRow());
+        } else if (getX() == EntityArr.bomberman.getX()) {
+            direction(sameColumn());
+        }
+    }
 }

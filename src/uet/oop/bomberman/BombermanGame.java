@@ -90,6 +90,8 @@ public class BombermanGame extends Application {
                     updateMenu();
                     CreateMap.createMap(); // Tạo bản đồ mới
                 }
+                EntityArr.removeEnemy ();
+
             }
         };
         timer.start();

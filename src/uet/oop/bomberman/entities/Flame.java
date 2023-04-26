@@ -37,7 +37,7 @@ public class Flame extends Entity {
 
     public void update() {
         this.animation.setSprite(this);
-        checkEnemy();
+        checkEnemy ();
     }
     public static void addFlame(int xUnit, int yUnit) {
         if (EntityArr.getBombers().size() == 0) {
@@ -127,13 +127,6 @@ public class Flame extends Entity {
                 bombers.remove(i--);
             }
         }
-
-        for (int i = 0; i < enemies.size(); i++) {
-            if (enemies.get(i).getHp() <= 0) {
-                deads.add(enemies.get(i));
-                enemies.remove(i--);
-            }
-        }
     }
 
 
@@ -152,7 +145,7 @@ public class Flame extends Entity {
     }
     protected void checkEnemy() {
         for (Entity e : EntityArr.enemies) {
-            if (this.intersects(e)) {
+            if (this.intersects1(e)) {
                 e.setAlive(false);
             }
         }

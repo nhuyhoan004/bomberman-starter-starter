@@ -2,12 +2,13 @@ package uet.oop.bomberman.entities.enemy;
 
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntityArr;
+import uet.oop.bomberman.entities.MovingEntity;
 import uet.oop.bomberman.graphics.Sprite;
 import javafx.scene.image.Image;
 
 import java.util.Random;
 
-public abstract class Enemy extends Entity {
+public abstract class Enemy extends MovingEntity {
     private int speed = 1;
     private int speedX = this.speed;
     private int speedY = 0;

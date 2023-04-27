@@ -14,8 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static uet.oop.bomberman.entities.EntityArr.portals;
+
 
 public abstract class Entity {
+    private boolean isPortal;
     protected int x;
     protected int y;
     protected Image img;
@@ -79,6 +82,14 @@ public abstract class Entity {
 
     public Entity() {}
 
+    public boolean getPortal() {
+        return isPortal;
+    }
+
+    public void setPortal(boolean isPortal) {
+        this.isPortal = isPortal;
+    }
+
     public void render(GraphicsContext gc) {
         gc.drawImage(img, x, y);
     }
@@ -131,4 +142,7 @@ public abstract class Entity {
     public void setAlive(boolean alive) {
         isAlive = alive;
     }
+
+
+
 }

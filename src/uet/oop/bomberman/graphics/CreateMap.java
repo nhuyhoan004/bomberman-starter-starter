@@ -45,19 +45,18 @@ public class CreateMap {
     /**
      * Doc du lieu tu file txt va ghi vao list map.
      */
-    public static void readDataFromFile() {
+    public static void readDataFromFile(int _level) {
         map.clear();
 
         try {
-            if (level >= mapList.size()) {
+            if (_level >= mapList.size()) {
                 win = true;
                 return;
             }
 
-            File file = new File(mapList.get(level++));
+            File file = new File(mapList.get(_level));
             Scanner scaner = new Scanner(file);
-            int L;
-            L = scaner.nextInt();
+            int Level = scaner.nextInt();
             height = scaner.nextInt();
             width = scaner.nextInt();
 
@@ -69,16 +68,6 @@ public class CreateMap {
             scaner.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-    }
-    public static void removeEnemy() {
-        ListIterator<Entity> enemyIterator = enemies.listIterator();
-        while (enemyIterator.hasNext()) {
-            Enemy enemy = (Enemy) enemyIterator.next();
-            if (!enemy.isAlive()) {
-                Sound.play("AA126_11");
-                enemyIterator.remove();
-            }
         }
     }
 
@@ -117,23 +106,24 @@ public class CreateMap {
                         object = new Doll(j,i, Sprite.doll_left2.getFxImage());
                     }
                     enemies.add (object);
-                }
-                else {
-                    // brick
-                    if (c == '*') {
+                } else if (c == '*') {
                         object = new Brick(j, i, Sprite.brick.getFxImage());
                         bricks.add(object);
                     }
-                    // portal
-                    if (c == 'x') {
-                        object = new Portal(j, i, Sprite.portal.getFxImage());
-                        portals.add(object);
+                // portal
+                else if (c == 'x') {
+                    object = new Portal(j, i);
+                    if (object.isAlive()) {
+                        object.setImg(Sprite.portal.getFxImage());
+                    } else {
+                        object.setImg(Sprite.grass.getFxImage());
                     }
-                    // wall
-                    if (c == '#') {
-                        object = new Wall(j, i, Sprite.wall.getFxImage());
-                        EntityArr.walls.add(object);
-                    }
+                    portals.add(object);
+                }
+                // wall
+                else if (c == '#') {
+                    object = new Wall(j, i, Sprite.wall.getFxImage());
+                    EntityArr.walls.add(object);
                 }
             }
         }

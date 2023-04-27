@@ -51,7 +51,7 @@ public class Menu {
                 running = !running;
             } else {
                 // player dead, start a new game
-                CreateMap.readDataFromFile();
+                CreateMap.readDataFromFile(0);
                 CreateMap.loadMapListFromFile();
                 running = true;
             }

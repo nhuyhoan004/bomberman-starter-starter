@@ -46,7 +46,7 @@ public class BombermanGame extends Application {
 
     public void start(Stage stage) {
         CreateMap.loadMapListFromFile();
-        CreateMap.readDataFromFile();
+        CreateMap.readDataFromFile(0);
         stage.setTitle(BombermanGame.TITLE);
         stage.setResizable(false);
 
@@ -73,7 +73,7 @@ public class BombermanGame extends Application {
                 }
 
                 if (isGameComplete()) {
-                    CreateMap.readDataFromFile();
+                    CreateMap.readDataFromFile(++level);
 
                     canvas.setHeight(Sprite.SCALED_SIZE * height);
                     canvas.setWidth(Sprite.SCALED_SIZE * width);
@@ -83,7 +83,7 @@ public class BombermanGame extends Application {
                     scene = new Scene(root);
                     stage.setScene(scene);
                     stage.show();
-                    updateMenu();
+                    /*updateMenu();*/
                     CreateMap.createMap(); // Tạo bản đồ mới
                 }
                 EntityArr.removeEnemy ();
@@ -170,30 +170,29 @@ xử lí va chạm
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        portals.forEach(g -> g.render(gc));
         EntityArr.getGrasses ().forEach(g -> g.render(gc));
         walls.forEach(g -> g.render(gc));
         EntityArr.enemies.forEach(g -> {
             if (g.isAlive()) g.render(gc);
         });
         EntityArr.getWalls ().forEach(g -> g.render(gc));
-        EntityArr.getBombs().forEach(g -> g.render(gc));
         EntityArr.getDeads().forEach(g -> g.render(gc));
         bricks.forEach(g -> {if (g.isAlive()) g.render(gc);
         });
+        portals.forEach(g -> g.render(gc));
+        EntityArr.getBombs().forEach(g -> g.render(gc));
         EntityArr.getFlames().forEach(g -> g.render(gc));
         EntityArr.getBombers().forEach(g -> g.render(gc));
-
     }
 
     public void update() {
-        EntityArr.getBombers().forEach(Entity::update);
         EntityArr.getDeads().forEach(Entity::update);
-        EntityArr.getBombs().forEach(Entity::update);
         bricks.forEach(Entity::update);
-        EntityArr.getFlames().forEach(Entity::update);
         EntityArr.enemies.forEach(Entity::update);
-
+        portals.forEach(Entity::update);
+        EntityArr.getFlames().forEach(Entity::update);
+        EntityArr.getBombs().forEach(Entity::update);
+        EntityArr.getBombers().forEach(Entity::update);
 
         for (int i = 0; i < EntityArr.getBombers().size(); i++) {
             ((Bomber)EntityArr.getBombers().get(i)).handleKeyPress(this.scene);

@@ -12,15 +12,15 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 
 public class EntityArr {
-    public static List<Entity> bombers = new ArrayList<> ();
-    public static List<Entity> bombs = new ArrayList<>();
-    public static List<Entity> deads = new ArrayList<>();
-    public static List<Entity> flames = new ArrayList<>();
-    public static List<Entity> grasses = new ArrayList<>();
+    public static final List<Entity> bombers = new ArrayList<> ();
+    public static final List<Entity> bombs = new ArrayList<>();
+    public static final List<Entity> deads = new ArrayList<>();
+    public static final List<Entity> flames = new ArrayList<>();
+    public static final List<Entity> grasses = new ArrayList<>();
     public static final List<Entity> walls = new ArrayList<>();
-    public static List<Entity> portals = new ArrayList<>();
-    public static List<Entity> bricks = new ArrayList<>();
-    public static List<Entity> enemies = new ArrayList<>();
+    public static final List<Entity> portals = new ArrayList<>();
+    public static final List<Entity> bricks = new ArrayList<>();
+    public static final List<Entity> enemies = new ArrayList<>();
     public static final List<String> mapList = new ArrayList<String>();
     public static final List<String> map = new ArrayList<String>();
     public static Bomber bomberman = new Bomber (1, 1, Sprite.player_right.getFxImage());

@@ -8,6 +8,8 @@ import uet.oop.bomberman.entities.bomber.Bomber;
 import uet.oop.bomberman.entities.enemy.Enemy;
 import uet.oop.bomberman.graphics.Sprite;
 
+import java.util.ListIterator;
+
 import static uet.oop.bomberman.BombermanGame.bomber;
 import static uet.oop.bomberman.entities.EntityArr.*;
 import static uet.oop.bomberman.graphics.Sprite.brick;
@@ -158,14 +160,12 @@ public class Flame extends Entity {
     }
 
     public void checkBricks() {
-        for (Entity dead : bricks) {
-            if (dead instanceof Brick) {
-                if (this.intersects(dead)) {
-                    dead.setImg(Sprite.grass.getFxImage());
-                    dead = new Grass(dead.getX(), dead.getY(), Sprite.grass.getFxImage());
-                    bomber.checkObjectMovementAbility(dead);
-                    dead.setAlive(false);
-                }
+        ListIterator<Entity> brickIterator = bricks.listIterator();
+        while (!bricks.isEmpty() && brickIterator.hasNext()) {
+            Entity brickNext = brickIterator.next();
+            if (this.intersects(brickNext)) {
+                brickNext.setImg(Sprite.grass.getFxImage());
+                brickIterator.remove();
             }
         }
     }

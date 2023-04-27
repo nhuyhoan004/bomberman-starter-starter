@@ -49,6 +49,7 @@ public class FlameAnimation extends Animation {
     public FlameAnimation() {
     }
 
+
     public void setSprite(Entity entity) {
         if (!(entity instanceof Flame)) {
             return;

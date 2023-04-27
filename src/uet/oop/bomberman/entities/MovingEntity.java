@@ -174,6 +174,47 @@ public abstract class MovingEntity extends Entity {
                     this.ableToMoveDown = false;
                 }
             }
+        } else {
+            if (this instanceof Bomber) {
+                left1 = this.intersects(obj, this.getX() + 1, this.getY() + 4);
+                left2 = this.intersects(obj, this.getX() + 1, this.getY() + this.getImg().getHeight() - 4);
+                right1 = this.intersects(obj, this.getX() + this.getImg().getWidth() - 7, this.getY() + 4);
+                right2 = this.intersects(obj, this.getX() + this.getImg().getWidth() - 7, this.getY() + this.getImg().getHeight() - 4);
+                up1 = this.intersects(obj, this.getX() + 4, this.getY() + 2);
+                up2 = this.intersects(obj, this.getX() + this.getImg().getWidth() - 10, this.getY() + 2);
+                down1 = this.intersects(obj, this.getX() + 4, this.getY() + this.getImg().getHeight() - 2);
+                down2 = this.intersects(obj, this.getX() + this.getImg().getWidth() - 10, this.getY() + this.getImg().getHeight() - 2);
+            } else {
+                left1 = this.intersects(obj, this.getX(), this.getY() + 1);
+                left2 = this.intersects(obj, this.getX(), this.getY() + this.getImg().getHeight() - 1);
+                right1 = this.intersects(obj, this.getX() + this.getImg().getWidth(), this.getY() + 1);
+                right2 = this.intersects(obj, this.getX() + this.getImg().getWidth(), this.getY() + this.getImg().getHeight() - 1);
+                up1 = this.intersects(obj, this.getX() + 1, this.getY());
+                up2 = this.intersects(obj, this.getX() + this.getImg().getWidth() - 1, this.getY());
+                down1 = this.intersects(obj, this.getX() + 1, this.getY() + this.getImg().getHeight());
+                down2 = this.intersects(obj, this.getX() + this.getImg().getWidth() - 1, this.getY() + this.getImg().getHeight());
+            }
+
+            if (this.ableToMoveLeft) {
+                if (left1 || left2) {
+                    this.ableToMoveLeft = true;
+                }
+            }
+            if (this.ableToMoveRight) {
+                if (right1 || right2) {
+                    this.ableToMoveRight = true;
+                }
+            }
+            if (this.ableToMoveUp) {
+                if (up1 || up2) {
+                    this.ableToMoveUp = true;
+                }
+            }
+            if (this.ableToMoveDown) {
+                if (down1 || down2) {
+                    this.ableToMoveDown = true;
+                }
+            }
         }
     }
 

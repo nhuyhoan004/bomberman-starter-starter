@@ -87,7 +87,6 @@ public class BombermanGame extends Application {
                     CreateMap.createMap(); // Tạo bản đồ mới
                 }
                 EntityArr.removeEnemy ();
-                EntityArr.removeBrick();
             }
         };
         timer.start();

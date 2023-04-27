@@ -62,14 +62,4 @@ public class EntityArr {
         }
     }
 
-    public static void removeBrick() {
-        ListIterator<Entity> brickIterator = bricks.listIterator();
-        while (brickIterator.hasNext()) {
-            Brick brick = (Brick) brickIterator.next();
-            if (!brick.isAlive()) {
-                Sound.play("AA126_11");
-                brickIterator.remove();
-            }
-        }
-    }
 }

@@ -40,6 +40,7 @@ public class Flame extends Entity {
         checkBricks();
         checkFlameItems();
         checkSpeedItems();
+        checkBombItems();
     }
     public static void addFlame(int xUnit, int yUnit) {
         if (EntityArr.getBombers().size() == 0) {
@@ -184,6 +185,17 @@ public class Flame extends Entity {
             if (this.intersects(itemNext)) {
                 itemNext.setAlive(false);
                 itemNext.setImg(Sprite.powerup_speed.getFxImage());
+            }
+        }
+    }
+
+    public void checkBombItems() {
+        ListIterator<Entity> itemIterator = bombItems.listIterator();
+        while (!bombItems.isEmpty() && itemIterator.hasNext()) {
+            Entity itemNext = itemIterator.next();
+            if (this.intersects(itemNext)) {
+                itemNext.setAlive(false);
+                itemNext.setImg(Sprite.powerup_bombs.getFxImage());
             }
         }
     }

@@ -132,6 +132,20 @@ xử lí va chạm
                     }
                 }
             }
+            if (!bomber.isWallPass()) {
+                for (int i = 0; i < bombItems.size(); i++) {
+                    if (bombItems.get(i).isAlive()) {
+                        bomber.checkObjectMovementAbility(bombItems.get(i));
+                    }
+                }
+            }
+            if (!bomber.isWallPass()) {
+                for (int i = 0; i < speedItems.size(); i++) {
+                    if (speedItems.get(i).isAlive()) {
+                        bomber.checkObjectMovementAbility(speedItems.get(i));
+                    }
+                }
+            }
             for (int i = 0; i < bombs.size(); i++) {
                 if (((Bomb)bombs.get(i)).isPassable()) {
                     continue;
@@ -153,11 +167,20 @@ xử lí va chạm
             }
             // va chạm với speedItem
             ListIterator<Entity> sItemIterator = speedItems.listIterator();
-            while (!flameItems.isEmpty() && sItemIterator.hasNext()) {
-                Entity itemNext = itemIterator.next();
+            while (!speedItems.isEmpty() && sItemIterator.hasNext()) {
+                Entity itemNext = sItemIterator.next();
                 if (bomber.intersects(itemNext)) {
                     bomber.setSpeed(2);
                     sItemIterator.remove();
+                }
+            }
+            // va chạm với bombItem
+            ListIterator<Entity> bItemIterator = bombItems.listIterator();
+            while (!bombItems.isEmpty() && bItemIterator.hasNext()) {
+                Entity itemNext = bItemIterator.next();
+                if (bomber.intersects(itemNext)) {
+                    bomber.setBomb(2);
+                    bItemIterator.remove();
                 }
             }
             for (int i = 0; i < portals.size(); i++) {
@@ -205,6 +228,7 @@ xử lí va chạm
         EntityArr.getWalls ().forEach(g -> g.render(gc));
         flameItems.forEach(g -> g.render(gc));
         speedItems.forEach(g -> g.render(gc));
+        bombItems.forEach(g -> g.render(gc));
         bricks.forEach(g -> {if (g.isAlive()) g.render(gc);
         });
         EntityArr.getDeads().forEach(g -> g.render(gc));
@@ -220,6 +244,7 @@ xử lí va chạm
         EntityArr.getFlames().forEach(Entity::update);
         flameItems.forEach(Entity::update);
         speedItems.forEach(Entity::update);
+        bombItems.forEach(Entity::update);
         bricks.forEach(Entity::update);
         EntityArr.getBombs().forEach(Entity::update);
         EntityArr.getBombers().forEach(Entity::update);

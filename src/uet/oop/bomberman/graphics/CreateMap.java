@@ -8,6 +8,7 @@ import uet.oop.bomberman.entities.block.Portal;
 import uet.oop.bomberman.entities.block.Wall;
 import uet.oop.bomberman.entities.bomber.Bomber;
 import uet.oop.bomberman.entities.enemy.*;
+import uet.oop.bomberman.entities.items.BombItem;
 import uet.oop.bomberman.entities.items.FlameItem;
 import uet.oop.bomberman.entities.items.SpeedItem;
 import uet.oop.bomberman.sound.Sound;
@@ -126,7 +127,8 @@ public class CreateMap {
                 }
                 // bomb item
                 else if (c == 'b') {
-
+                    object = new BombItem(j, i, Sprite.brick.getFxImage());
+                    bombItems.add(object);
                 }
                 // flame item
                 else if (c == 'f') {

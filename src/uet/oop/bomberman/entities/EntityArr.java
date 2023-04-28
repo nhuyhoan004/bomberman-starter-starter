@@ -25,6 +25,7 @@ public class EntityArr {
     public static final List<String> map = new ArrayList<>();
     public static final List<Entity> flameItems = new ArrayList<>();
     public static final List<Entity> speedItems = new ArrayList<>();
+    public static final List<Entity> bombItems = new ArrayList<>();
 
     public static List<Entity> getDeads() {
         return deads;

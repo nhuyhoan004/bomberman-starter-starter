@@ -1,11 +1,15 @@
 package uet.oop.bomberman.entities.enemy;
+import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.MovingEntity;
 import uet.oop.bomberman.graphics.Sprite;
 import javafx.scene.image.Image;
+import uet.oop.bomberman.sound.Sound;
 
+import java.util.ListIterator;
 import java.util.Random;
 
 import static uet.oop.bomberman.BombermanGame.bomber;
+import static uet.oop.bomberman.entities.EntityArr.enemies;
 
 public abstract class Enemy extends MovingEntity {
     private int speed = 1;
@@ -111,6 +115,16 @@ public abstract class Enemy extends MovingEntity {
             direction(sameRow());
         } else if (getX() == bomber.getX()) {
             direction(sameColumn());
+        }
+    }
+    public static void removeEnemy() {
+        ListIterator<Entity> enemyIterator = enemies.listIterator();
+        while (enemyIterator.hasNext()) {
+            Enemy enemy = (Enemy) enemyIterator.next();
+            if (!enemy.isAlive()) {
+                Sound.play("AA126_11");
+                enemyIterator.remove();
+            }
         }
     }
 }

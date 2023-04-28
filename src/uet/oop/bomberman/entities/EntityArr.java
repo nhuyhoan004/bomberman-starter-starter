@@ -49,15 +49,4 @@ public class EntityArr {
     public static List<Entity> getBricks() {
         return bricks;
     }
-    public static void removeEnemy() {
-        ListIterator<Entity> enemyIterator = enemies.listIterator();
-        while (enemyIterator.hasNext()) {
-            Enemy enemy = (Enemy) enemyIterator.next();
-            if (!enemy.isAlive()) {
-                Sound.play("AA126_11");
-                enemyIterator.remove();
-            }
-        }
-    }
-
 }

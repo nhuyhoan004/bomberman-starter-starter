@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import uet.oop.bomberman.entities.block.Bomb;
 import uet.oop.bomberman.entities.bomber.Bomber;
 import uet.oop.bomberman.entities.*;
+import uet.oop.bomberman.entities.enemy.Enemy;
 import uet.oop.bomberman.graphics.CreateMap;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
@@ -85,7 +86,7 @@ public class BombermanGame extends Application {
                     /*updateMenu();*/
                     CreateMap.createMap(); // Tạo bản đồ mới
                 }
-                EntityArr.removeEnemy ();
+                Enemy.removeEnemy ();
             }
         };
         timer.start();

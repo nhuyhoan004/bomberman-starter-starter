@@ -16,6 +16,8 @@ import uet.oop.bomberman.graphics.CreateMap;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
 
+import java.util.ListIterator;
+
 import static uet.oop.bomberman.controls.Menu.updateMenu;
 import static uet.oop.bomberman.entities.EntityArr.*;
 
@@ -35,8 +37,7 @@ public class BombermanGame extends Application {
     private GraphicsContext gc;
     private Canvas canvas;
 
-
-    public static MovingEntity bomber;
+    public static Bomber bomber = new Bomber (1, 1, Sprite.player_right.getFxImage());
     public static boolean running;
 
     public static void main(String[] args) {
@@ -111,7 +112,6 @@ xử lí va chạm
                     break;
                 }
             }
-
             for (int i = 0; i < enemies.size(); i++) {
                 if (bomber.intersects(enemies.get(i))) {
                     bomber.setHp(0);
@@ -125,6 +125,13 @@ xử lí va chạm
                     }
                 }
             }
+            if (!bomber.isWallPass()) {
+                for (int i = 0; i < flameItems.size(); i++) {
+                    if (flameItems.get(i).isAlive()) {
+                        bomber.checkObjectMovementAbility(flameItems.get(i));
+                    }
+                }
+            }
             for (int i = 0; i < bombs.size(); i++) {
                 if (((Bomb)bombs.get(i)).isPassable()) {
                     continue;
@@ -133,6 +140,25 @@ xử lí va chạm
             }
             for (int i = 0; i < walls.size(); i++) {
                 bomber.checkObjectMovementAbility(walls.get(i));
+            }
+            // va chạm với flameItem
+            ListIterator<Entity> itemIterator = flameItems.listIterator();
+            while (!flameItems.isEmpty() && itemIterator.hasNext()) {
+                Entity itemNext = itemIterator.next();
+                if (bomber.intersects(itemNext)) {
+                    int power = bomber.getFlame() + 2;
+                    bomber.setFlame(power);
+                    itemIterator.remove();
+                }
+            }
+            // va chạm với speedItem
+            ListIterator<Entity> sItemIterator = speedItems.listIterator();
+            while (!flameItems.isEmpty() && sItemIterator.hasNext()) {
+                Entity itemNext = itemIterator.next();
+                if (bomber.intersects(itemNext)) {
+                    bomber.setSpeed(2);
+                    sItemIterator.remove();
+                }
             }
             for (int i = 0; i < portals.size(); i++) {
                 if (bomber.intersects(portals.get(i)) && enemies.size() == 0) {
@@ -171,26 +197,30 @@ xử lí va chạm
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         EntityArr.getGrasses ().forEach(g -> g.render(gc));
-        walls.forEach(g -> g.render(gc));
+        portals.forEach(g -> {if (g.isAlive()) g.render(gc);
+        });
         EntityArr.enemies.forEach(g -> {
             if (g.isAlive()) g.render(gc);
         });
         EntityArr.getWalls ().forEach(g -> g.render(gc));
-        EntityArr.getDeads().forEach(g -> g.render(gc));
+        flameItems.forEach(g -> g.render(gc));
+        speedItems.forEach(g -> g.render(gc));
         bricks.forEach(g -> {if (g.isAlive()) g.render(gc);
         });
-        portals.forEach(g -> g.render(gc));
+        EntityArr.getDeads().forEach(g -> g.render(gc));
         EntityArr.getBombs().forEach(g -> g.render(gc));
         EntityArr.getFlames().forEach(g -> g.render(gc));
         EntityArr.getBombers().forEach(g -> g.render(gc));
     }
 
     public void update() {
-        EntityArr.getDeads().forEach(Entity::update);
-        bricks.forEach(Entity::update);
         EntityArr.enemies.forEach(Entity::update);
         portals.forEach(Entity::update);
+        EntityArr.getDeads().forEach(Entity::update);
         EntityArr.getFlames().forEach(Entity::update);
+        flameItems.forEach(Entity::update);
+        speedItems.forEach(Entity::update);
+        bricks.forEach(Entity::update);
         EntityArr.getBombs().forEach(Entity::update);
         EntityArr.getBombers().forEach(Entity::update);
 

@@ -2,17 +2,11 @@ package uet.oop.bomberman.entities;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.animation.FlameAnimation;
-import uet.oop.bomberman.entities.block.Brick;
-import uet.oop.bomberman.entities.block.Grass;
 import uet.oop.bomberman.entities.bomber.Bomber;
-import uet.oop.bomberman.entities.enemy.Enemy;
 import uet.oop.bomberman.graphics.Sprite;
-
 import java.util.ListIterator;
-
-import static uet.oop.bomberman.BombermanGame.bomber;
 import static uet.oop.bomberman.entities.EntityArr.*;
-import static uet.oop.bomberman.graphics.Sprite.brick;
+
 
 public class Flame extends Entity {
     private String classification;
@@ -44,6 +38,8 @@ public class Flame extends Entity {
         this.animation.setSprite(this);
         checkEnemy ();
         checkBricks();
+        checkFlameItems();
+        checkSpeedItems();
     }
     public static void addFlame(int xUnit, int yUnit) {
         if (EntityArr.getBombers().size() == 0) {
@@ -166,6 +162,28 @@ public class Flame extends Entity {
             if (this.intersects(brickNext)) {
                 brickNext.setImg(Sprite.grass.getFxImage());
                 brickIterator.remove();
+            }
+        }
+    }
+
+    public void checkFlameItems() {
+        ListIterator<Entity> itemIterator = flameItems.listIterator();
+        while (!flameItems.isEmpty() && itemIterator.hasNext()) {
+            Entity itemNext = itemIterator.next();
+            if (this.intersects(itemNext)) {
+                itemNext.setAlive(false);
+                itemNext.setImg(Sprite.powerup_flames.getFxImage());
+            }
+        }
+    }
+
+    public void checkSpeedItems() {
+        ListIterator<Entity> itemIterator = speedItems.listIterator();
+        while (!speedItems.isEmpty() && itemIterator.hasNext()) {
+            Entity itemNext = itemIterator.next();
+            if (this.intersects(itemNext)) {
+                itemNext.setAlive(false);
+                itemNext.setImg(Sprite.powerup_speed.getFxImage());
             }
         }
     }

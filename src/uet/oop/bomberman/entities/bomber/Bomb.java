@@ -13,29 +13,6 @@ public class Bomb extends Entity {
     private boolean isPassable = true;
     private static final int time = 150;
     private int count = 0;
-    private static long timeBomb;
-    private static long timeTmp;
-    private static Entity bomb;
-    private static int swapActive = 1;
-    private static int swapExplosion = 1;
-
-    private static final List<Entity> listBombleW = new ArrayList<>();
-    private static final List<Entity> listBombleH = new ArrayList<>();
-    public static int powerBomb = 0;
-    private static int powerBombD = 0;
-    private static int powerBombU = 0;
-    private static int powerBombL = 0;
-    private static int powerBombR = 0;
-    private static Entity edge_down = null;
-    private static Entity edge_up = null;
-    private static Entity edge_left = null;
-    private static Entity edge_right = null;
-    // thuộc tính cho phương thức kiểm tra xem bomb có nổ ở rìa không
-    private static boolean isEdge = false;
-    // thuộc tính cho phương thức kiểm tra xem bomb có nổ tứ phía k
-    private static boolean isMiddle = false;
-
-    public static int isBomb = 0;
 
     public Bomb(int x, int y, Image img) {
         super(x, y, img);

@@ -21,9 +21,11 @@ public class EntityArr {
     public static final List<Entity> portals = new ArrayList<>();
     public static final List<Entity> bricks = new ArrayList<>();
     public static final List<Entity> enemies = new ArrayList<>();
-    public static final List<String> mapList = new ArrayList<String>();
-    public static final List<String> map = new ArrayList<String>();
-    public static Bomber bomberman = new Bomber (1, 1, Sprite.player_right.getFxImage());
+    public static final List<String> mapList = new ArrayList<>();
+    public static final List<String> map = new ArrayList<>();
+    public static final List<Entity> flameItems = new ArrayList<>();
+    public static final List<Entity> speedItems = new ArrayList<>();
+
     public static List<Entity> getDeads() {
         return deads;
     }

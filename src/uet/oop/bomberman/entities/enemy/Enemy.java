@@ -8,6 +8,8 @@ import javafx.scene.image.Image;
 
 import java.util.Random;
 
+import static uet.oop.bomberman.BombermanGame.bomber;
+
 public abstract class Enemy extends MovingEntity {
     private int speed = 1;
     private int speedX = this.speed;
@@ -96,29 +98,29 @@ public abstract class Enemy extends MovingEntity {
         }
     }
     public int sameRow() {
-        if (getX() > EntityArr.bomberman.getX()) {
+        if (getX() > bomber.getX()) {
             return LEFT;
         }
-        else if (getX() < EntityArr.bomberman.getX()) {
+        else if (getX() < bomber.getX()) {
             return RIGHT;
         }
         return -1;
     }
 
     public int sameColumn() {
-        if (getY() > EntityArr.bomberman.getY()) {
+        if (getY() > bomber.getY()) {
             return UP;
         }
-        else if (getY() < EntityArr.bomberman.getY()) {
+        else if (getY() < bomber.getY()) {
             return DOWN;
         }
         return -1;
     }
 
     public void chaseBomber() {
-        if (getY() == EntityArr.bomberman.getY()) {
+        if (getY() == bomber.getY()) {
             direction(sameRow());
-        } else if (getX() == EntityArr.bomberman.getX()) {
+        } else if (getX() == bomber.getX()) {
             direction(sameColumn());
         }
     }

@@ -8,6 +8,8 @@ import uet.oop.bomberman.entities.block.Portal;
 import uet.oop.bomberman.entities.block.Wall;
 import uet.oop.bomberman.entities.bomber.Bomber;
 import uet.oop.bomberman.entities.enemy.*;
+import uet.oop.bomberman.entities.items.FlameItem;
+import uet.oop.bomberman.entities.items.SpeedItem;
 import uet.oop.bomberman.sound.Sound;
 
 import java.io.File;
@@ -53,17 +55,17 @@ public class CreateMap {
             }
 
             File file = new File(mapList.get(_level));
-            Scanner scaner = new Scanner(file);
-            int Level = scaner.nextInt();
-            height = scaner.nextInt();
-            width = scaner.nextInt();
+            Scanner scanner = new Scanner(file);
+            int Level = scanner.nextInt();
+            height = scanner.nextInt();
+            width = scanner.nextInt();
 
-            String line = scaner.nextLine();
+            String line = scanner.nextLine();
             for (int i = 0; i < height; i++) {
-                line = scaner.nextLine();
+                line = scanner.nextLine();
                 map.add(line);
             }
-            scaner.close();
+            scanner.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -114,18 +116,27 @@ public class CreateMap {
                     }
                 // portal
                 else if (c == 'x') {
-                    object = new Portal(j, i);
-                    if (object.isAlive()) {
-                        object.setImg(Sprite.portal.getFxImage());
-                    } else {
-                        object.setImg(Sprite.grass.getFxImage());
-                    }
+                    object = new Portal(j, i, Sprite.grass.getFxImage());
                     portals.add(object);
                 }
                 // wall
                 else if (c == '#') {
                     object = new Wall(j, i, Sprite.wall.getFxImage());
                     EntityArr.walls.add(object);
+                }
+                // bomb item
+                else if (c == 'b') {
+
+                }
+                // flame item
+                else if (c == 'f') {
+                    object = new FlameItem(j, i, Sprite.brick.getFxImage());
+                    flameItems.add(object);
+                }
+                // speed item
+                else if (c == 's') {
+                    object = new SpeedItem(j, i,Sprite.brick.getFxImage());
+                    speedItems.add(object);
                 }
             }
         }

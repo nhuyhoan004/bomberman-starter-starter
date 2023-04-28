@@ -4,6 +4,8 @@ import uet.oop.bomberman.entities.EntityArr;
 import uet.oop.bomberman.graphics.Sprite;
 import javafx.scene.image.Image;
 
+import static uet.oop.bomberman.BombermanGame.bomber;
+
 public class Doll extends Enemy {
     public Doll(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
@@ -12,8 +14,8 @@ public class Doll extends Enemy {
     @Override
     public void update() {
         if (isAlive()) {
-            int distanceX = Math.abs(getX() - EntityArr.bomberman.getX());
-            int distanceY = Math.abs(getY() - EntityArr.bomberman.getY());
+            int distanceX = Math.abs(getX() - bomber.getX());
+            int distanceY = Math.abs(getY() - bomber.getY());
             if (this.getSpeedX() == 0) {
                 this.y += this.getSpeedY();
                 if (distanceX <= Sprite.SCALED_SIZE * 10 && distanceY <= Sprite.SCALED_SIZE * 10) {

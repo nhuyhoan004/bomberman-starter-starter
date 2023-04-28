@@ -28,9 +28,7 @@ public class Bomb extends Entity {
     public boolean equals(Object object) {
         if ((object instanceof Bomb)) {
             Bomb bomb = (Bomb) object;
-            if (this.x == bomb.getX() && this.y == bomb.getY()) {
-                return true;
-            }
+            return this.x == bomb.getX () && this.y == bomb.getY ();
         }
         return false;
     }
@@ -51,7 +49,7 @@ public class Bomb extends Entity {
         }
     }
     public static void addBomb() {
-        if (EntityArr.getBombers().size() <= 0) {
+        if (EntityArr.getBombers ().size () == 0) {
             return;
         }
         Bomber bomber = (Bomber) EntityArr.getBombers().get(0);

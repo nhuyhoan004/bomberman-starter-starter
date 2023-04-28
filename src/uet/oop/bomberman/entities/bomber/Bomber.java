@@ -23,11 +23,7 @@ public class Bomber extends MovingEntity {
 
     public Bomber() {}
 
-    public Bomber(int isMove, int swap, String direction, int count, int countToRun) {
-        super(8, 1, "down", 0, 0);
-    }
-
-    public Bomber(int x, int y, Image img) {
+     public Bomber(int x, int y, Image img) {
         super( x, y, img);
         animation = new BomberAnimation();
     }
@@ -65,7 +61,6 @@ public class Bomber extends MovingEntity {
 
     /**
      * Xu ly khi cac phim duoc nhan, nha.
-     * @param scene
      */
     public void handleKeyPress(Scene scene) {
         scene.setOnKeyPressed(event -> {

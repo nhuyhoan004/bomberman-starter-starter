@@ -2,7 +2,6 @@ package uet.oop.bomberman.entities;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.bomber.Bomber;
-import uet.oop.bomberman.entities.Entity;
 
 public abstract class MovingEntity extends Entity {
     protected int speed = 1;
@@ -28,31 +27,8 @@ public abstract class MovingEntity extends Entity {
 
 
     public boolean isWallPass() {
-        return wallPass;
+        return !wallPass;
     }
-
-    public void setWallPass(boolean wallPass) {
-        this.wallPass = wallPass;
-    }
-
-    public boolean isAbleToMoveLeft() {
-        return ableToMoveLeft;
-    }
-
-    public boolean isAbleToMoveRight() {
-        return ableToMoveRight;
-    }
-
-    public boolean isAbleToMoveUp() {
-        return ableToMoveUp;
-    }
-
-    public boolean isAbleToMoveDown() {
-        return ableToMoveDown;
-    }
-
-
-
     public MovingEntity() {}
 
     public MovingEntity(int isMove, int swap, String direction, int count, int countToRun) {
@@ -65,10 +41,6 @@ public abstract class MovingEntity extends Entity {
 
     public MovingEntity(int x, int y, Image img) {
         super( x, y, img);
-    }
-
-    public MovingEntity(boolean life) {
-        this.life = life;
     }
 
     public boolean isLife() {
@@ -123,36 +95,31 @@ public abstract class MovingEntity extends Entity {
     /**
      * Ham kiem tra va cham giua 2 doi tuong.
      * @param obj doi tuong bat ki
-     * @return neu va cham tra ve true, con lai tra ve false
-     */
-
-
-    /**
+     *  neu va cham tra ve true, con lai tra ve false
      * Kiem tra xem mot nhan vat co duoc di sang trai, sang phai, ... hay khong
-     * @param obj
      */
     public void checkObjectMovementAbility(Entity obj) {
         boolean left1, left2, right1, right2, up1, up2, down1, down2;
-        if (obj.isAlive()) {
-            if (this instanceof Bomber) {
-                left1 = this.intersects(obj, this.getX() + 1, this.getY() + 4);
-                left2 = this.intersects(obj, this.getX() + 1, this.getY() + this.getImg().getHeight() - 4);
-                right1 = this.intersects(obj, this.getX() + this.getImg().getWidth() - 7, this.getY() + 4);
-                right2 = this.intersects(obj, this.getX() + this.getImg().getWidth() - 7, this.getY() + this.getImg().getHeight() - 4);
-                up1 = this.intersects(obj, this.getX() + 4, this.getY() + 2);
-                up2 = this.intersects(obj, this.getX() + this.getImg().getWidth() - 10, this.getY() + 2);
-                down1 = this.intersects(obj, this.getX() + 4, this.getY() + this.getImg().getHeight() - 2);
-                down2 = this.intersects(obj, this.getX() + this.getImg().getWidth() - 10, this.getY() + this.getImg().getHeight() - 2);
-            } else {
-                left1 = this.intersects(obj, this.getX(), this.getY() + 1);
-                left2 = this.intersects(obj, this.getX(), this.getY() + this.getImg().getHeight() - 1);
-                right1 = this.intersects(obj, this.getX() + this.getImg().getWidth(), this.getY() + 1);
-                right2 = this.intersects(obj, this.getX() + this.getImg().getWidth(), this.getY() + this.getImg().getHeight() - 1);
-                up1 = this.intersects(obj, this.getX() + 1, this.getY());
-                up2 = this.intersects(obj, this.getX() + this.getImg().getWidth() - 1, this.getY());
-                down1 = this.intersects(obj, this.getX() + 1, this.getY() + this.getImg().getHeight());
-                down2 = this.intersects(obj, this.getX() + this.getImg().getWidth() - 1, this.getY() + this.getImg().getHeight());
-            }
+        if (this instanceof Bomber) {
+            left1 = intersects (obj, this.getX () + 1, this.getY () + 4);
+            left2 = intersects (obj, this.getX () + 1, this.getY () + this.getImg ().getHeight () - 4);
+            right1 = intersects (obj, this.getX () + this.getImg ().getWidth () - 7, this.getY () + 4);
+            right2 = intersects (obj, this.getX () + this.getImg ().getWidth () - 7, this.getY () + this.getImg ().getHeight () - 4);
+            up1 = intersects (obj, this.getX () + 4, this.getY () + 2);
+            up2 = intersects (obj, this.getX () + this.getImg ().getWidth () - 10, this.getY () + 2);
+            down1 = intersects (obj, this.getX () + 4, this.getY () + this.getImg ().getHeight () - 2);
+            down2 = intersects (obj, this.getX () + this.getImg ().getWidth () - 10, this.getY () + this.getImg ().getHeight () - 2);
+        } else {
+            left1 = intersects (obj, this.getX (), this.getY () + 1);
+            left2 = intersects (obj, this.getX (), this.getY () + this.getImg ().getHeight () - 1);
+            right1 = intersects (obj, this.getX () + this.getImg ().getWidth (), this.getY () + 1);
+            right2 = intersects (obj, this.getX () + this.getImg ().getWidth (), this.getY () + this.getImg ().getHeight () - 1);
+            up1 = intersects (obj, this.getX () + 1, this.getY ());
+            up2 = intersects (obj, this.getX () + this.getImg ().getWidth () - 1, this.getY ());
+            down1 = intersects (obj, this.getX () + 1, this.getY () + this.getImg ().getHeight ());
+            down2 = intersects (obj, this.getX () + this.getImg ().getWidth () - 1, this.getY () + this.getImg ().getHeight ());
+        }
+        if (obj.isAlive ()) {
 
             if (this.ableToMoveLeft) {
                 if (left1 || left2) {
@@ -174,53 +141,9 @@ public abstract class MovingEntity extends Entity {
                     this.ableToMoveDown = false;
                 }
             }
-        } else {
-            if (this instanceof Bomber) {
-                left1 = this.intersects(obj, this.getX() + 1, this.getY() + 4);
-                left2 = this.intersects(obj, this.getX() + 1, this.getY() + this.getImg().getHeight() - 4);
-                right1 = this.intersects(obj, this.getX() + this.getImg().getWidth() - 7, this.getY() + 4);
-                right2 = this.intersects(obj, this.getX() + this.getImg().getWidth() - 7, this.getY() + this.getImg().getHeight() - 4);
-                up1 = this.intersects(obj, this.getX() + 4, this.getY() + 2);
-                up2 = this.intersects(obj, this.getX() + this.getImg().getWidth() - 10, this.getY() + 2);
-                down1 = this.intersects(obj, this.getX() + 4, this.getY() + this.getImg().getHeight() - 2);
-                down2 = this.intersects(obj, this.getX() + this.getImg().getWidth() - 10, this.getY() + this.getImg().getHeight() - 2);
-            } else {
-                left1 = this.intersects(obj, this.getX(), this.getY() + 1);
-                left2 = this.intersects(obj, this.getX(), this.getY() + this.getImg().getHeight() - 1);
-                right1 = this.intersects(obj, this.getX() + this.getImg().getWidth(), this.getY() + 1);
-                right2 = this.intersects(obj, this.getX() + this.getImg().getWidth(), this.getY() + this.getImg().getHeight() - 1);
-                up1 = this.intersects(obj, this.getX() + 1, this.getY());
-                up2 = this.intersects(obj, this.getX() + this.getImg().getWidth() - 1, this.getY());
-                down1 = this.intersects(obj, this.getX() + 1, this.getY() + this.getImg().getHeight());
-                down2 = this.intersects(obj, this.getX() + this.getImg().getWidth() - 1, this.getY() + this.getImg().getHeight());
-            }
-
-            if (this.ableToMoveLeft) {
-                if (left1 || left2) {
-                    this.ableToMoveLeft = true;
-                }
-            }
-            if (this.ableToMoveRight) {
-                if (right1 || right2) {
-                    this.ableToMoveRight = true;
-                }
-            }
-            if (this.ableToMoveUp) {
-                if (up1 || up2) {
-                    this.ableToMoveUp = true;
-                }
-            }
-            if (this.ableToMoveDown) {
-                if (down1 || down2) {
-                    this.ableToMoveDown = true;
-                }
-            }
         }
     }
-
     @Override
     public void update() {
-
     }
-
 }

@@ -1,7 +1,4 @@
 package uet.oop.bomberman.entities.enemy;
-
-import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.EntityArr;
 import uet.oop.bomberman.entities.MovingEntity;
 import uet.oop.bomberman.graphics.Sprite;
 import javafx.scene.image.Image;
@@ -27,7 +24,7 @@ public abstract class Enemy extends MovingEntity {
     @Override
     public void update() {
         animate += Sprite.DEFAULT_SIZE / 10;
-    };
+    }
 
     public void setSpeed(int speed) {
         this.speed = speed;
@@ -41,16 +38,8 @@ public abstract class Enemy extends MovingEntity {
         return speedX;
     }
 
-    public void setSpeedX(int speedX) {
-        this.speedX = speedX;
-    }
-
     public int getSpeedY() {
         return speedY;
-    }
-
-    public void setSpeedY(int speedY) {
-        this.speedY = speedY;
     }
 
     public boolean isAlive() {

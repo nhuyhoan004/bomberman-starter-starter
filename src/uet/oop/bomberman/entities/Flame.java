@@ -2,7 +2,6 @@ package uet.oop.bomberman.entities;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.animation.FlameAnimation;
-import uet.oop.bomberman.entities.block.Brick;
 import uet.oop.bomberman.entities.bomber.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
 import java.util.ListIterator;
@@ -99,6 +98,15 @@ public class Flame extends Entity {
                 if (flame.intersects(EntityArr.getWalls().get(j))) {
                     add = false;
                     break;
+                }
+            }
+            if (add) {
+                for (int j = 0; j < bricks.size(); j++) {
+                    if (flame.intersects(bricks.get(j))) {
+                        bricks.get(j).setHp(0);
+                        add = false;
+                        break;
+                    }
                 }
             }
             if (!add) {

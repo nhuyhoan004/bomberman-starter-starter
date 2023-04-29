@@ -159,6 +159,7 @@ xử lí va chạm
             while (!flameItems.isEmpty() && itemIterator.hasNext()) {
                 Entity itemNext = itemIterator.next();
                 if (bomber.intersects(itemNext)) {
+                    Sound.play("Item");
                     int power = bomber.getFlame() + 2;
                     bomber.setFlame(power);
                     itemIterator.remove();
@@ -169,6 +170,7 @@ xử lí va chạm
             while (!speedItems.isEmpty() && sItemIterator.hasNext()) {
                 Entity itemNext = sItemIterator.next();
                 if (bomber.intersects(itemNext)) {
+                    Sound.play("Item");
                     bomber.setSpeed(2);
                     sItemIterator.remove();
                 }
@@ -178,6 +180,7 @@ xử lí va chạm
             while (!bombItems.isEmpty() && bItemIterator.hasNext()) {
                 Entity itemNext = bItemIterator.next();
                 if (bomber.intersects(itemNext)) {
+                    Sound.play("Item");
                     bomber.setBomb(2);
                     bItemIterator.remove();
                 }

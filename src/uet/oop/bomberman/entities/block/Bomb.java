@@ -6,6 +6,7 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntityArr;
 import uet.oop.bomberman.entities.bomber.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.sound.Sound;
 
 public class Bomb extends Entity {
     private boolean isPassable = true;
@@ -37,6 +38,7 @@ public class Bomb extends Entity {
         // time: thoi gian ton tai cua bomb
         count++;
         if (count > time) {
+            Sound.play ("BOM_11_M");
             this.hp = 0;
         }
     }

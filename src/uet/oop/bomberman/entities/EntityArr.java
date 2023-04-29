@@ -1,11 +1,8 @@
 package uet.oop.bomberman.entities;
 
-import uet.oop.bomberman.entities.enemy.Enemy;
-import uet.oop.bomberman.sound.Sound;
+
 import java.util.List;
 import java.util.ArrayList;
-import java.util.ListIterator;
-
 public class EntityArr {
     public static final List<Entity> bombers = new ArrayList<> ();
     public static final List<Entity> bombs = new ArrayList<>();

@@ -38,9 +38,9 @@ public class Flame extends Entity {
         this.animation.setSprite(this);
         checkEnemy ();
         checkBricks();
-        checkFlameItems();
+      /*  checkFlameItems();
         checkSpeedItems();
-        checkBombItems();
+        checkBombItems();*/
     }
     public static void addFlame(int xUnit, int yUnit) {
         if (EntityArr.getBombers().size() == 0) {
@@ -176,7 +176,7 @@ public class Flame extends Entity {
         }
     }
 
-    public void checkFlameItems() {
+/*    public void checkFlameItems() {
         ListIterator<Entity> itemIterator = flameItems.listIterator();
         while (!flameItems.isEmpty() && itemIterator.hasNext()) {
             Entity itemNext = itemIterator.next();
@@ -207,5 +207,5 @@ public class Flame extends Entity {
                 itemNext.setImg(Sprite.powerup_bombs.getFxImage());
             }
         }
-    }
+    }*/
 }

@@ -130,110 +130,88 @@ public class BombermanGame extends Application {
                 if (bomber.intersects(enemies.get(i))) {
                     bomber.setHp(0);
                     running = false;
-
-                    for (Entity flame : flames) {
-                        if (bomber.intersects(flame)) {
-                            bomber.setHp(0);
-                            break;
-                        }
-                    }
-                    for (Entity enemy : enemies) {
-                        if (bomber.intersects(enemy)) {
-                            bomber.setHp(0);
-                            break;
-                        }
-                    }
-                    if (bomber.isWallPass()) {
-                        for (Entity brick : bricks) {
-                            if (brick.isAlive()) {
-                                bomber.checkObjectMovementAbility(brick);
-                            }
-                        }
-                    }
-                    if (bomber.isWallPass()) {
-                        for (Entity flameItem : flameItems) {
-                            if (flameItem.isAlive()) {
-                                bomber.checkObjectMovementAbility(flameItem);
-                            }
-                        }
-                    }
-                    if (bomber.isWallPass()) {
-                        for (Entity bombItem : bombItems) {
-                            if (bombItem.isAlive()) {
-                                bomber.checkObjectMovementAbility(bombItem);
-                            }
-                        }
-                    }
-                    if (bomber.isWallPass()) {
-                        for (Entity speedItem : speedItems) {
-                            if (speedItem.isAlive()) {
-                                bomber.checkObjectMovementAbility(speedItem);
-                            }
-                        }
-                    }
-                    for (Entity bomb : bombs) {
-                        if (((Bomb) bomb).isPassable()) {
-                            continue;
-                        }
-                        bomber.checkObjectMovementAbility(bomb);
-                    }
-                    for (Entity wall : walls) {
-                        bomber.checkObjectMovementAbility(wall);
-                    }
-                    // va chạm với flameItem
-                    ListIterator<Entity> itemIterator = flameItems.listIterator();
-                    while (!flameItems.isEmpty() && itemIterator.hasNext()) {
-                        Entity itemNext = itemIterator.next();
-                        if (bomber.intersects(itemNext)) {
-                            Sound.play("Item");
-                            int power = bomber.getFlame() + 2;
-                            bomber.setFlame(power);
-                            itemIterator.remove();
-                        }
-                    }
-                    // va chạm với speedItem
-                    ListIterator<Entity> sItemIterator = speedItems.listIterator();
-                    while (!speedItems.isEmpty() && sItemIterator.hasNext()) {
-                        Entity itemNext = sItemIterator.next();
-                        if (bomber.intersects(itemNext)) {
-                            Sound.play("Item");
-                            bomber.setSpeed(2);
-                            sItemIterator.remove();
-                        }
-                    }
-                    // va chạm với bombItem
-                    ListIterator<Entity> bItemIterator = bombItems.listIterator();
-                    while (!bombItems.isEmpty() && bItemIterator.hasNext()) {
-                        Entity itemNext = bItemIterator.next();
-                        if (bomber.intersects(itemNext)) {
-                            Sound.play("Item");
-                            bomber.setBomb(2);
-                            bItemIterator.remove();
-                        }
-                    }
-                    for (Entity portal : portals) {
-                        if (bomber.intersects(portal) && enemies.size() == 0) {
-                            boolean complete = true;
-                            for (Entity brick : bricks) {
-                                if (portal.getX() == brick.getX() &&
-                                        portal.getY() == brick.getY()) {
-                                    complete = false;
-                                    break;
-                                }
-                            }
-                            this.isGameComplete = complete;
-                        }
+                }
+            }
+            for (Entity flame : flames) {
+                if (bomber.intersects(flame)) {
+                    bomber.setHp(0);
+                    break;
+                }
+            }
+            for (Entity enemy : enemies) {
+                if (bomber.intersects(enemy)) {
+                    bomber.setHp(0);
+                    break;
+                }
+            }
+            if (bomber.isWallPass()) {
+                for (Entity brick : bricks) {
+                    if (brick.isAlive()) {
+                        bomber.checkObjectMovementAbility(brick);
                     }
                 }
-
-                // Bomb
-                for (Entity bomb : bombs) {
-                    for (Entity flame : flames) {
-                        if (bomb.intersects(flame)) {
-                            bomb.setHp(0);
+            }
+            
+            for (Entity bomb : bombs) {
+                if (((Bomb) bomb).isPassable()) {
+                    continue;
+                }
+                bomber.checkObjectMovementAbility(bomb);
+            }
+            for (Entity wall : walls) {
+                bomber.checkObjectMovementAbility(wall);
+            }
+            // va chạm với flameItem
+            ListIterator<Entity> itemIterator = flameItems.listIterator();
+            while (!flameItems.isEmpty() && itemIterator.hasNext()) {
+                Entity itemNext = itemIterator.next();
+                if (bomber.intersects(itemNext)) {
+                    Sound.play("Item");
+                    int power = bomber.getFlame() + 2;
+                    bomber.setFlame(power);
+                    itemIterator.remove();
+                }
+            }
+            // va chạm với speedItem
+            ListIterator<Entity> sItemIterator = speedItems.listIterator();
+            while (!speedItems.isEmpty() && sItemIterator.hasNext()) {
+                Entity itemNext = sItemIterator.next();
+                if (bomber.intersects(itemNext)) {
+                    Sound.play("Item");
+                    bomber.setSpeed(2);
+                    sItemIterator.remove();
+                }
+            }
+            // va chạm với bombItem
+            ListIterator<Entity> bItemIterator = bombItems.listIterator();
+            while (!bombItems.isEmpty() && bItemIterator.hasNext()) {
+                Entity itemNext = bItemIterator.next();
+                if (bomber.intersects(itemNext)) {
+                    Sound.play("Item");
+                    bomber.setBomb(2);
+                    bItemIterator.remove();
+                }
+            }
+            for (Entity portal : portals) {
+                if (bomber.intersects(portal) && enemies.size() == 0) {
+                    boolean complete = true;
+                    for (Entity brick : bricks) {
+                        if (portal.getX() == brick.getX() &&
+                                portal.getY() == brick.getY()) {
+                            complete = false;
                             break;
                         }
                     }
+                    isGameComplete = complete;
+                }
+            }
+        }
+        // Bomb
+        for (Entity bomb : bombs) {
+            for (Entity flame : flames) {
+                if (bomb.intersects(flame)) {
+                    bomb.setHp(0);
+                    break;
                 }
             }
         }

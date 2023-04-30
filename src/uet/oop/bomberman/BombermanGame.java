@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import uet.oop.bomberman.entities.block.Bomb;
 import uet.oop.bomberman.entities.bomber.Bomber;
 import uet.oop.bomberman.entities.*;
+import uet.oop.bomberman.entities.enemy.Enemy;
 import uet.oop.bomberman.graphics.CreateMap;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
@@ -59,6 +60,8 @@ public class BombermanGame extends Application {
         canvas = new Canvas(Sprite.SCALED_SIZE * width, Sprite.SCALED_SIZE * height);
         canvas.setTranslateY(32);
         gc = canvas.getGraphicsContext2D();
+        Image icon = new Image("images/ttsalpha4.0@0.5x.png");
+        stage.getIcons().add(icon);
         Image author = new Image("images/author.png");
         authorView = new ImageView(author);
         authorView.setY(20);
@@ -100,6 +103,7 @@ public class BombermanGame extends Application {
                     CreateMap.createMap();
 //                    updateMenu();
                 }
+                Enemy.removeEnemy ();
 
             }
         };

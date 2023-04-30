@@ -117,7 +117,6 @@ public abstract class Enemy extends MovingEntity {
             direction(sameColumn());
         }
     }
-
     public static void removeEnemy() {
         ListIterator<Entity> enemyIterator = enemies.listIterator();
         while (enemyIterator.hasNext()) {
@@ -128,5 +127,4 @@ public abstract class Enemy extends MovingEntity {
             }
         }
     }
-
 }

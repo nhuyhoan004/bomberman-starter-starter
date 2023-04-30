@@ -7,19 +7,21 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import uet.oop.bomberman.controls.Menu;
 import uet.oop.bomberman.entities.bomber.Bomb;
 import uet.oop.bomberman.entities.bomber.Bomber;
 import uet.oop.bomberman.entities.*;
-import uet.oop.bomberman.entities.enemy.Enemy;
 import uet.oop.bomberman.graphics.CreateMap;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
-
+import javafx.scene.image.ImageView;
 import java.util.ListIterator;
-
 import static uet.oop.bomberman.controls.Menu.updateMenu;
 import static uet.oop.bomberman.entities.EntityArr.*;
+import static uet.oop.bomberman.graphics.NextLevel.waitToLevelUp;
+
 
 public class BombermanGame extends Application {
     private Group root;
@@ -27,18 +29,21 @@ public class BombermanGame extends Application {
     public static boolean win = false;
     private boolean lose = false;
 
-    private boolean isGameComplete = false;
+    private static boolean isGameComplete = false;
     public static int level = 0;
     public static final String TITLE = "Bomberman by group 07";
-    public static int width = 0;
-    public static int height = 0;
-
-
+    public static int width = 25;
+    public static int height = 15;
+    public static ImageView authorView;
     private GraphicsContext gc;
     private Canvas canvas;
 
     public static Bomber bomber = new Bomber (1, 1, Sprite.player_right.getFxImage());
     public static boolean running;
+
+    public static boolean getIsGameComplete() {
+        return isGameComplete;
+    }
 
     public static void main(String[] args) {
         Sound.play ("soundtrack");
@@ -52,9 +57,16 @@ public class BombermanGame extends Application {
         stage.setResizable(false);
 
         canvas = new Canvas(Sprite.SCALED_SIZE * width, Sprite.SCALED_SIZE * height);
+        canvas.setTranslateY(32);
         gc = canvas.getGraphicsContext2D();
+        Image author = new Image("images/author.png");
+        authorView = new ImageView(author);
+        authorView.setY(20);
         root = new Group();
+
         root.getChildren().add(canvas);
+//        root.getChildren().add(authorView);
+//        Menu.createMenu(root);
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -66,16 +78,17 @@ public class BombermanGame extends Application {
                 update();
 
                 if (lose) {
+//                    updateMenu();
                     return;
                 }
 
                 if (win) {
+//                    updateMenu();
                     return;
                 }
 
                 if (isGameComplete()) {
                     CreateMap.readDataFromFile(++level);
-
                     canvas.setHeight(Sprite.SCALED_SIZE * height);
                     canvas.setWidth(Sprite.SCALED_SIZE * width);
                     gc = canvas.getGraphicsContext2D();
@@ -84,22 +97,22 @@ public class BombermanGame extends Application {
                     scene = new Scene(root);
                     stage.setScene(scene);
                     stage.show();
-                    /*updateMenu();*/
-                    CreateMap.createMap(); // Tạo bản đồ mới
+                    CreateMap.createMap();
+//                    updateMenu();
                 }
                 EntityArr.removeEnemy ();
             }
         };
         timer.start();
         bomber = new Bomber(1, 1, Sprite.player_right_2.getFxImage());
+        bomber.setAlive(false);
         CreateMap.createMap();
     }
 
 
-
-/**
-xử lí va chạm
- */
+    /**
+     * xử lý va chạm
+     */
     public void handleCollision() {
         // Nhan vat
         ///////////////////////////////////////////////////////
@@ -109,12 +122,14 @@ xử lí va chạm
             for (int i = 0; i < flames.size(); i++) {
                 if (bomber.intersects(flames.get(i))) {
                     bomber.setHp(0);
+                    running = false;
                     break;
                 }
             }
             for (int i = 0; i < enemies.size(); i++) {
                 if (bomber.intersects(enemies.get(i))) {
                     bomber.setHp(0);
+                    running = false;
                     break;
                 }
             }
@@ -240,12 +255,12 @@ xử lí va chạm
     public void update() {
         EntityArr.enemies.forEach(Entity::update);
         portals.forEach(Entity::update);
-        EntityArr.getDeads().forEach(Entity::update);
         EntityArr.getFlames().forEach(Entity::update);
         flameItems.forEach(Entity::update);
         speedItems.forEach(Entity::update);
         bombItems.forEach(Entity::update);
         bricks.forEach(Entity::update);
+        EntityArr.getDeads().forEach(Entity::update);
         EntityArr.getBombs().forEach(Entity::update);
         EntityArr.getBombers().forEach(Entity::update);
 
@@ -266,7 +281,8 @@ xử lí va chạm
         if (EntityArr.getBombers().size() == 0 && EntityArr.getDeads().size() == 0) {
             lose = true;
         }
-
+//        waitToLevelUp();
+//        updateMenu();
     }
 
 }

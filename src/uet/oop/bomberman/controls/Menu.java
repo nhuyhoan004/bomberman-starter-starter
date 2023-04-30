@@ -21,38 +21,41 @@ public class Menu {
     // Menu hiển thị level,số hàng, số cột
     public static void createMenu(Group root) {
         // só thự tự màn chơi
-        level = new Text("level: 1");
+        /*level = new Text("level: 1");
         level.setFont(Font.font("Times New Roman", FontWeight.BOLD, 14 ));
         level.setFill(Color.BLUEVIOLET);
         level.setX(416);
-        level.setY(20);
+        level.setY(20);*/
         // số hàng của bản đồ
 
         // số cột của bản đồ
 
         Image newGame = new Image("images/newGame.png");
         statusGame = new ImageView(newGame);
-        statusGame.setX(-75);
-        statusGame.setY(-10);
-        statusGame.setScaleX(0.5);
         statusGame.setScaleY(0.5);
+        statusGame.setScaleX(0.5);
+        statusGame.setX(-70);
+        statusGame.setY(-10);
+
 
         Pane pane = new Pane();
-        pane.getChildren().addAll(level);
-        pane.setMinSize(800, 32);
-        pane.setMaxSize(800, 480);
-        pane.setStyle("-fx-background-color: #D7E7A9");
+        pane.getChildren().addAll(statusGame);
+        pane.setMinSize(992, 32);
+        pane.setMaxSize(992, 32);
+        pane.setStyle("-fx-background-color: WHITE");
 
         root.getChildren().add(pane);
 
         statusGame.setOnMouseClicked(event -> {
-            if (bomber.isLife()) {
+            if (bomber.isAlive()) {
                 // nếu người chơi còn mạng, game tiếp tục
                 running = !running;
             } else {
-                // player dead, start a new game
+                // bomber dead, start a new game
                 CreateMap.readDataFromFile(0);
                 CreateMap.loadMapListFromFile();
+                Image transparent = new Image("images/transparent.png");
+                authorView.setImage(transparent);
                 running = true;
             }
             updateMenu();
@@ -60,13 +63,7 @@ public class Menu {
     }
 
     public static void updateMenu() {
-        // display level
-        level.setText("Level: " + level);
-        // display number of rows;
-
-        // display number of column;
-
-        if (bomber.isLife()) {
+        if (bomber.isAlive()) {
             if (running) {
                 Image pauseGame = new Image("images/pauseGame.png");
                 statusGame.setImage(pauseGame);

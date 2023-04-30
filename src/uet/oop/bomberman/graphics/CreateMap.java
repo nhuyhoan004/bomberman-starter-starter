@@ -127,18 +127,24 @@ public class CreateMap {
                 }
                 // bomb item
                 else if (c == 'b') {
-                    object = new BombItem(j, i, Sprite.brick.getFxImage());
+                    object = new BombItem(j, i, Sprite.powerup_bombs.getFxImage());
                     bombItems.add(object);
+                    object = new Brick(j, i, Sprite.brick.getFxImage());
+                    bricks.add(object);
                 }
                 // flame item
                 else if (c == 'f') {
-                    object = new FlameItem(j, i, Sprite.brick.getFxImage());
+                    object = new FlameItem(j, i, Sprite.powerup_flames.getFxImage());
                     flameItems.add(object);
+                    object = new Brick(j, i, Sprite.brick.getFxImage());
+                    bricks.add(object);
                 }
                 // speed item
                 else if (c == 's') {
-                    object = new SpeedItem(j, i,Sprite.brick.getFxImage());
+                    object = new SpeedItem(j, i,Sprite.powerup_speed.getFxImage());
                     speedItems.add(object);
+                    object = new Brick(j, i, Sprite.brick.getFxImage());
+                    bricks.add(object);
                 }
             }
         }

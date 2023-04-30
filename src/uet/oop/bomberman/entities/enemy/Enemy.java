@@ -1,7 +1,4 @@
 package uet.oop.bomberman.entities.enemy;
-
-import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.EntityArr;
 import uet.oop.bomberman.entities.MovingEntity;
 import uet.oop.bomberman.graphics.Sprite;
 import javafx.scene.image.Image;
@@ -124,4 +121,5 @@ public abstract class Enemy extends MovingEntity {
             direction(sameColumn());
         }
     }
+
 }

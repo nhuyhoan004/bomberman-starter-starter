@@ -38,7 +38,7 @@ public class BombermanGame extends Application {
     private GraphicsContext gc;
     private Canvas canvas;
 
-    public static Bomber bomber = new Bomber (1, 1, Sprite.player_right.getFxImage());
+    public static Bomber bomber = new Bomber(1, 1, Sprite.player_right.getFxImage());
     public static boolean running;
 
     public static boolean getIsGameComplete() {
@@ -46,7 +46,7 @@ public class BombermanGame extends Application {
     }
 
     public static void main(String[] args) {
-        Sound.play ("soundtrack");
+        Sound.play("soundtrack");
         Application.launch(BombermanGame.class);
     }
 
@@ -131,112 +131,113 @@ public class BombermanGame extends Application {
                     bomber.setHp(0);
                     running = false;
 
-            for (Entity flame : flames) {
-                if (bomber.intersects (flame)) {
-                    bomber.setHp (0);
-                    break;
-                }
-            }
-            for (Entity enemy : enemies) {
-                if (bomber.intersects (enemy)) {
-                    bomber.setHp (0);
-                    break;
-                }
-            }
-            if (bomber.isWallPass ()) {
-                for (Entity brick : bricks) {
-                    if (brick.isAlive ()) {
-                        bomber.checkObjectMovementAbility (brick);
-                    }
-                }
-            }
-            if (bomber.isWallPass ()) {
-                for (Entity flameItem : flameItems) {
-                    if (flameItem.isAlive ()) {
-                        bomber.checkObjectMovementAbility (flameItem);
-                    }
-                }
-            }
-            if (bomber.isWallPass ()) {
-                for (Entity bombItem : bombItems) {
-                    if (bombItem.isAlive ()) {
-                        bomber.checkObjectMovementAbility (bombItem);
-                    }
-                }
-            }
-            if (bomber.isWallPass ()) {
-                for (Entity speedItem : speedItems) {
-                    if (speedItem.isAlive ()) {
-                        bomber.checkObjectMovementAbility (speedItem);
-                    }
-                }
-            }
-            for (Entity bomb : bombs) {
-                if (((Bomb) bomb).isPassable ()) {
-                    continue;
-                }
-                bomber.checkObjectMovementAbility (bomb);
-            }
-            for (Entity wall : walls) {
-                bomber.checkObjectMovementAbility (wall);
-            }
-            // va chạm với flameItem
-            ListIterator<Entity> itemIterator = flameItems.listIterator();
-            while (!flameItems.isEmpty() && itemIterator.hasNext()) {
-                Entity itemNext = itemIterator.next();
-                if (bomber.intersects(itemNext)) {
-                    Sound.play("Item");
-                    int power = bomber.getFlame() + 2;
-                    bomber.setFlame(power);
-                    itemIterator.remove();
-                }
-            }
-            // va chạm với speedItem
-            ListIterator<Entity> sItemIterator = speedItems.listIterator();
-            while (!speedItems.isEmpty() && sItemIterator.hasNext()) {
-                Entity itemNext = sItemIterator.next();
-                if (bomber.intersects(itemNext)) {
-                    Sound.play("Item");
-                    bomber.setSpeed(2);
-                    sItemIterator.remove();
-                }
-            }
-            // va chạm với bombItem
-            ListIterator<Entity> bItemIterator = bombItems.listIterator();
-            while (!bombItems.isEmpty() && bItemIterator.hasNext()) {
-                Entity itemNext = bItemIterator.next();
-                if (bomber.intersects(itemNext)) {
-                    Sound.play("Item");
-                    bomber.setBomb(2);
-                    bItemIterator.remove();
-                }
-            }
-            for (Entity portal : portals) {
-                if (bomber.intersects (portal) && enemies.size () == 0) {
-                    boolean complete = true;
-                    for (Entity brick : bricks) {
-                        if (portal.getX () == brick.getX () &&
-                                portal.getY () == brick.getY ()) {
-                            complete = false;
+                    for (Entity flame : flames) {
+                        if (bomber.intersects(flame)) {
+                            bomber.setHp(0);
                             break;
                         }
                     }
-                    this.isGameComplete = complete;
+                    for (Entity enemy : enemies) {
+                        if (bomber.intersects(enemy)) {
+                            bomber.setHp(0);
+                            break;
+                        }
+                    }
+                    if (bomber.isWallPass()) {
+                        for (Entity brick : bricks) {
+                            if (brick.isAlive()) {
+                                bomber.checkObjectMovementAbility(brick);
+                            }
+                        }
+                    }
+                    if (bomber.isWallPass()) {
+                        for (Entity flameItem : flameItems) {
+                            if (flameItem.isAlive()) {
+                                bomber.checkObjectMovementAbility(flameItem);
+                            }
+                        }
+                    }
+                    if (bomber.isWallPass()) {
+                        for (Entity bombItem : bombItems) {
+                            if (bombItem.isAlive()) {
+                                bomber.checkObjectMovementAbility(bombItem);
+                            }
+                        }
+                    }
+                    if (bomber.isWallPass()) {
+                        for (Entity speedItem : speedItems) {
+                            if (speedItem.isAlive()) {
+                                bomber.checkObjectMovementAbility(speedItem);
+                            }
+                        }
+                    }
+                    for (Entity bomb : bombs) {
+                        if (((Bomb) bomb).isPassable()) {
+                            continue;
+                        }
+                        bomber.checkObjectMovementAbility(bomb);
+                    }
+                    for (Entity wall : walls) {
+                        bomber.checkObjectMovementAbility(wall);
+                    }
+                    // va chạm với flameItem
+                    ListIterator<Entity> itemIterator = flameItems.listIterator();
+                    while (!flameItems.isEmpty() && itemIterator.hasNext()) {
+                        Entity itemNext = itemIterator.next();
+                        if (bomber.intersects(itemNext)) {
+                            Sound.play("Item");
+                            int power = bomber.getFlame() + 2;
+                            bomber.setFlame(power);
+                            itemIterator.remove();
+                        }
+                    }
+                    // va chạm với speedItem
+                    ListIterator<Entity> sItemIterator = speedItems.listIterator();
+                    while (!speedItems.isEmpty() && sItemIterator.hasNext()) {
+                        Entity itemNext = sItemIterator.next();
+                        if (bomber.intersects(itemNext)) {
+                            Sound.play("Item");
+                            bomber.setSpeed(2);
+                            sItemIterator.remove();
+                        }
+                    }
+                    // va chạm với bombItem
+                    ListIterator<Entity> bItemIterator = bombItems.listIterator();
+                    while (!bombItems.isEmpty() && bItemIterator.hasNext()) {
+                        Entity itemNext = bItemIterator.next();
+                        if (bomber.intersects(itemNext)) {
+                            Sound.play("Item");
+                            bomber.setBomb(2);
+                            bItemIterator.remove();
+                        }
+                    }
+                    for (Entity portal : portals) {
+                        if (bomber.intersects(portal) && enemies.size() == 0) {
+                            boolean complete = true;
+                            for (Entity brick : bricks) {
+                                if (portal.getX() == brick.getX() &&
+                                        portal.getY() == brick.getY()) {
+                                    complete = false;
+                                    break;
+                                }
+                            }
+                            this.isGameComplete = complete;
+                        }
+                    }
                 }
-            }
-        }
 
-        // Bomb
-        for (Entity bomb : bombs) {
-            for (Entity flame : flames) {
-                if (bomb.intersects (flame)) {
-                    bomb.setHp (0);
-                    break;
+                // Bomb
+                for (Entity bomb : bombs) {
+                    for (Entity flame : flames) {
+                        if (bomb.intersects(flame)) {
+                            bomb.setHp(0);
+                            break;
+                        }
+                    }
                 }
             }
         }
     }
-
     private boolean isGameComplete() {
         if (isGameComplete) {
             isGameComplete = false;
@@ -247,17 +248,19 @@ public class BombermanGame extends Application {
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        EntityArr.getGrasses ().forEach(g -> g.render(gc));
-        portals.forEach(g -> {if (g.isAlive()) g.render(gc);
+        EntityArr.getGrasses().forEach(g -> g.render(gc));
+        portals.forEach(g -> {
+            if (g.isAlive()) g.render(gc);
         });
         EntityArr.enemies.forEach(g -> {
             if (g.isAlive()) g.render(gc);
         });
-        EntityArr.getWalls ().forEach(g -> g.render(gc));
+        EntityArr.getWalls().forEach(g -> g.render(gc));
         flameItems.forEach(g -> g.render(gc));
         speedItems.forEach(g -> g.render(gc));
         bombItems.forEach(g -> g.render(gc));
-        bricks.forEach(g -> {if (g.isAlive()) g.render(gc);
+        bricks.forEach(g -> {
+            if (g.isAlive()) g.render(gc);
         });
         EntityArr.getDeads().forEach(g -> g.render(gc));
         EntityArr.getBombs().forEach(g -> g.render(gc));
@@ -265,7 +268,7 @@ public class BombermanGame extends Application {
         EntityArr.getBombers().forEach(g -> g.render(gc));
     }
 
-    public void update() {
+    public void update () {
         EntityArr.enemies.forEach(Entity::update);
         portals.forEach(Entity::update);
         EntityArr.getFlames().forEach(Entity::update);
@@ -278,12 +281,12 @@ public class BombermanGame extends Application {
         EntityArr.getBombers().forEach(Entity::update);
 
         for (int i = 0; i < EntityArr.getBombers().size(); i++) {
-            ((Bomber)EntityArr.getBombers().get(i)).handleKeyPress(this.scene);
+            ((Bomber) EntityArr.getBombers().get(i)).handleKeyPress(this.scene);
         }
         for (int i = 0; i < EntityArr.getBombs().size(); i++) {
             for (int j = 0; j < EntityArr.getBombers().size(); j++) {
                 Bomber bomber = (Bomber) EntityArr.getBombers().get(j);
-                ((Bomb)EntityArr.getBombs().get(i)).checkCharacterPassability(bomber);
+                ((Bomb) EntityArr.getBombs().get(i)).checkCharacterPassability(bomber);
             }
         }
 
@@ -299,3 +302,4 @@ public class BombermanGame extends Application {
     }
 
 }
+

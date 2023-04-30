@@ -1,24 +1,11 @@
 package uet.oop.bomberman.entities;
 
 import javafx.geometry.Rectangle2D;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import uet.oop.bomberman.animation.Animation;
-import uet.oop.bomberman.entities.bomber.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import static uet.oop.bomberman.entities.EntityArr.portals;
-
-
 public abstract class Entity {
-    private boolean isPortal;
     protected int x;
     protected int y;
     protected Image img;
@@ -82,14 +69,6 @@ public abstract class Entity {
 
     public Entity() {}
 
-    public boolean getPortal() {
-        return isPortal;
-    }
-
-    public void setPortal(boolean isPortal) {
-        this.isPortal = isPortal;
-    }
-
     public void render(GraphicsContext gc) {
         gc.drawImage(img, x, y);
     }
@@ -101,7 +80,7 @@ public abstract class Entity {
         return e.getBoundary().intersects(this.getBoundary());
     }
     public boolean intersects(Entity obj) {
-        return obj.intersects(this, obj.getX() + obj.getImg().getWidth() / 2 , obj.getY() + obj.getImg().getHeight() / 2);
+        return intersects(this, obj.getX() + obj.getImg().getWidth() / 2 , obj.getY() + obj.getImg().getHeight() / 2);
     }
 
     /**
@@ -142,7 +121,4 @@ public abstract class Entity {
     public void setAlive(boolean alive) {
         isAlive = alive;
     }
-
-
-
 }

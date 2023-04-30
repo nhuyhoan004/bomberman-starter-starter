@@ -1,16 +1,8 @@
 package uet.oop.bomberman.entities;
 
-import uet.oop.bomberman.entities.block.Brick;
-import uet.oop.bomberman.entities.bomber.Bomber;
-import uet.oop.bomberman.graphics.Sprite;
-import uet.oop.bomberman.entities.enemy.Enemy;
-import uet.oop.bomberman.sound.Sound;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.ListIterator;
-
 public class EntityArr {
     public static final List<Entity> bombers = new ArrayList<> ();
     public static final List<Entity> bombs = new ArrayList<>();
@@ -54,15 +46,4 @@ public class EntityArr {
     public static List<Entity> getBricks() {
         return bricks;
     }
-    public static void removeEnemy() {
-        ListIterator<Entity> enemyIterator = enemies.listIterator();
-        while (enemyIterator.hasNext()) {
-            Enemy enemy = (Enemy) enemyIterator.next();
-            if (!enemy.isAlive()) {
-                Sound.play("AA126_11");
-                enemyIterator.remove();
-            }
-        }
-    }
-
 }

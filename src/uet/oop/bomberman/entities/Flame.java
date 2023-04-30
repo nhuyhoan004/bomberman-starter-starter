@@ -100,6 +100,15 @@ public class Flame extends Entity {
                     break;
                 }
             }
+            if (add) {
+                for (int j = 0; j < bricks.size(); j++) {
+                    if (flame.intersects(bricks.get(j))) {
+                        bricks.get(j).setHp(0);
+                        add = false;
+                        break;
+                    }
+                }
+            }
             if (!add) {
                 break;
             }

@@ -11,12 +11,9 @@ import uet.oop.bomberman.entities.enemy.*;
 import uet.oop.bomberman.entities.items.BombItem;
 import uet.oop.bomberman.entities.items.FlameItem;
 import uet.oop.bomberman.entities.items.SpeedItem;
-import uet.oop.bomberman.sound.Sound;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Iterator;
-import java.util.ListIterator;
 import java.util.Scanner;
 import static uet.oop.bomberman.BombermanGame.*;
 import static uet.oop.bomberman.entities.EntityArr.*;
@@ -102,16 +99,25 @@ public class CreateMap {
                 }
                 else if ('0' <= c && c <= '9') {
                     if (c == '1') {
-                        object = new Balloon (j, i, Sprite.balloom_left1.getFxImage ());
+                        // balloom
+                        object = new Balloom (j, i, Sprite.balloom_left1.getFxImage ());
                     } else if (c == '2') {
+                        // oneal
                         object = new Oneal (j, i, Sprite.oneal_right1.getFxImage ());
                     } else if (c == '3') {
+                        // doll
                         object = new Doll (j, i, Sprite.doll_left2.getFxImage ());
                     } else if (c == '4') {
+                        // minvo
                         object = new Minvo (j, i, Sprite.minvo_right2.getFxImage ());
+                    } else if (c == '5') {
+                        // kondoria
+                        object = new Kondoria (j, i, Sprite.kondoria_right2.getFxImage ());
                     }
                     enemies.add (object);
-                } else if (c == '*') {
+                }
+                // brick
+                else if (c == '*') {
                         object = new Brick(j, i, Sprite.brick.getFxImage());
                         bricks.add(object);
                     }

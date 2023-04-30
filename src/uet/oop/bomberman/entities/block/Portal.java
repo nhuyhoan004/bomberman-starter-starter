@@ -2,11 +2,8 @@ package uet.oop.bomberman.entities.block;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.bomber.Bomber;
-import uet.oop.bomberman.graphics.CreateMap;
 import uet.oop.bomberman.graphics.Sprite;
 import java.util.List;
-import static uet.oop.bomberman.BombermanGame.bomber;
 import static uet.oop.bomberman.entities.EntityArr.*;
 
 public class Portal extends Entity {

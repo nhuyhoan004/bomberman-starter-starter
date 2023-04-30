@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import uet.oop.bomberman.animation.BomberAnimation;
 import uet.oop.bomberman.entities.MovingEntity;
+import uet.oop.bomberman.sound.Sound;
 
 
 public class Bomber extends MovingEntity {
@@ -23,11 +24,7 @@ public class Bomber extends MovingEntity {
 
     public Bomber() {}
 
-    public Bomber(int isMove, int swap, String direction, int count, int countToRun) {
-        super(8, 1, "down", 0, 0);
-    }
-
-    public Bomber(int x, int y, Image img) {
+     public Bomber(int x, int y, Image img) {
         super( x, y, img);
         animation = new BomberAnimation();
     }
@@ -65,11 +62,11 @@ public class Bomber extends MovingEntity {
 
     /**
      * Xu ly khi cac phim duoc nhan, nha.
-     * @param scene
      */
     public void handleKeyPress(Scene scene) {
         scene.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.SPACE) {
+                Sound.play ("BOM_SET");
                 this.createBomb++;
                 if (this.createBomb > 100000) {
                     this.createBomb = 10;

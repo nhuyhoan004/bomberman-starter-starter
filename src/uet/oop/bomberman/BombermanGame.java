@@ -9,6 +9,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import uet.oop.bomberman.controls.Menu;
 import uet.oop.bomberman.entities.block.Bomb;
 import uet.oop.bomberman.entities.bomber.Bomber;
 import uet.oop.bomberman.entities.*;
@@ -18,10 +19,9 @@ import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
 import javafx.scene.image.ImageView;
 import java.util.ListIterator;
-
-import static com.sun.scenario.effect.impl.prism.PrEffectHelper.render;
+import static uet.oop.bomberman.controls.Menu.updateMenu;
 import static uet.oop.bomberman.entities.EntityArr.*;
-
+import static uet.oop.bomberman.graphics.NextLevel.waitToLevelUp;
 
 
 public class BombermanGame extends Application {
@@ -68,8 +68,8 @@ public class BombermanGame extends Application {
         root = new Group();
 
         root.getChildren().add(canvas);
-//        root.getChildren().add(authorView);
-//        Menu.createMenu(root);
+        root.getChildren().add(authorView);
+        Menu.createMenu(root);
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -81,12 +81,12 @@ public class BombermanGame extends Application {
                 update();
 
                 if (lose) {
-//                    updateMenu();
+                    updateMenu();
                     return;
                 }
 
                 if (win) {
-//                    updateMenu();
+                    updateMenu();
                     return;
                 }
 
@@ -101,7 +101,7 @@ public class BombermanGame extends Application {
                     stage.setScene(scene);
                     stage.show();
                     CreateMap.createMap();
-//                    updateMenu();
+                    updateMenu();
                 }
                 Enemy.removeEnemy ();
 
@@ -279,8 +279,8 @@ public class BombermanGame extends Application {
         if (EntityArr.getBombers().size() == 0 && EntityArr.getDeads().size() == 0) {
             lose = true;
         }
-//        waitToLevelUp();
-//        updateMenu();
+        waitToLevelUp();
+        updateMenu();
     }
 
 }

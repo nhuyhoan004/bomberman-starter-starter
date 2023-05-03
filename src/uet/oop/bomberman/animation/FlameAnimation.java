@@ -55,56 +55,38 @@ public class FlameAnimation extends Animation {
             return;
         }
         Flame flame = (Flame) entity;
-        switch (flame.getClassification ()) {
+        List<Image> animationFrames = null;
+
+        switch (flame.getClassification()) {
             case "up":
-                flame.setImg (this.handle (verticalUpLast, "up"));
-                this.countDeadFrames++;
-                if (this.countDeadFrames == this.numberOfFrames * (verticalUpLast.size ())) {
-                    this.finishDeadAnimation = true;
-                }
+                animationFrames = verticalUpLast;
                 break;
             case "down":
-                flame.setImg (this.handle (verticalDownLast, "down"));
-                this.countDeadFrames++;
-                if (this.countDeadFrames == this.numberOfFrames * (verticalDownLast.size ())) {
-                    this.finishDeadAnimation = true;
-                }
+                animationFrames = verticalDownLast;
                 break;
             case "left":
-                flame.setImg (this.handle (horizontalLeftLast, "left"));
-                this.countDeadFrames++;
-                if (this.countDeadFrames == this.numberOfFrames * (horizontalLeftLast.size ())) {
-                    this.finishDeadAnimation = true;
-                }
+                animationFrames = horizontalLeftLast;
                 break;
             case "right":
-                flame.setImg (this.handle (horizontalRightLast, "right"));
-                this.countDeadFrames++;
-                if (this.countDeadFrames == this.numberOfFrames * (horizontalRightLast.size ())) {
-                    this.finishDeadAnimation = true;
-                }
+                animationFrames = horizontalRightLast;
                 break;
             case "vertical":
-                flame.setImg (this.handle (vertical, "vertical"));
-                this.countDeadFrames++;
-                if (this.countDeadFrames == this.numberOfFrames * (vertical.size ())) {
-                    this.finishDeadAnimation = true;
-                }
+                animationFrames = vertical;
                 break;
             case "epicenter":
-                flame.setImg (this.handle (epicenter, "epicenter"));
-                this.countDeadFrames++;
-                if (this.countDeadFrames == this.numberOfFrames * (epicenter.size ())) {
-                    this.finishDeadAnimation = true;
-                }
+                animationFrames = epicenter;
                 break;
             case "horizontal":
-                flame.setImg (this.handle (horizontal, "horizontal"));
-                this.countDeadFrames++;
-                if (this.countDeadFrames == this.numberOfFrames * (horizontal.size ())) {
-                    this.finishDeadAnimation = true;
-                }
+                animationFrames = horizontal;
                 break;
+        }
+
+        if (animationFrames != null) {
+            flame.setImg(this.handle(animationFrames, flame.getClassification()));
+            this.countDeadFrames++;
+            if (this.countDeadFrames == this.numberOfFrames * animationFrames.size()) {
+                this.finishDeadAnimation = true;
+            }
         }
     }
 }

@@ -22,11 +22,11 @@ public class BrickAnimation extends Animation {
      */
     public void setSprite(Entity entity) {
         if (entity.getHp() <= 0) {
-            this.numberOfFrames = this.numberOfDeadFrames;
-            entity.setImg(this.handle(dead, "dead"));
-            this.countDeadFrames++;
-            if (this.countDeadFrames == this.numberOfDeadFrames * (dead.size())) {
-                this.finishDeadAnimation = true;
+            numberOfFrames = numberOfDeadFrames;
+            entity.setImg(handle(dead, "dead"));
+            countDeadFrames++;
+            if (countDeadFrames == numberOfDeadFrames * dead.size()) {
+                finishDeadAnimation = true;
             }
         }
     }

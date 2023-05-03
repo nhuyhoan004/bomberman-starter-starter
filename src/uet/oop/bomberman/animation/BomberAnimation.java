@@ -1,7 +1,7 @@
 package uet.oop.bomberman.animation;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.entities.MovingEntity;
+import uet.oop.bomberman.entities.bomber.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,13 +34,13 @@ public class BomberAnimation extends Animation{
      * @param entity doi tuong can xu ly
      */
     public void setSprite(Entity entity) {
-        if (!(entity instanceof MovingEntity)) {
+        if (!(entity instanceof Bomber)) {
             return;
         }
-        MovingEntity movingEntity = (MovingEntity) entity;
-        if (movingEntity.getHp() <= 0) {
+        Bomber bomber = (Bomber) entity;
+        if (bomber.getHp() <= 0) {
             this.numberOfFrames = this.numberOfDeadFrames;
-            movingEntity.setImg(this.handle(dead, "dead"));
+            bomber.setImg(this.handle(dead, "dead"));
 
             this.countDeadFrames++;
             if (this.countDeadFrames == this.numberOfDeadFrames * (dead.size())) {
@@ -49,14 +49,14 @@ public class BomberAnimation extends Animation{
             return;
         }
 
-        if (movingEntity.isMoveLeft()) {
-            movingEntity.setImg(this.handle(left, "left"));
-        } else if (movingEntity.isMoveRight()) {
-            movingEntity.setImg(this.handle(right, "right"));
-        } else if (movingEntity.isMoveUp()) {
-            movingEntity.setImg(this.handle(up, "up"));
-        } else if (movingEntity.isMoveDown()) {
-            movingEntity.setImg(this.handle(down, "down"));
+        if (bomber.isMoveLeft()) {
+            bomber.setImg(this.handle(left, "left"));
+        } else if (bomber.isMoveRight()) {
+            bomber.setImg(this.handle(right, "right"));
+        } else if (bomber.isMoveUp()) {
+            bomber.setImg(this.handle(up, "up"));
+        } else if (bomber.isMoveDown()) {
+            bomber.setImg(this.handle(down, "down"));
         }
     }
 }

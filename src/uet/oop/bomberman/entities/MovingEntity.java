@@ -100,47 +100,37 @@ public abstract class MovingEntity extends Entity {
      */
     public void checkObjectMovementAbility(Entity obj) {
         boolean left1, left2, right1, right2, up1, up2, down1, down2;
-        if (this instanceof Bomber) {
-            left1 = intersects (obj, this.getX () + 1, this.getY () + 4);
-            left2 = intersects (obj, this.getX () + 1, this.getY () + this.getImg ().getHeight () - 4);
-            right1 = intersects (obj, this.getX () + this.getImg ().getWidth () - 7, this.getY () + 4);
-            right2 = intersects (obj, this.getX () + this.getImg ().getWidth () - 7, this.getY () + this.getImg ().getHeight () - 4);
-            up1 = intersects (obj, this.getX () + 4, this.getY () + 2);
-            up2 = intersects (obj, this.getX () + this.getImg ().getWidth () - 10, this.getY () + 2);
-            down1 = intersects (obj, this.getX () + 4, this.getY () + this.getImg ().getHeight () - 2);
-            down2 = intersects (obj, this.getX () + this.getImg ().getWidth () - 10, this.getY () + this.getImg ().getHeight () - 2);
-        } else {
-            left1 = intersects (obj, this.getX (), this.getY () + 1);
-            left2 = intersects (obj, this.getX (), this.getY () + this.getImg ().getHeight () - 1);
-            right1 = intersects (obj, this.getX () + this.getImg ().getWidth (), this.getY () + 1);
-            right2 = intersects (obj, this.getX () + this.getImg ().getWidth (), this.getY () + this.getImg ().getHeight () - 1);
-            up1 = intersects (obj, this.getX () + 1, this.getY ());
-            up2 = intersects (obj, this.getX () + this.getImg ().getWidth () - 1, this.getY ());
-            down1 = intersects (obj, this.getX () + 1, this.getY () + this.getImg ().getHeight ());
-            down2 = intersects (obj, this.getX () + this.getImg ().getWidth () - 1, this.getY () + this.getImg ().getHeight ());
-        }
-        if (obj.isAlive ()) {
 
-            if (this.ableToMoveLeft) {
-                if (left1 || left2) {
-                    this.ableToMoveLeft = false;
-                }
-            }
-            if (this.ableToMoveRight) {
-                if (right1 || right2) {
-                    this.ableToMoveRight = false;
-                }
-            }
-            if (this.ableToMoveUp) {
-                if (up1 || up2) {
-                    this.ableToMoveUp = false;
-                }
-            }
-            if (this.ableToMoveDown) {
-                if (down1 || down2) {
-                    this.ableToMoveDown = false;
-                }
-            }
+        int imgWidth = (int) this.getImg().getWidth();
+        int imgHeight = (int) this.getImg().getHeight();
+        int x = this.getX();
+        int y = this.getY();
+
+        if (this instanceof Bomber) {
+            left1 = intersects(obj, x + 1, y + 4);
+            left2 = intersects(obj, x + 1, y + imgHeight - 4);
+            right1 = intersects(obj, x + imgWidth - 7, y + 4);
+            right2 = intersects(obj, x + imgWidth - 7, y + imgHeight - 4);
+            up1 = intersects(obj, x + 4, y + 2);
+            up2 = intersects(obj, x + imgWidth - 10, y + 2);
+            down1 = intersects(obj, x + 4, y + imgHeight - 2);
+            down2 = intersects(obj, x + imgWidth - 10, y + imgHeight - 2);
+        } else {
+            left1 = intersects(obj, x, y + 1);
+            left2 = intersects(obj, x, y + imgHeight - 1);
+            right1 = intersects(obj, x + imgWidth, y + 1);
+            right2 = intersects(obj, x + imgWidth, y + imgHeight - 1);
+            up1 = intersects(obj, x + 1, y);
+            up2 = intersects(obj, x + imgWidth - 1, y);
+            down1 = intersects(obj, x + 1, y + imgHeight);
+            down2 = intersects(obj, x + imgWidth - 1, y + imgHeight);
+        }
+
+        if (obj.isAlive()) {
+            this.ableToMoveLeft = this.ableToMoveLeft && !left1 && !left2;
+            this.ableToMoveRight = this.ableToMoveRight && !right1 && !right2;
+            this.ableToMoveUp = this.ableToMoveUp && !up1 && !up2;
+            this.ableToMoveDown = this.ableToMoveDown && !down1 && !down2;
         }
     }
     @Override

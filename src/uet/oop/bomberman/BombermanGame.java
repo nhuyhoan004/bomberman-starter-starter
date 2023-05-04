@@ -19,27 +19,30 @@ import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
 import javafx.scene.image.ImageView;
 import java.util.ListIterator;
+
+import static uet.oop.bomberman.controls.Menu.createMenu;
 import static uet.oop.bomberman.controls.Menu.updateMenu;
 import static uet.oop.bomberman.entities.EntityArr.*;
-import static uet.oop.bomberman.graphics.NextLevel.waitToLevelUp;
+import static uet.oop.bomberman.graphics.NextLevel.*;
 
 
 public class BombermanGame extends Application {
-    private Group root;
-    private Scene scene;
+    public static Group root;
+    public static Scene scene;
     public static boolean win = false;
-    private boolean lose = false;
+    public static boolean lose = false;
 
     private static boolean isGameComplete = false;
     public static int level = 0;
     public static final String TITLE = "Bomberman by group 07";
-    public static int width = 25;
-    public static int height = 15;
+    public static int width = 31;
+    public static int height = 13;
     public static ImageView authorView;
-    private GraphicsContext gc;
-    private Canvas canvas;
+    public static GraphicsContext gc;
+    public static Canvas canvas;
 
-    public static Bomber bomber = new Bomber(1, 1, Sprite.player_right.getFxImage());
+    public static Bomber bomber;
+    public static Stage stage = null;
     public static boolean running;
 
     public static boolean getIsGameComplete() {
@@ -52,13 +55,13 @@ public class BombermanGame extends Application {
     }
 
     public void start(Stage stage) {
-        CreateMap.loadMapListFromFile();
-        CreateMap.readDataFromFile(0);
+        // khởi động giao diện Menu
+
         stage.setTitle(BombermanGame.TITLE);
         stage.setResizable(false);
 
         canvas = new Canvas(Sprite.SCALED_SIZE * width, Sprite.SCALED_SIZE * height);
-        canvas.setTranslateY(32);
+        canvas.setTranslateY(50);
         gc = canvas.getGraphicsContext2D();
         Image icon = new Image("images/ttsalpha4.0@0.5x.png");
         stage.getIcons().add(icon);
@@ -66,7 +69,6 @@ public class BombermanGame extends Application {
         authorView = new ImageView(author);
         authorView.setY(20);
         root = new Group();
-
         root.getChildren().add(canvas);
         root.getChildren().add(authorView);
         Menu.createMenu(root);
@@ -78,40 +80,15 @@ public class BombermanGame extends Application {
             @Override
             public void handle(long l) {
                 render();
+                Enemy.removeEnemy();
                 update();
-
-                if (lose) {
-                    updateMenu();
-                    return;
-                }
-
-                if (win) {
-                    updateMenu();
-                    return;
-                }
-
-                if (isGameComplete()) {
-                    CreateMap.readDataFromFile(++level);
-                    canvas.setHeight(Sprite.SCALED_SIZE * height);
-                    canvas.setWidth(Sprite.SCALED_SIZE * width);
-                    gc = canvas.getGraphicsContext2D();
-                    root = new Group();
-                    root.getChildren().add(canvas);
-                    scene = new Scene(root);
-                    stage.setScene(scene);
-                    stage.show();
-                    CreateMap.createMap();
-                    updateMenu();
-                }
-                Enemy.removeEnemy ();
-
             }
         };
         timer.start();
-        bomber = new Bomber(1, 1, Sprite.player_right_2.getFxImage());
+        bomber = new Bomber(1, 1, Sprite.player_right.getFxImage());
         bomber.setAlive(false);
-        CreateMap.createMap();
     }
+
 
 
     /**
@@ -139,12 +116,14 @@ public class BombermanGame extends Application {
             for (Entity flame : flames) {
                 if (bomber.intersects(flame)) {
                     bomber.setHp(0);
+                    bomber.setAlive(false);
                     break;
                 }
             }
             for (Entity enemy : enemies) {
                 if (bomber.intersects(enemy)) {
                     bomber.setHp(0);
+                    bomber.setAlive(false);
                     break;
                 }
             }
@@ -196,6 +175,7 @@ public class BombermanGame extends Application {
                     bItemIterator.remove();
                 }
             }
+            // portal
             for (Entity portal : portals) {
                 if (bomber.intersects(portal) && enemies.size() == 0) {
                     boolean complete = true;
@@ -220,9 +200,12 @@ public class BombermanGame extends Application {
             }
         }
     }
-    private boolean isGameComplete() {
+
+    public static boolean isGameComplete() {
         if (isGameComplete) {
             isGameComplete = false;
+            setWait(true);
+            waitingTime = System.currentTimeMillis();
             return true;
         }
         return false;
@@ -234,13 +217,13 @@ public class BombermanGame extends Application {
         portals.forEach(g -> {
             if (g.isAlive()) g.render(gc);
         });
-        EntityArr.enemies.forEach(g -> {
-            if (g.isAlive()) g.render(gc);
-        });
         EntityArr.getWalls().forEach(g -> g.render(gc));
         flameItems.forEach(g -> g.render(gc));
         speedItems.forEach(g -> g.render(gc));
         bombItems.forEach(g -> g.render(gc));
+        EntityArr.enemies.forEach(g -> {
+            if (g.isAlive()) g.render(gc);
+        });
         bricks.forEach(g -> {
             if (g.isAlive()) g.render(gc);
         });
@@ -276,8 +259,12 @@ public class BombermanGame extends Application {
         this.handleCollision();
         Flame.removeFinishedElements();
         Flame.removeDeadEntity();
-        if (EntityArr.getBombers().size() == 0 && EntityArr.getDeads().size() == 0) {
+        if (!enemies.isEmpty() && EntityArr.getBombers().isEmpty()) {
+            bomber.setAlive(false);
+            Image gameOver = new Image("images/gameOver.png");
+            authorView.setImage(gameOver);
             lose = true;
+            running = false;
         }
         waitToLevelUp();
         updateMenu();

@@ -1,34 +1,18 @@
 package uet.oop.bomberman.controls;
 
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import uet.oop.bomberman.graphics.CreateMap;
-
-
 import static uet.oop.bomberman.BombermanGame.*;
 
 // Menu của trò chơi
 public class Menu {
     private static ImageView statusGame;
-    public static Text level, bomb, time;
-    public static int bomNumber = 20;
     // Menu hiển thị level,số hàng, số cột
     public static void createMenu(Group root) {
-        // só thự tự màn chơi
-        /*level = new Text("level: 1");
-        level.setFont(Font.font("Times New Roman", FontWeight.BOLD, 14 ));
-        level.setFill(Color.BLUEVIOLET);
-        level.setX(416);
-        level.setY(20);*/
-        // số hàng của bản đồ
-
-        // số cột của bản đồ
 
         Image newGame = new Image("images/newGame.png");
         statusGame = new ImageView(newGame);
@@ -52,11 +36,15 @@ public class Menu {
                 running = !running;
             } else {
                 // bomber dead, start a new game
-                CreateMap.readDataFromFile(0);
-                CreateMap.loadMapListFromFile();
-                Image transparent = new Image("images/transparent.png");
-                authorView.setImage(transparent);
-                running = true;
+                if (level == 0) {
+                    Image transparent = new Image("images/transparent.png");
+                    authorView.setImage(transparent);
+                    CreateMap.loadMapListFromFile();
+                    CreateMap.readDataFromFile(0);
+                    CreateMap.createMap();
+                    bomber.setAlive(true);
+                    running = true;
+                }
             }
             updateMenu();
         });

@@ -1,9 +1,12 @@
 package uet.oop.bomberman.graphics;
 
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
 
 import static uet.oop.bomberman.BombermanGame.*;
+import static uet.oop.bomberman.controls.Menu.updateMenu;
 import static uet.oop.bomberman.entities.EntityArr.portals;
 
 
@@ -20,32 +23,18 @@ public class NextLevel {
     }
 
     public static void waitToLevelUp() {
-        if (getIsGameComplete()) {
+        if (isGameComplete() && level <= 1) {
             Image waitToNext = new Image("images/levelUp.png");
             authorView.setImage(waitToNext);
-            int now = 3;
-            while (now > 0) {
-                wait = true;
-                now--;
-            }
-            if (now == 0) {
-                switch (level) {
-                    case 0:
-                        for (Entity portal : portals) {
-                            portal.setAlive(true);
-                        }
-                        CreateMap.readDataFromFile(1);
-                        CreateMap.createMap();
-                        break;
-                    case 1:
-                        for (Entity portal : portals) {
-                            portal.setAlive(true);
-                        }
-                        CreateMap.readDataFromFile(2);
-                        CreateMap.createMap();
-                        break;
-                }
-                wait = false;
+            long now = System.currentTimeMillis();
+            if (now - waitingTime > 46) {
+                Image transparent = new Image("images/transparent.png");
+                authorView.setImage(transparent);
+                CreateMap.loadMapListFromFile();
+                CreateMap.readDataFromFile(++level);
+                CreateMap.createMap();
+                running = true;
+                System.out.println("work");
             }
         }
     }

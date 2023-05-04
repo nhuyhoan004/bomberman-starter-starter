@@ -176,36 +176,4 @@ public class Flame extends Entity {
         }
     }
 
-/*    public void checkFlameItems() {
-        ListIterator<Entity> itemIterator = flameItems.listIterator();
-        while (!flameItems.isEmpty() && itemIterator.hasNext()) {
-            Entity itemNext = itemIterator.next();
-            if (this.intersects(itemNext)) {
-                itemNext.setAlive(false);
-                itemNext.setImg(Sprite.powerup_flames.getFxImage());
-            }
-        }
-    }
-
-    public void checkSpeedItems() {
-        ListIterator<Entity> itemIterator = speedItems.listIterator();
-        while (!speedItems.isEmpty() && itemIterator.hasNext()) {
-            Entity itemNext = itemIterator.next();
-            if (this.intersects(itemNext)) {
-                itemNext.setAlive(false);
-                itemNext.setImg(Sprite.powerup_speed.getFxImage());
-            }
-        }
-    }
-
-    public void checkBombItems() {
-        ListIterator<Entity> itemIterator = bombItems.listIterator();
-        while (!bombItems.isEmpty() && itemIterator.hasNext()) {
-            Entity itemNext = itemIterator.next();
-            if (this.intersects(itemNext)) {
-                itemNext.setAlive(false);
-                itemNext.setImg(Sprite.powerup_bombs.getFxImage());
-            }
-        }
-    }*/
 }

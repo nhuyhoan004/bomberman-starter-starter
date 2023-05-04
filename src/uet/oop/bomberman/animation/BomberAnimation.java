@@ -9,7 +9,7 @@ import java.util.List;
 import uet.oop.bomberman.entities.Entity;
 
 
-public class BomberAnimation extends Animation{
+public class BomberAnimation extends Animation {
 
     /**
      * cac list là cac trang thai

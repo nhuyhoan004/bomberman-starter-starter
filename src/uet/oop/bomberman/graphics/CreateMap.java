@@ -79,6 +79,11 @@ public class CreateMap {
         EntityArr.walls.clear();
         grasses.clear();
         portals.clear();
+        flameItems.clear();
+        bombItems.clear();
+        speedItems.clear();
+        bricks.clear();
+        enemies.clear();
 
         for (int i = 0; i < height; i++) {
             String s = map.get(i);

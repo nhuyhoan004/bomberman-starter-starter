@@ -27,7 +27,7 @@ public class NextLevel {
             Image waitToNext = new Image("images/levelUp.png");
             authorView.setImage(waitToNext);
             long now = System.currentTimeMillis();
-            if (now - waitingTime > 46) {
+            if (now - waitingTime > 50) {
                 Image transparent = new Image("images/transparent.png");
                 authorView.setImage(transparent);
                 CreateMap.loadMapListFromFile();

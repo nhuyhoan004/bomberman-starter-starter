@@ -72,10 +72,6 @@ public class BombermanGame extends Application {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-//        if (level > 3) {
-//            authorView.setImage(author);
-//            bomber.setAlive(false);
-//        }
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
@@ -187,6 +183,7 @@ public class BombermanGame extends Application {
                         }
                     }
                     isGameComplete = complete;
+//                    waitingTime = System.currentTimeMillis();
                 }
             }
         }

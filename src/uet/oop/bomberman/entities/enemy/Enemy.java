@@ -122,7 +122,6 @@ public abstract class Enemy extends Entity {
         while (enemyIterator.hasNext()) {
             Enemy enemy = (Enemy) enemyIterator.next();
             if (!enemy.isAlive()) {
-                Sound.play("ENEMY_DIE");
                 enemyIterator.remove();
             }
         }

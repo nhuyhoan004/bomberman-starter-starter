@@ -95,8 +95,9 @@ public class Bomber extends Entity {
         scene.setOnKeyPressed(event -> {
             KeyCode code = event.getCode();
             if (code == KeyCode.SPACE || code == KeyCode.X) {
-                Sound.play("SPACE");
                 this.createBomb++;
+                Sound sound = new Sound("SPACE");
+                sound.play();
                 if (this.createBomb > 100000) {
                     this.createBomb = 10;
                 }

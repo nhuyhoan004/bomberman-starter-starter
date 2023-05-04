@@ -40,8 +40,9 @@ public class Bomb extends Entity {
         // time: thoi gian ton tai cua bomb
         count++;
         if (count > time) {
-            Sound.play ("BOM_NO");
             this.hp = 0;
+            Sound sound = new Sound("BOM_NO");
+            sound.play();
         }
     }
 

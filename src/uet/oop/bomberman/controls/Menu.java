@@ -6,6 +6,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import uet.oop.bomberman.graphics.CreateMap;
+import uet.oop.bomberman.sound.Sound;
+
 import static uet.oop.bomberman.BombermanGame.*;
 
 // Menu của trò chơi

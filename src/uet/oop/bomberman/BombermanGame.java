@@ -41,13 +41,13 @@ public class BombermanGame extends Application {
     public static Bomber bomber;
     public static Stage stage = null;
     public static boolean running;
+    public static Sound sound;
 
     public static boolean getIsGameComplete() {
         return isGameComplete;
     }
 
     public static void main(String[] args) {
-        Sound.play("soundtrack");
         Application.launch(BombermanGame.class);
     }
 
@@ -56,6 +56,8 @@ public class BombermanGame extends Application {
 
         stage.setTitle(BombermanGame.TITLE);
         stage.setResizable(false);
+        sound = new Sound ("main");
+        sound.play();
 
         canvas = new Canvas(Sprite.SCALED_SIZE * width, Sprite.SCALED_SIZE * height);
         canvas.setTranslateY(50);
@@ -145,10 +147,11 @@ public class BombermanGame extends Application {
             while (!flameItems.isEmpty() && itemIterator.hasNext()) {
                 Entity itemNext = itemIterator.next();
                 if (bomber.intersects(itemNext)) {
-                    Sound.play("Item");
                     int power = bomber.getFlame() + 2;
                     bomber.setFlame(power);
                     itemIterator.remove();
+                    sound = new Sound ("Item");
+                    sound.play();
                 }
             }
             // va chạm với speedItem
@@ -156,9 +159,10 @@ public class BombermanGame extends Application {
             while (!speedItems.isEmpty() && sItemIterator.hasNext()) {
                 Entity itemNext = sItemIterator.next();
                 if (bomber.intersects(itemNext)) {
-                    Sound.play("Item");
                     bomber.setSpeed(2);
                     sItemIterator.remove();
+                    sound = new Sound ("Item");
+                    sound.play();
                 }
             }
             // va chạm với bombItem
@@ -166,9 +170,10 @@ public class BombermanGame extends Application {
             while (!bombItems.isEmpty() && bItemIterator.hasNext()) {
                 Entity itemNext = bItemIterator.next();
                 if (bomber.intersects(itemNext)) {
-                    Sound.play("Item");
                     bomber.setBomb(2);
                     bItemIterator.remove();
+                    sound = new Sound ("Item");
+                    sound.play();
                 }
             }
             // portal

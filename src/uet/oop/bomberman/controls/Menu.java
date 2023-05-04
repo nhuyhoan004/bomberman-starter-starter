@@ -36,15 +36,13 @@ public class Menu {
                 running = !running;
             } else {
                 // bomber dead, start a new game
-                if (level == 0) {
-                    Image transparent = new Image("images/transparent.png");
-                    authorView.setImage(transparent);
-                    CreateMap.loadMapListFromFile();
-                    CreateMap.readDataFromFile(0);
-                    CreateMap.createMap();
-                    bomber.setAlive(true);
-                    running = true;
-                }
+                Image transparent = new Image("images/transparent.png");
+                authorView.setImage(transparent);
+                CreateMap.loadMapListFromFile();
+                CreateMap.readDataFromFile(0);
+                CreateMap.createMap();
+                bomber.setAlive(true);
+                running = true;
             }
             updateMenu();
         });

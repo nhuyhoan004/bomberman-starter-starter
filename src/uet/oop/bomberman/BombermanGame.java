@@ -14,13 +14,10 @@ import uet.oop.bomberman.entities.block.Bomb;
 import uet.oop.bomberman.entities.bomber.Bomber;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.entities.enemy.Enemy;
-import uet.oop.bomberman.graphics.CreateMap;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
 import javafx.scene.image.ImageView;
 import java.util.ListIterator;
-
-import static uet.oop.bomberman.controls.Menu.createMenu;
 import static uet.oop.bomberman.controls.Menu.updateMenu;
 import static uet.oop.bomberman.entities.EntityArr.*;
 import static uet.oop.bomberman.graphics.NextLevel.*;
@@ -63,7 +60,7 @@ public class BombermanGame extends Application {
         canvas = new Canvas(Sprite.SCALED_SIZE * width, Sprite.SCALED_SIZE * height);
         canvas.setTranslateY(50);
         gc = canvas.getGraphicsContext2D();
-        Image icon = new Image("images/ttsalpha4.0@0.5x.png");
+        Image icon = new Image("images/icon.png");
         stage.getIcons().add(icon);
         Image author = new Image("images/author.png");
         authorView = new ImageView(author);
@@ -75,7 +72,10 @@ public class BombermanGame extends Application {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
+//        if (level > 3) {
+//            authorView.setImage(author);
+//            bomber.setAlive(false);
+//        }
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {

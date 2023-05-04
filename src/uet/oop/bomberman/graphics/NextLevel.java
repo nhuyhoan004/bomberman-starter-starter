@@ -23,7 +23,7 @@ public class NextLevel {
     }
 
     public static void waitToLevelUp() {
-        if (isGameComplete() && level <= 1) {
+        if (level < 1 && isGameComplete()) {
             Image waitToNext = new Image("images/levelUp.png");
             authorView.setImage(waitToNext);
             long now = System.currentTimeMillis();
@@ -34,8 +34,12 @@ public class NextLevel {
                 CreateMap.readDataFromFile(++level);
                 CreateMap.createMap();
                 running = true;
-                System.out.println("work");
+//                System.out.println("work");
             }
+        } else if (isGameComplete()) {
+            Image victory = new Image("images/author.png");
+            authorView.setImage(victory);
+            bomber.setAlive(false);
         }
     }
 }

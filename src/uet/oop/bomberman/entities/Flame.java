@@ -1,9 +1,12 @@
 package uet.oop.bomberman.entities;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.animation.FlameAnimation;
 import uet.oop.bomberman.entities.bomber.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.sound.Sound;
+
 import java.util.ListIterator;
 import static uet.oop.bomberman.entities.EntityArr.*;
 
@@ -139,6 +142,8 @@ public class Flame extends Entity {
             if (bombers.get(i).getHp() <= 0) {
                 deads.add(bombers.get(i));
                 bombers.remove(i--);
+                BombermanGame.sound = new Sound ("died");
+                BombermanGame.sound.play();
             }
         }
     }

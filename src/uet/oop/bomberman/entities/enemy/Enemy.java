@@ -1,4 +1,5 @@
 package uet.oop.bomberman.entities.enemy;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 import javafx.scene.image.Image;
@@ -123,6 +124,7 @@ public abstract class Enemy extends Entity {
             Enemy enemy = (Enemy) enemyIterator.next();
             if (!enemy.isAlive()) {
                 enemyIterator.remove();
+                BombermanGame.sound = new Sound ("ENEMY_DIE");
             }
         }
     }

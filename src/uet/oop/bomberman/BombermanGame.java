@@ -56,7 +56,7 @@ public class BombermanGame extends Application {
 
         stage.setTitle(BombermanGame.TITLE);
         stage.setResizable(false);
-        sound = new Sound ("main");
+        sound = new Sound ("title_screen");
         sound.play();
 
         canvas = new Canvas(Sprite.SCALED_SIZE * width, Sprite.SCALED_SIZE * height);

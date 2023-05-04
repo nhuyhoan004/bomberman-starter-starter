@@ -38,6 +38,7 @@ public class Menu {
                 running = !running;
             } else {
                 // bomber dead, start a new game
+                sound.stop();
                 Image transparent = new Image("images/transparent.png");
                 authorView.setImage(transparent);
                 CreateMap.loadMapListFromFile();

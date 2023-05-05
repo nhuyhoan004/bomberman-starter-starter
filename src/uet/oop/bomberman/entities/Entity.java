@@ -116,4 +116,8 @@ public abstract class Entity {
     public void setAlive(boolean alive) {
         isAlive = alive;
     }
+
+    /*public Entity getEntityAt(double x, double y) {
+        return _en
+    }*/
 }

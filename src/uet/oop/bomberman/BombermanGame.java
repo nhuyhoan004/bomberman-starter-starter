@@ -59,18 +59,19 @@ public class BombermanGame extends Application {
         soundstart = new Sound ("title_screen");
         soundstart.play();
         canvas = new Canvas(Sprite.SCALED_SIZE * width, Sprite.SCALED_SIZE * height);
-        canvas.setTranslateY(67);
+        canvas.setTranslateY(28);
         gc = canvas.getGraphicsContext2D();
         Image icon = new Image("images/icon.png");
         stage.getIcons().add(icon);
         Image author = new Image("images/author.png");
         authorView = new ImageView(author);
-        authorView.setY(20);
+        authorView.setY(30);
         root = new Group();
         root.getChildren().add(canvas);
         root.getChildren().add(authorView);
         Menu.createMenu(root);
         scene = new Scene(root);
+
         stage.setScene(scene);
         stage.show();
         AnimationTimer timer = new AnimationTimer() {
@@ -266,6 +267,7 @@ public class BombermanGame extends Application {
             bomber.setAlive(false);
             Image gameOver = new Image("images/gameOver.png");
             authorView.setImage(gameOver);
+//            sound.close();
             lose = true;
             running = false;
             Menu.sound.stop();

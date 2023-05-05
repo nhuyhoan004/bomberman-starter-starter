@@ -58,7 +58,6 @@ public class BombermanGame extends Application {
         stage.setResizable(false);
         sound = new Sound ("title_screen");
         sound.play();
-
         canvas = new Canvas(Sprite.SCALED_SIZE * width, Sprite.SCALED_SIZE * height);
         canvas.setTranslateY(50);
         gc = canvas.getGraphicsContext2D();

@@ -62,6 +62,12 @@ public abstract class Entity {
         this.animate = Sprite.DEFAULT_SIZE;
     }
 
+    public Entity(int xUnit, int yUnit) {
+        this.x = xUnit * Sprite.SCALED_SIZE;
+        this.y = yUnit * Sprite.SCALED_SIZE;
+        this.animate = Sprite.DEFAULT_SIZE;
+    }
+
     public Entity() {}
 
     public void render(GraphicsContext gc) {
@@ -116,8 +122,4 @@ public abstract class Entity {
     public void setAlive(boolean alive) {
         isAlive = alive;
     }
-
-    /*public Entity getEntityAt(double x, double y) {
-        return _en
-    }*/
 }

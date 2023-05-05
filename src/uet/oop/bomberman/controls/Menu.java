@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.CreateMap;
 import uet.oop.bomberman.sound.Sound;
 
@@ -39,6 +40,8 @@ public class Menu {
             } else {
                 // bomber dead, start a new game
                 sound.stop();
+                sound = new Sound ("main");
+                sound.play ();
                 Image transparent = new Image("images/transparent.png");
                 authorView.setImage(transparent);
                 CreateMap.loadMapListFromFile();

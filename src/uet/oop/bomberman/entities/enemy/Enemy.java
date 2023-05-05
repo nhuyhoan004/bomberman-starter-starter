@@ -124,7 +124,8 @@ public abstract class Enemy extends Entity {
             Enemy enemy = (Enemy) enemyIterator.next();
             if (!enemy.isAlive()) {
                 enemyIterator.remove();
-                BombermanGame.sound = new Sound ("ENEMY_DIE");
+                Sound soundenemy = new Sound ("ENEMY_DIE");
+                soundenemy.play ();
             }
         }
     }

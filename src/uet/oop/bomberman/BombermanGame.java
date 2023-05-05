@@ -41,7 +41,7 @@ public class BombermanGame extends Application {
     public static Bomber bomber;
     public static Stage stage = null;
     public static boolean running;
-    public static Sound sound;
+    public static Sound soundstart;
 
     public static boolean getIsGameComplete() {
         return isGameComplete;
@@ -56,8 +56,8 @@ public class BombermanGame extends Application {
 
         stage.setTitle(BombermanGame.TITLE);
         stage.setResizable(false);
-        sound = new Sound ("title_screen");
-        sound.play();
+        soundstart = new Sound ("title_screen");
+        soundstart.play();
         canvas = new Canvas(Sprite.SCALED_SIZE * width, Sprite.SCALED_SIZE * height);
         canvas.setTranslateY(67);
         gc = canvas.getGraphicsContext2D();
@@ -141,16 +141,18 @@ public class BombermanGame extends Application {
             for (Entity wall : walls) {
                 bomber.checkObjectMovementAbility(wall);
             }
+            Sound sounditem;
             // va chạm với flameItem
             ListIterator<Entity> itemIterator = flameItems.listIterator();
             while (!flameItems.isEmpty() && itemIterator.hasNext()) {
+
                 Entity itemNext = itemIterator.next();
                 if (bomber.intersects(itemNext)) {
                     int power = bomber.getFlame() + 2;
                     bomber.setFlame(power);
                     itemIterator.remove();
-                    sound = new Sound ("Item");
-                    sound.play();
+                    sounditem = new Sound ("Item");
+                    sounditem.play();
                 }
             }
             // va chạm với speedItem
@@ -160,8 +162,8 @@ public class BombermanGame extends Application {
                 if (bomber.intersects(itemNext)) {
                     bomber.setSpeed(2);
                     sItemIterator.remove();
-                    sound = new Sound ("Item");
-                    sound.play();
+                    sounditem = new Sound ("Item");
+                    sounditem.play();
                 }
             }
             // va chạm với bombItem
@@ -171,8 +173,8 @@ public class BombermanGame extends Application {
                 if (bomber.intersects(itemNext)) {
                     bomber.setBomb(2);
                     bItemIterator.remove();
-                    sound = new Sound ("Item");
-                    sound.play();
+                    sounditem = new Sound ("Item");
+                    sounditem.play();
                 }
             }
             // portal
@@ -266,6 +268,7 @@ public class BombermanGame extends Application {
             authorView.setImage(gameOver);
             lose = true;
             running = false;
+            Menu.sound.stop();
         }
         waitToLevelUp();
         updateMenu();

@@ -4,6 +4,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.animation.Animation;
+import uet.oop.bomberman.animation.OnealAnimation;
 import uet.oop.bomberman.graphics.Sprite;
 public abstract class Entity {
     protected int x;
@@ -58,12 +59,6 @@ public abstract class Entity {
         this.x = xUnit * Sprite.SCALED_SIZE;
         this.y = yUnit * Sprite.SCALED_SIZE;
         this.img = img;
-        this.animate = Sprite.DEFAULT_SIZE;
-    }
-
-    public Entity(int xUnit, int yUnit) {
-        this.x = xUnit * Sprite.SCALED_SIZE;
-        this.y = yUnit * Sprite.SCALED_SIZE;
         this.animate = Sprite.DEFAULT_SIZE;
     }
 

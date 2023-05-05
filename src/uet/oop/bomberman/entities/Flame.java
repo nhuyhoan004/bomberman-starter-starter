@@ -142,8 +142,8 @@ public class Flame extends Entity {
             if (bombers.get(i).getHp() <= 0) {
                 deads.add(bombers.get(i));
                 bombers.remove(i--);
-                BombermanGame.sound = new Sound ("died");
-                BombermanGame.sound.play();
+                Sound soundBomber = new Sound ("died");
+                soundBomber.play();
             }
         }
     }

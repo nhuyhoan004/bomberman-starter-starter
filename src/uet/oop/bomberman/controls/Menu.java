@@ -22,14 +22,14 @@ public class Menu {
         statusGame = new ImageView(newGame);
         statusGame.setScaleY(0.5);
         statusGame.setScaleX(0.5);
-        statusGame.setX(-70);
-        statusGame.setY(-10);
+        statusGame.setX(-95);
+        statusGame.setY(-57);
 
 
         Pane pane = new Pane();
         pane.getChildren().addAll(statusGame);
-        pane.setMinSize(992, 32);
-        pane.setMaxSize(992, 32);
+        pane.setMinSize(992, 30);
+        pane.setMaxSize(992, 30);
         pane.setStyle("-fx-background-color: WHITE");
 
         root.getChildren().add(pane);

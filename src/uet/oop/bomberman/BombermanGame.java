@@ -41,7 +41,7 @@ public class BombermanGame extends Application {
     public static Bomber bomber;
     public static Stage stage = null;
     public static boolean running;
-    public static Sound soundstart;
+    public static Sound sound;
 
     public static boolean getIsGameComplete() {
         return isGameComplete;
@@ -56,8 +56,6 @@ public class BombermanGame extends Application {
 
         stage.setTitle(BombermanGame.TITLE);
         stage.setResizable(false);
-        soundstart = new Sound ("title_screen");
-        soundstart.play();
         canvas = new Canvas(Sprite.SCALED_SIZE * width, Sprite.SCALED_SIZE * height);
         canvas.setTranslateY(28);
         gc = canvas.getGraphicsContext2D();

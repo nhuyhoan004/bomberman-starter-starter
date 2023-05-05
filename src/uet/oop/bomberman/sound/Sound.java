@@ -9,12 +9,22 @@ import java.io.File;
 import java.io.IOException;
 
 public class Sound {
-    private static Clip clip;
+    private Clip clip;
     private int currentFrame;
     private boolean isPaused;
-
-    public String sound;
-
+    String sound;
+    public static Sound title_screen = new Sound ("title_screen");
+    public static Sound soundplay = new Sound ("soundplay");
+    public static Sound bomno = new Sound ("BOM_NO");
+    public static Sound dead = new Sound ("died");
+    public static Sound enemy_dead = new Sound ("ENEMY_DIE");
+    public static Sound game_over = new Sound ("game_over");
+    public static Sound Item = new Sound ("Item");
+    public static Sound move = new Sound ("move");
+    public static Sound place_bomb = new Sound ("SPACE");
+    public static Sound miss = new Sound ("miss");
+    public static Sound win  = new Sound ("stage_clear");
+    public static Sound stage_start = new Sound ("stage_start");
     public Sound(String sound) {
         this.sound = sound;
         try {
@@ -62,11 +72,8 @@ public class Sound {
     public void close() {
         stop();
         if (clip != null) {
-            clip.close();
+           clip.close ();
         }
     }
 
-    public static Clip getClip() {
-        return clip;
-    }
 }

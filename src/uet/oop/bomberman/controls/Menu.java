@@ -20,7 +20,7 @@ public class Menu {
     private static ImageView statusGame;
     // Menu hiển thị level,số hàng, số cột
     public static void createMenu(Group root) {
-
+        Sound.title_screen.play ();
         Image newGame = new Image("images/newGame.png");
         statusGame = new ImageView(newGame);
         statusGame.setScaleY(0.5);
@@ -39,18 +39,10 @@ public class Menu {
 
         statusGame.setOnMouseClicked(event -> {
             if (bomber.isAlive()) {
-                // nếu người chơi còn mạng, game tiếp tục
-                if (Sound.getClip() != null && Sound.getClip().isRunning()) {
-                    sound.pause();
-                } else {
-                    sound.resume();
-                }
                 running = !running;
             } else {
-                // bomber dead, start a new game
-                soundstart.stop();
-                sound = new Sound ("main");
-                sound.play ();
+                Sound.title_screen.close();
+                Sound.soundplay.play ();
                 Image transparent = new Image("images/transparent.png");
                 authorView.setImage(transparent);
                 CreateMap.loadMapListFromFile();
@@ -68,9 +60,11 @@ public class Menu {
             if (running) {
                 Image pauseGame = new Image("images/pauseGame.png");
                 statusGame.setImage(pauseGame);
+                Sound.soundplay.resume();
             } else {
                 Image playGame = new Image("images/playGame.png");
                 statusGame.setImage(playGame);
+                Sound.soundplay.pause ();
             }
         } else {
             Image newGame = new Image("images/newGame.png");

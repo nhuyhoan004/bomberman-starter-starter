@@ -1,2 +1,7 @@
 res/levels/Level1.txt
 res/levels/Level2.txt
+res/levels/Level3.txt
+res/levels/Level4.txt
+res/levels/Level5.txt
+res/levels/Level6.txt
+res/levels/Level7.txt

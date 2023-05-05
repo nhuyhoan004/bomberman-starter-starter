@@ -7,6 +7,7 @@ import uet.oop.bomberman.entities.Entity;
 
 import static uet.oop.bomberman.BombermanGame.*;
 import static uet.oop.bomberman.controls.Menu.updateMenu;
+import static uet.oop.bomberman.entities.EntityArr.mapList;
 import static uet.oop.bomberman.entities.EntityArr.portals;
 
 
@@ -23,11 +24,11 @@ public class NextLevel {
     }
 
     public static void waitToLevelUp() {
-        if (level < 1 && isGameComplete()) {
+        if (level < mapList.size() && isGameComplete()) {
             Image waitToNext = new Image("images/levelUp.png");
             authorView.setImage(waitToNext);
             long now = System.currentTimeMillis();
-            if (now - waitingTime > 50) {
+            if (now - waitingTime > 40) {
                 Image transparent = new Image("images/transparent.png");
                 authorView.setImage(transparent);
                 CreateMap.loadMapListFromFile();

@@ -37,11 +37,12 @@ public class Menu {
         statusGame.setOnMouseClicked(event -> {
             if (bomber.isAlive()) {
                 // nếu người chơi còn mạng, game tiếp tục
-                if (clip != null) {
-                    sound.close();
+                if (Sound.getClip() != null && Sound.getClip().isRunning()) {
+                    sound.pause();
                 } else {
-                    sound.play();
+                    sound.resume();
                 }
+                running = !running;
             } else {
                 // bomber dead, start a new game
                 sound.stop();

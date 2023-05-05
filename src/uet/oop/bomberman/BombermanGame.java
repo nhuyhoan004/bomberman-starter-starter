@@ -59,7 +59,7 @@ public class BombermanGame extends Application {
         sound = new Sound ("title_screen");
         sound.play();
         canvas = new Canvas(Sprite.SCALED_SIZE * width, Sprite.SCALED_SIZE * height);
-        canvas.setTranslateY(50);
+        canvas.setTranslateY(67);
         gc = canvas.getGraphicsContext2D();
         Image icon = new Image("images/icon.png");
         stage.getIcons().add(icon);

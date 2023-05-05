@@ -41,7 +41,8 @@ public class BombermanGame extends Application {
     public static Bomber bomber;
     public static Stage stage = null;
     public static boolean running;
-    public static Sound soundstart;
+    public static Sound soundPlay = new Sound ("main");
+    public static Sound soundStart = new Sound ("title_screen");
 
     public static boolean getIsGameComplete() {
         return isGameComplete;
@@ -56,8 +57,7 @@ public class BombermanGame extends Application {
 
         stage.setTitle(BombermanGame.TITLE);
         stage.setResizable(false);
-        soundstart = new Sound ("title_screen");
-        soundstart.play();
+        soundStart.play();
         canvas = new Canvas(Sprite.SCALED_SIZE * width, Sprite.SCALED_SIZE * height);
         canvas.setTranslateY(28);
         gc = canvas.getGraphicsContext2D();
@@ -265,12 +265,13 @@ public class BombermanGame extends Application {
         Flame.removeDeadEntity();
         if (!enemies.isEmpty() && EntityArr.getBombers().isEmpty()) {
             bomber.setAlive(false);
+            soundPlay.pause();
+            soundStart.resume();
             Image gameOver = new Image("images/gameOver.png");
             authorView.setImage(gameOver);
 //            sound.close();
             lose = true;
             running = false;
-            Menu.sound.stop();
         }
         waitToLevelUp();
         updateMenu();

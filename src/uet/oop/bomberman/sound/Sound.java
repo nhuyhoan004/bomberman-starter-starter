@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Sound {
-    private static Clip clip;
+    private Clip clip;
     private int currentFrame;
     private boolean isPaused;
 
@@ -66,7 +66,7 @@ public class Sound {
         }
     }
 
-    public static Clip getClip() {
+    public Clip getClip() {
         return clip;
     }
 }

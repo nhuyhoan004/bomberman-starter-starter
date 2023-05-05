@@ -5,18 +5,12 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import uet.oop.bomberman.BombermanGame;
-import uet.oop.bomberman.entities.EntityArr;
 import uet.oop.bomberman.graphics.CreateMap;
 import uet.oop.bomberman.sound.Sound;
-
-import static javax.sound.sampled.AudioSystem.getClip;
 import static uet.oop.bomberman.BombermanGame.*;
-import static uet.oop.bomberman.entities.EntityArr.enemies;
 
 // Menu của trò chơi
 public class Menu {
-    public static Sound sound;
     private static ImageView statusGame;
     // Menu hiển thị level,số hàng, số cột
     public static void createMenu(Group root) {
@@ -40,17 +34,16 @@ public class Menu {
         statusGame.setOnMouseClicked(event -> {
             if (bomber.isAlive()) {
                 // nếu người chơi còn mạng, game tiếp tục
-                if (Sound.getClip() != null && Sound.getClip().isRunning()) {
-                    sound.pause();
+                if (soundPlay.getClip() != null && soundPlay.getClip().isRunning()) {
+                    soundPlay.pause();
                 } else {
-                    sound.resume();
+                    soundPlay.resume();
                 }
                 running = !running;
             } else {
                 // bomber dead, start a new game
-                soundstart.stop();
-                sound = new Sound ("main");
-                sound.play ();
+                soundStart.pause();
+                soundPlay.play();
                 Image transparent = new Image("images/transparent.png");
                 authorView.setImage(transparent);
                 CreateMap.loadMapListFromFile();

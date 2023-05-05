@@ -9,6 +9,7 @@ import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.CreateMap;
 import uet.oop.bomberman.sound.Sound;
 
+import static javax.sound.sampled.AudioSystem.getClip;
 import static uet.oop.bomberman.BombermanGame.*;
 
 // Menu của trò chơi
@@ -36,7 +37,11 @@ public class Menu {
         statusGame.setOnMouseClicked(event -> {
             if (bomber.isAlive()) {
                 // nếu người chơi còn mạng, game tiếp tục
-                running = !running;
+                if (clip != null) {
+                    sound.close();
+                } else {
+                    sound.play();
+                }
             } else {
                 // bomber dead, start a new game
                 sound.stop();

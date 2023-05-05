@@ -1,7 +1,6 @@
 package uet.oop.bomberman.controls;
 
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -14,7 +13,6 @@ public class Menu {
     private static ImageView statusGame;
     // Menu hiển thị level,số hàng, số cột
     public static void createMenu(Group root) {
-
         Image newGame = new Image("images/newGame.png");
         statusGame = new ImageView(newGame);
         statusGame.setScaleY(0.5);
@@ -43,7 +41,7 @@ public class Menu {
             } else {
                 // bomber dead, start a new game
                 soundStart.pause();
-                soundPlay.play();
+                soundPlay.play ();
                 Image transparent = new Image("images/transparent.png");
                 authorView.setImage(transparent);
                 CreateMap.loadMapListFromFile();

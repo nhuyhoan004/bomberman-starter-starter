@@ -41,7 +41,7 @@ public class BombermanGame extends Application {
     public static Bomber bomber;
     public static Stage stage = null;
     public static boolean running;
-    public static Sound soundPlay = new Sound ("main");
+    public static Sound soundPlay = new Sound ("soundplay");
     public static Sound soundStart = new Sound ("title_screen");
 
     public static boolean getIsGameComplete() {

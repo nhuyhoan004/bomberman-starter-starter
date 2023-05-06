@@ -4,6 +4,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.sound.Sound;
 
 import static uet.oop.bomberman.BombermanGame.*;
 import static uet.oop.bomberman.controls.Menu.updateMenu;
@@ -29,6 +30,7 @@ public class NextLevel {
             authorView.setImage(waitToNext);
             long now = System.currentTimeMillis();
             if (now - waitingTime > 15) {
+                Sound.soundplay.stop ();
                 Image transparent = new Image("images/transparent.png");
                 authorView.setImage(transparent);
                 CreateMap.loadMapListFromFile();

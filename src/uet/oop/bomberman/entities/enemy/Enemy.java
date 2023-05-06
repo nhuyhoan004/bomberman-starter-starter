@@ -80,16 +80,6 @@ public abstract class Enemy extends Entity {
         int n = rd.nextInt(4);
         direction(n);
     }
-
-    public void randomSpeed() {
-        Random random = new Random();
-        int num = random.nextInt(10);
-        if (num <= 5) {
-            this.setSpeed(1);
-        } else {
-            this.setSpeed(2);
-        }
-    }
     public int sameRow() {
         if (getX() > bomber.getX()) {
             return LEFT;
@@ -124,8 +114,7 @@ public abstract class Enemy extends Entity {
             Enemy enemy = (Enemy) enemyIterator.next();
             if (!enemy.isAlive()) {
                 enemyIterator.remove();
-                Sound soundenemy = new Sound ("ENEMY_DIE");
-                soundenemy.play ();
+                Sound.enemy_dead.play();
             }
         }
     }

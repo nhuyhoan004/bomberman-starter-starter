@@ -150,8 +150,7 @@ public class BombermanGame extends Application {
                     int power = bomber.getFlame() + 2;
                     bomber.setFlame(power);
                     itemIterator.remove();
-                    sounditem = new Sound ("Item");
-                    sounditem.play();
+                    Sound.Item.play ();
                 }
             }
             // va chạm với speedItem
@@ -161,8 +160,7 @@ public class BombermanGame extends Application {
                 if (bomber.intersects(itemNext)) {
                     bomber.setSpeed(2);
                     sItemIterator.remove();
-                    sounditem = new Sound ("Item");
-                    sounditem.play();
+                    Sound.Item.play ();
                 }
             }
             // va chạm với bombItem
@@ -172,8 +170,7 @@ public class BombermanGame extends Application {
                 if (bomber.intersects(itemNext)) {
                     bomber.setBomb(2);
                     bItemIterator.remove();
-                    sounditem = new Sound ("Item");
-                    sounditem.play();
+                    Sound.Item.play ();
                 }
             }
             // portal
@@ -187,6 +184,7 @@ public class BombermanGame extends Application {
                             break;
                         }
                     }
+                    Sound.stage_start.play();
                     isGameComplete = complete;
 //                    waitingTime = System.currentTimeMillis();
                 }

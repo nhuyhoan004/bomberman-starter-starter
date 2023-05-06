@@ -41,8 +41,7 @@ public class Bomb extends Entity {
         count++;
         if (count > time) {
             this.hp = 0;
-            Sound sound = new Sound("BOM_NO");
-            sound.play();
+            Sound.bomno.play ();
         }
     }
 

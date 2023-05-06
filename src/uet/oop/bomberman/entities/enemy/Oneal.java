@@ -16,7 +16,7 @@ public class Oneal extends Enemy {
             int distanceY = Math.abs(getY() - bomber.getY());
             if (this.getSpeedX() == 0) {
                 this.y += this.getSpeedY();
-                if (distanceX <= Sprite.SCALED_SIZE * 3 && distanceY <= Sprite.SCALED_SIZE * 3) {
+                if (distanceX <= Sprite.SCALED_SIZE && distanceY <= Sprite.SCALED_SIZE) {
                     this.setSpeed(1);
                     this.chaseBomber();
                     if (checkBoundsBrick() || checkBoundsBomb() || checkBoundsWall()) {
@@ -29,12 +29,10 @@ public class Oneal extends Enemy {
                         this.y -= this.getSpeedY();
                     }
                     this.randomDirection();
-                    this.randomSpeed();
                 }
             } else {
                 this.x += this.getSpeedX();
-                if (distanceX <= Sprite.SCALED_SIZE * 3 && distanceY <= Sprite.SCALED_SIZE * 3) {
-                    this.setSpeed(1);
+                if (distanceX <= Sprite.SCALED_SIZE && distanceY <= Sprite.SCALED_SIZE) {
                     this.chaseBomber();
                     if (checkBoundsBrick() || checkBoundsBomb() || checkBoundsWall()) {
                         this.x -= this.getSpeedX();
@@ -46,7 +44,6 @@ public class Oneal extends Enemy {
                         this.x -= this.getSpeedX();
                     }
                     this.randomDirection();
-                    this.randomSpeed();
                 }
             }
         } else {

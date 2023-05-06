@@ -96,8 +96,7 @@ public class Bomber extends Entity {
             KeyCode code = event.getCode();
             if (code == KeyCode.SPACE || code == KeyCode.X) {
                 this.createBomb++;
-                Sound sound = new Sound("SPACE");
-                sound.play();
+                Sound.place_bomb.play ();
                 if (this.createBomb > 100000) {
                     this.createBomb = 10;
                 }
@@ -140,17 +139,25 @@ public class Bomber extends Entity {
      * phuong thuc di chuyen.
      */
     protected void move() {
+        boolean moving = false;
         if (this.hp <= 0) {
             return;
         }
         if (moveLeft && this.ableToMoveLeft) {
             this.x -= this.getSpeed();
+            moving = true;
         } else if (moveRight && this.ableToMoveRight) {
             this.x += this.getSpeed();
+            moving = true;
         } else if (moveUp && this.ableToMoveUp) {
             this.y -= this.getSpeed();
+            moving = true;
         } else if (moveDown && this.ableToMoveDown) {
             this.y += this.getSpeed();
+            moving = true;
+        }
+        if (moving) {
+            Sound.move.play ();
         }
     }
 

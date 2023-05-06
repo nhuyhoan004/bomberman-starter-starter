@@ -16,7 +16,7 @@ public class Doll extends Enemy {
             int distanceY = Math.abs(getY() - bomber.getY());
             if (this.getSpeedX() == 0) {
                 this.y += this.getSpeedY();
-                if (distanceX <= Sprite.SCALED_SIZE * 10 && distanceY <= Sprite.SCALED_SIZE * 10) {
+                if (distanceX <= Sprite.SCALED_SIZE  && distanceY <= Sprite.SCALED_SIZE ) {
                     this.chaseBomber();
                     if (checkBoundsBrick() || checkBoundsBomb() || checkBoundsWall()) {
                         this.y -= this.getSpeedY();
@@ -30,7 +30,7 @@ public class Doll extends Enemy {
                 }
             } else {
                 this.x += this.getSpeedX();
-                if (distanceX <= Sprite.SCALED_SIZE * 8 && distanceY <= Sprite.SCALED_SIZE * 8) {
+                if (distanceX <= Sprite.SCALED_SIZE  && distanceY <= Sprite.SCALED_SIZE ) {
                     this.chaseBomber();
                     if (checkBoundsBrick() || checkBoundsBomb() || checkBoundsWall()) {
                         this.x -= this.getSpeedX();

@@ -147,7 +147,7 @@ public class BombermanGame extends Application {
 
                 Entity itemNext = itemIterator.next();
                 if (bomber.intersects(itemNext)) {
-                    int power = bomber.getFlame() + 2;
+                    int power = bomber.getFlame() + 1;
                     bomber.setFlame(power);
                     itemIterator.remove();
                     Sound.Item.play ();

@@ -41,8 +41,6 @@ public class BombermanGame extends Application {
     public static Bomber bomber;
     public static Stage stage = null;
     public static boolean running;
-    public static Sound soundPlay = new Sound ("soundplay");
-    public static Sound soundStart = new Sound ("title_screen");
 
     public static boolean getIsGameComplete() {
         return isGameComplete;
@@ -57,7 +55,6 @@ public class BombermanGame extends Application {
 
         stage.setTitle(BombermanGame.TITLE);
         stage.setResizable(false);
-        soundStart.play();
         canvas = new Canvas(Sprite.SCALED_SIZE * width, Sprite.SCALED_SIZE * height);
         canvas.setTranslateY(28);
         gc = canvas.getGraphicsContext2D();
@@ -109,6 +106,7 @@ public class BombermanGame extends Application {
                 if (bomber.intersects(enemies.get(i))) {
                     bomber.setHp(0);
                     running = false;
+                    break;
                 }
             }
             for (Entity flame : flames) {
@@ -225,10 +223,11 @@ public class BombermanGame extends Application {
         flameItems.forEach(g -> g.render(gc));
         speedItems.forEach(g -> g.render(gc));
         bombItems.forEach(g -> g.render(gc));
-        EntityArr.enemies.forEach(g -> {
+
+        bricks.forEach(g -> {
             if (g.isAlive()) g.render(gc);
         });
-        bricks.forEach(g -> {
+        EntityArr.enemies.forEach(g -> {
             if (g.isAlive()) g.render(gc);
         });
         EntityArr.getDeads().forEach(g -> g.render(gc));
@@ -238,13 +237,13 @@ public class BombermanGame extends Application {
     }
 
     public void update () {
-        EntityArr.enemies.forEach(Entity::update);
         portals.forEach(Entity::update);
         EntityArr.getFlames().forEach(Entity::update);
         flameItems.forEach(Entity::update);
         speedItems.forEach(Entity::update);
         bombItems.forEach(Entity::update);
         bricks.forEach(Entity::update);
+        EntityArr.enemies.forEach(Entity::update);
         EntityArr.getDeads().forEach(Entity::update);
         EntityArr.getBombs().forEach(Entity::update);
         EntityArr.getBombers().forEach(Entity::update);
@@ -263,13 +262,11 @@ public class BombermanGame extends Application {
         this.handleCollision();
         Flame.removeFinishedElements();
         Flame.removeDeadEntity();
-        if (!enemies.isEmpty() && EntityArr.getBombers().isEmpty()) {
+        if (!enemies.isEmpty() && EntityArr.getBombers().isEmpty() && deads.isEmpty() ){
             bomber.setAlive(false);
-            soundPlay.pause();
-            soundStart.resume();
+            Sound.soundplay.stop();
             Image gameOver = new Image("images/gameOver.png");
             authorView.setImage(gameOver);
-//            sound.close();
             lose = true;
             running = false;
         }

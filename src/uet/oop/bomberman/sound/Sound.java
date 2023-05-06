@@ -12,9 +12,19 @@ public class Sound {
     private Clip clip;
     private int currentFrame;
     private boolean isPaused;
-
-    public String sound;
-
+    String sound;
+    public static Sound soundstart = new Sound ("title_screen");
+    public static Sound soundplay = new Sound ("soundplay");
+    public static Sound bomno = new Sound ("BOM_NO");
+    public static Sound dead = new Sound ("died");
+    public static Sound enemy_dead = new Sound ("ENEMY_DIE");
+    public static Sound game_over = new Sound ("game_over");
+    public static Sound Item = new Sound ("Item");
+    public static Sound move = new Sound ("move");
+    public static Sound place_bomb = new Sound ("SPACE");
+    public static Sound miss = new Sound ("miss");
+    public static Sound win  = new Sound ("stage_clear");
+    public static Sound stage_start = new Sound ("stage_start");
     public Sound(String sound) {
         this.sound = sound;
         try {
@@ -26,7 +36,7 @@ public class Sound {
             e.printStackTrace();
         }
     }
-// bắt đầu phát âm thanh
+    // bắt đầu phát âm thanh
     public void play() {
         if (clip != null) {
             clip.setFramePosition(currentFrame);
@@ -34,7 +44,7 @@ public class Sound {
             isPaused = false;
         }
     }
- // tạm dừng âm thanh
+    // tạm dừng âm thanh
     public void pause() {
         if (clip != null && clip.isRunning()) {
             currentFrame = clip.getFramePosition();
@@ -42,7 +52,7 @@ public class Sound {
             isPaused = true;
         }
     }
-// tiếp tục âm thanh
+    // tiếp tục âm thanh
     public void resume() {
         if (clip != null && isPaused) {
             clip.setFramePosition(currentFrame);
@@ -50,7 +60,14 @@ public class Sound {
             isPaused = false;
         }
     }
-// dừng âm thanh
+    // lặp lại âm thanh vô tận
+    public void loop() {
+        if (clip != null) {
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        }
+    }
+
+    // dừng âm thanh
     public void stop() {
         if (clip != null) {
             clip.stop();
@@ -58,11 +75,11 @@ public class Sound {
             isPaused = false;
         }
     }
-// đóng âm thanh
+    // đóng âm thanh
     public void close() {
         stop();
         if (clip != null) {
-            clip.close();
+            clip.close ();
         }
     }
 

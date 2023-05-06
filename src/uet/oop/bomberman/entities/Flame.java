@@ -144,6 +144,7 @@ public class Flame extends Entity {
                 bombers.remove(i--);
                 Sound soundBomber = new Sound ("died");
                 soundBomber.play();
+                Sound.game_over.play();
             }
         }
     }

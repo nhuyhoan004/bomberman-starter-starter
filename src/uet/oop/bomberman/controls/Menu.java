@@ -28,20 +28,21 @@ public class Menu {
         pane.setStyle("-fx-background-color: WHITE");
 
         root.getChildren().add(pane);
-
+        Sound.soundstart.loop();
         statusGame.setOnMouseClicked(event -> {
             if (bomber.isAlive()) {
                 // nếu người chơi còn mạng, game tiếp tục
-                if (soundPlay.getClip() != null && soundPlay.getClip().isRunning()) {
-                    soundPlay.pause();
+                if (Sound.soundplay.getClip() != null && Sound.soundplay.getClip().isRunning()) {
+                    Sound.soundplay.pause();
                 } else {
-                    soundPlay.resume();
+                    Sound.soundplay.resume();
                 }
                 running = !running;
             } else {
                 // bomber dead, start a new game
-                soundStart.pause();
-                soundPlay.play ();
+                Sound.game_over.stop();
+                Sound.soundstart.stop();
+                Sound.soundplay.play();
                 Image transparent = new Image("images/transparent.png");
                 authorView.setImage(transparent);
                 CreateMap.loadMapListFromFile();

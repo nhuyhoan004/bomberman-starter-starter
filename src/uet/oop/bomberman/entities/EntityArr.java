@@ -46,4 +46,9 @@ public class EntityArr {
     public static List<Entity> getBricks() {
         return bricks;
     }
+
+    public static List<Entity> getEnemies() {
+        return enemies;
+    }
+
 }

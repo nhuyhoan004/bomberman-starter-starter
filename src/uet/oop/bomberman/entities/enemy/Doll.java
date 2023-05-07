@@ -44,8 +44,7 @@ public class Doll extends Enemy {
                 }
             }
         } else {
-            this.setImg(Sprite.movingSprite(Sprite.mob_dead1, Sprite.mob_dead2, Sprite.mob_dead3
-                    , this.animate, Sprite.DEFAULT_SIZE).getFxImage());
+            removeEnemy();
         }
         if (isAlive()) {
             if (this.getSpeedX() > 0) {
@@ -62,7 +61,7 @@ public class Doll extends Enemy {
                         , Sprite.doll_left3, this.y, Sprite.DEFAULT_SIZE).getFxImage();
             }
         } else {
-            this.img = Sprite.doll_dead.getFxImage();
+            removeEnemy();
         }
     }
 }

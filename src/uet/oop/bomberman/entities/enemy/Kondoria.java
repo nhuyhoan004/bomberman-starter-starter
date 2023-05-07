@@ -29,7 +29,7 @@ public class Kondoria extends Enemy {
                 }
             }
         } else {
-            this.img = Sprite.kondoria_dead.getFxImage();
+            removeEnemy();
         }
         if (isAlive()) {
             if (this.getSpeedX() > 0) {
@@ -46,7 +46,7 @@ public class Kondoria extends Enemy {
                         , Sprite.kondoria_left3, this.y, Sprite.DEFAULT_SIZE).getFxImage();
             }
         } else {
-            this.img = Sprite.kondoria_dead.getFxImage();
+            removeEnemy();
         }
     }
 }

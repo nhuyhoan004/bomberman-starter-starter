@@ -75,7 +75,6 @@ public class BombermanGame extends Application {
             @Override
             public void handle(long l) {
                 render();
-                Enemy.removeEnemy();
                 update();
             }
         };
@@ -225,8 +224,8 @@ public class BombermanGame extends Application {
         bricks.forEach(g -> {
             if (g.isAlive()) g.render(gc);
         });
-        EntityArr.enemies.forEach(g -> {
-            if (g.isAlive()) g.render(gc);
+        enemies.forEach(g -> {
+            if (g.getHp() != 0) g.render(gc);
         });
         EntityArr.getDeads().forEach(g -> g.render(gc));
         EntityArr.getBombs().forEach(g -> g.render(gc));

@@ -111,6 +111,14 @@ public class Flame extends Entity {
                         break;
                     }
                 }
+                for (int j = 0; j < enemies.size(); j++) {
+                    if (flame.intersects(enemies.get(j))) {
+                        enemies.get(j).setHp(0);
+                        enemies.get(j).setAlive(false);
+                        add = false;
+                        break;
+                    }
+                }
             }
             if (!add) {
                 break;
@@ -138,6 +146,13 @@ public class Flame extends Entity {
             }
         }
 
+        for (int i = 0; i < EntityArr.getEnemies().size(); i++) {
+            if (EntityArr.getEnemies().get(i).getHp() <= 0) {
+                deads.add(enemies.get(i));
+                enemies.remove(i--);
+            }
+        }
+
         for (int i = 0; i < bombers.size(); i++) {
             if (bombers.get(i).getHp() <= 0) {
                 deads.add(bombers.get(i));
@@ -162,10 +177,13 @@ public class Flame extends Entity {
             }
         }
     }
-    protected void checkEnemy() {
-        for (Entity e : EntityArr.enemies) {
-            if (this.intersects1(e)) {
-                e.setAlive(false);
+    public void checkEnemy() {
+        ListIterator<Entity> enemyIterator = enemies.listIterator();
+        while (!enemies.isEmpty() && enemyIterator.hasNext()) {
+            Entity enemyNext = enemyIterator.next();
+            if (this.intersects(enemyNext)) {
+                enemyNext.setImg(Sprite.grass.getFxImage());
+                enemyIterator.remove();
             }
         }
     }

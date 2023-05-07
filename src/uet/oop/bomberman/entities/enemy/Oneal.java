@@ -47,8 +47,8 @@ public class Oneal extends Enemy {
                 }
             }
         } else {
-            this.setImg(Sprite.movingSprite(Sprite.mob_dead1, Sprite.mob_dead2, Sprite.mob_dead3
-                    , this.animate, Sprite.DEFAULT_SIZE).getFxImage());
+            removeEnemy();
+
         }
         if (isAlive()) {
             if (this.getSpeedX() > 0) {
@@ -65,7 +65,7 @@ public class Oneal extends Enemy {
                         , this.y, Sprite.DEFAULT_SIZE).getFxImage();
             }
         } else {
-            this.img = Sprite.oneal_dead.getFxImage();
+            removeEnemy();
         }
     }
 }

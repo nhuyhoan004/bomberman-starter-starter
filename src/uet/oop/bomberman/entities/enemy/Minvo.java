@@ -6,7 +6,7 @@ import uet.oop.bomberman.graphics.Sprite;
 public class Minvo extends Enemy {
     public Minvo(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
-        this.setSpeed(1);
+        this.setSpeed(2);
     }
 
     @Override

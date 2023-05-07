@@ -78,11 +78,14 @@ public abstract class Enemy extends Entity {
         }
     }
 
+    // Chọn hướng ngẫu nhiên để di chuyển đối tượng
     public void randomDirection() {
         Random rd = new Random();
         int n = rd.nextInt(4);
         direction(n);
     }
+
+    // Đuổi theo bomber khi cùng hàng
     public int sameRow() {
         if (getX() > bomber.getX()) {
             return LEFT;
@@ -93,6 +96,7 @@ public abstract class Enemy extends Entity {
         return -1;
     }
 
+    // Đuổi theo bomber khi cùng cột
     public int sameColumn() {
         if (getY() > bomber.getY()) {
             return UP;

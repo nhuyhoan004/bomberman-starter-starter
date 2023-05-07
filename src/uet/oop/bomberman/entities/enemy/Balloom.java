@@ -10,7 +10,7 @@ public class Balloom extends Enemy {
 
     @Override
     public void update() {
-        if (getHp() > 0) {
+        if (isAlive()) {
             if (this.getSpeedX() == 0) {
                 this.y += this.getSpeedY() ;
                 if (checkBoundsWall() || checkBoundsBomb() || checkBoundsBrick() || getY() % Sprite.SCALED_SIZE == 0) {
@@ -32,7 +32,7 @@ public class Balloom extends Enemy {
             removeEnemy();
         }
 
-        if (getHp() > 0) {
+        if (isAlive()) {
             if (this.getSpeedX() > 0) {
                 this.img = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3
                         , this.x, Sprite.DEFAULT_SIZE).getFxImage();

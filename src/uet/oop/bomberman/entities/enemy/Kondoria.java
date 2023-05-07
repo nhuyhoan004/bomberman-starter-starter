@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Kondoria extends Enemy {
+    // Xuyên tường
     public Kondoria(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
     }

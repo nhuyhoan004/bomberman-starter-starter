@@ -150,6 +150,7 @@ public class Flame extends Entity {
             if (EntityArr.getEnemies().get(i).getHp() <= 0) {
                 deads.add(enemies.get(i));
                 enemies.remove(i--);
+                Sound.enemy_dead.play ();
             }
         }
 

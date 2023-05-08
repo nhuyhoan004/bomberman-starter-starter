@@ -22,7 +22,6 @@ public class Sound {
     public static Sound Item = new Sound ("Item");
     public static Sound move = new Sound ("move");
     public static Sound place_bomb = new Sound ("SPACE");
-    public static Sound miss = new Sound ("miss");
     public static Sound win  = new Sound ("stage_clear");
     public static Sound stage_start = new Sound ("stage_start");
     public Sound(String sound) {
